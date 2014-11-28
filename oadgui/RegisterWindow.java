@@ -41,7 +41,7 @@ public class RegisterWindow extends Window{
 		this.current_session = input_session;
 		//setup frame
 		init();
-		this.setName("Login");
+		this.setName("Register");
 		this.setSize(300, 700);
 		this.initSize();
 		

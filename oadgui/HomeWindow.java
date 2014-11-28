@@ -37,7 +37,7 @@ public class HomeWindow extends Window{
 	//vars
 	session current_session;
 	
-	HomeWindow(session input_session){
+	public HomeWindow(session input_session){
 		//setup vars
 		this.current_session = input_session;
 		

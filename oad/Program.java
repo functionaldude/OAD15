@@ -1,7 +1,7 @@
 package oad;
 
+import oadgui.HomeWindow;
 import oadgui.LoginWindow;
-import oadgui.AppWindow;
 
 
 public class Program {
@@ -11,7 +11,7 @@ public class Program {
 	
 	//gui vars
 	private static LoginWindow w_login;
-	private static AppWindow w_main;
+	private static HomeWindow w_main;
 	
 	public static void main(String[] args) {
 		//init vars
@@ -25,6 +25,19 @@ public class Program {
 		//login
 		w_login = new LoginWindow(current_session);
 		w_login.show();
+		
+		//TODO: Busy wait
+		while(w_login.window.isVisible()){
+			try {
+				w_login.wait(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+			}
+		}
+		
+		w_main = new HomeWindow(current_session);
+		w_main.show();
+		System.out.println("test");
 	
 		
 		//main
