@@ -1,7 +1,6 @@
 package oad;
 
 import oadgui.LoginWindow;
-import oadgui.RegisterWindow;
 import oadgui.AppWindow;
 
 
@@ -20,7 +19,7 @@ public class Program {
 		
 		//testuser
 		try {
-			current_session.addUser(new User("test", "test"));
+			current_session.addUser(new User("test", "test", "test"));
 		} catch (Exception e) {}
 		
 		//login
