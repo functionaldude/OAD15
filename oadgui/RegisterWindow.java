@@ -13,15 +13,22 @@ import oad.session;
 
 public class RegisterWindow extends Window{
 	//elements
+	
+	//panel
+	private JPanel 
+	
 	//labels
 	private JLabel l_title;
 	private JLabel l_email;
 	private JLabel l_pw;
+	
 	//buttons
 	private JButton register;
+	
 	//textfields
 	private JTextField f_email;
 	private JPasswordField f_pw;
+	
 	//vars
 	session current_session;
 	User created_user;
@@ -36,6 +43,8 @@ public class RegisterWindow extends Window{
 		this.initSize();
 		
 		//init elements
+		
+		
 		this.l_title = new JLabel("REGISTER");
 		this.l_email = new JLabel("E-Mail:");
 		this.l_pw = new JLabel("Password");
