@@ -29,7 +29,7 @@ public class LoginWindow extends Window{
 		this.current_session = input_session;
 		//setup frame
 		init();
-		this.setName("Login");
+		this.setName("Welcome");
 		this.setSize(300, 700);
 		this.initSize();
 		
