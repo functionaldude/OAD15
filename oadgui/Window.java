@@ -10,7 +10,8 @@ import javax.swing.JFrame;
 public abstract class Window{
 	//attribute
 	public JFrame window;
-
+	public Window thisObject = this;
+	
 	private int width = 0, height = 0;
 		
 	//functions

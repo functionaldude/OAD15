@@ -110,6 +110,9 @@ public class LoginWindow extends Window{
 				}
 				if (current_session.getLoginState()){
 					hide();
+					synchronized(thisObject){
+						thisObject.notify();
+					}
 				}
 			}
 		});

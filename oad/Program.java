@@ -26,6 +26,13 @@ public class Program {
 		//login
 		w_login = new LoginWindow(current_session);
 		w_login.show();
+		synchronized(w_login.thisObject){
+			try {
+				w_login.thisObject.wait();
+			} catch (InterruptedException e) {
+				System.out.println("Wake!");
+			}
+		}
 		
 		//main
 		//w_main = new AppWindow(current_session);
