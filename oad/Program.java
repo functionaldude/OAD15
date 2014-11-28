@@ -1,7 +1,6 @@
 package oad;
 
 import oadgui.LoginWindow;
-import oadgui.RegisterWindow;
 import oadgui.AppWindow;
 
 
@@ -20,12 +19,19 @@ public class Program {
 		
 		//testuser
 		try {
-			current_session.addUser(new User("test", "test"));
+			current_session.addUser(new User("test", "test", "test"));
 		} catch (Exception e) {}
 		
 		//login
 		w_login = new LoginWindow(current_session);
 		w_login.show();
+		synchronized(w_login.thisObject){
+			try {
+				w_login.thisObject.wait();
+			} catch (InterruptedException e) {
+				System.out.println("Wake!");
+			}
+		}
 		
 		//main
 		//w_main = new AppWindow(current_session);

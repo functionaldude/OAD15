@@ -10,6 +10,7 @@ public class User {
 	
 	//initial data
 	private String username;
+	private String email;
 	private String password;
 	public int type;
 
@@ -17,17 +18,22 @@ public class User {
 	Set<game> user_games;
 	
 	//constructor
-	public User(String input_name, String input_pw){
+	public User(String input_name, String input_pw, String input_email){
 		this.username = input_name;
 		this.password = input_pw;
+		this.email = input_email;
 	}
 
 	//user methods
 	public String getUserName(){
 		return this.username;
 	}
+	public String getEmail(){
+		return this.email;
+	}
 	public Boolean checkPW(String input_PW){
-		if (input_PW == this.password){
+		if (this.password.equals(input_PW)){
+			System.out.println("Pw OK!");
 			return true;
 		} else {
 			return false;

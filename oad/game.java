@@ -5,10 +5,12 @@ public class game {
 	//initial data
 	private String name;
 	private int rating[];
+	private int privacy;
 	
 	public game(String input_name){
 		this.name = input_name;
 		this.rating = new int[] {0,0};
+		this.privacy = 0;
 	}
 	public String getName(){
 		return name;

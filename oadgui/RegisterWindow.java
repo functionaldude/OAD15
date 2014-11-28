@@ -20,6 +20,7 @@ public class RegisterWindow extends Window{
 	
 	//labels
 	private JLabel l_title;
+	private JLabel l_username;
 	private JLabel l_email;
 	private JLabel l_pw;
 	
@@ -27,6 +28,7 @@ public class RegisterWindow extends Window{
 	private JButton register;
 	
 	//textfields
+	private JTextField f_username;
 	private JTextField f_email;
 	private JPasswordField f_pw;
 	
@@ -45,21 +47,24 @@ public class RegisterWindow extends Window{
 		
 		//init elements
 		
-		
 		this.l_title = new JLabel("REGISTER");
-		this.l_email = new JLabel("E-Mail:");
+		this.l_username = new JLabel("E-Mail:");
 		this.l_pw = new JLabel("Password");
+		this.l_email = new JLabel("Email");
 		this.register = new JButton("Register");
-		this.f_email = new JTextField();
+		this.f_username = new JTextField();
 		this.f_pw = new JPasswordField();
+		this.f_email = new JTextField();
 		
 		//add elements
 		this.window.add(this.l_title);
-		this.window.add(this.l_email);
+		this.window.add(this.l_username);
 		this.window.add(this.l_pw);
 		this.window.add(this.register);
-		this.window.add(this.f_email);
+		this.window.add(this.f_username);
 		this.window.add(this.f_pw);
+		this.window.add(this.l_email);
+		this.window.add(this.f_email);
 		
 		this.initListeners();
 	}
@@ -68,7 +73,7 @@ public class RegisterWindow extends Window{
 		this.register.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				created_user = new User(f_email.toString(), f_pw.toString());
+				created_user = new User(f_username.getText(), new String(f_pw.getPassword()), f_email.getText());
 				try{
 					current_session.addUser(created_user);
 				}
