@@ -10,7 +10,7 @@ public class session {
 	public int sessionID;
 	public User current_user;
 	private boolean logged_in;
-	Set<User> user_db;
+	private Set<User> user_db;
 	
 	//constructor
 	public session(){
@@ -22,6 +22,17 @@ public class session {
 	}
 	public Boolean getLoginState(){
 		return this.logged_in;
+	}
+	public Boolean checkForUser(User input_user){
+		Iterator<User> iterator = user_db.iterator();
+		User iter_usr;
+		while(iterator.hasNext()){
+			iter_usr = iterator.next();
+			if (iter_usr.getUserName() == input_user.getUserName()){
+				return true;
+			}
+		}
+		return false;
 	}
 	public void authenticate(String input_username, String input_pw) throws Exception{
 		if (logged_in){

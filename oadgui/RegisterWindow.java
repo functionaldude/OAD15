@@ -59,6 +59,7 @@ public class RegisterWindow extends Window{
 			@Override
 			public void actionPerformed(ActionEvent e){
 				created_user = new User(f_email.toString(), f_pw.toString());
+				
 			}
 		});
 	}
