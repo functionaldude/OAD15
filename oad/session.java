@@ -17,8 +17,12 @@ public class session {
 		this.logged_in = false;
 		this.user_db = new HashSet<User>();
 	}
-	public void addUser(User input_user){
-		this.user_db.add(input_user);
+	public void addUser(User input_user) throws Exception{
+		if (this.checkForUser(input_user) == false){
+			this.user_db.add(input_user);
+		} else {
+			throw new Exception("DuplicateUser");
+		}
 	}
 	public Boolean getLoginState(){
 		return this.logged_in;

@@ -18,7 +18,11 @@ public class Program {
 		current_session = new session();
 		
 		//testuser
-		current_session.addUser(new User("test", "test"));
+		try {
+			current_session.addUser(new User("test", "test"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+		}
 		
 		//login
 		w_login = new LoginWindow(current_session);
