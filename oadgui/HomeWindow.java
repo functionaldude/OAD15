@@ -1,5 +1,6 @@
 package oadgui;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -49,11 +50,21 @@ public class HomeWindow extends Window{
 		
 		//init elements
 		
+		this.home_panel = new JPanel();
+		
 		this.menu = new JMenu();
 		
 		
 		
+		this.home_panel.setLayout(new BorderLayout());
+		
 		//add elements
+		
+		this.home_panel.add(this.menu, BorderLayout.PAGE_START);
+		
+		
+		this.window.getContentPane().add(this.home_panel);
+
 		
 
 		
