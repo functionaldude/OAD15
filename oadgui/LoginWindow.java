@@ -95,11 +95,12 @@ public class LoginWindow extends Window{
 		this.login.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String input_email = f_email.toString();
-				String input_pw = f_pw.toString();
+				String input_email = f_email.getText();
+				String input_pw = new String(f_pw.getPassword());
 				try {
 					current_session.authenticate(input_email, input_pw);
 				} catch (Exception e1) {
+					System.out.println("Login error: " + e1.getMessage());
 					if (e1.getMessage().equals("InvalidPW")){
 						//TODO: Pop-up
 					}

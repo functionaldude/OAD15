@@ -27,7 +27,8 @@ public class User {
 		return this.username;
 	}
 	public Boolean checkPW(String input_PW){
-		if (input_PW == this.password){
+		if (this.password.equals(input_PW)){
+			System.out.println("Pw OK!");
 			return true;
 		} else {
 			return false;
