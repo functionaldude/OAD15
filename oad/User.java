@@ -12,7 +12,7 @@ public class User {
 	private String username;
 	private String email;
 	private String password;
-	public int type;
+	private int type;
 
 	//games
 	Set<game> user_games;
@@ -30,6 +30,9 @@ public class User {
 	}
 	public String getEmail(){
 		return this.email;
+	}
+	public int getType(){
+		return this.type;
 	}
 	public Boolean checkPW(String input_PW){
 		if (this.password.equals(input_PW)){
@@ -61,5 +64,10 @@ public class User {
 			}
 		}
 		throw new Exception("NoSuchElement");
+	}
+	
+	//admin methods
+	public void changeUserType(int new_type){
+		this.type = new_type;
 	}
 }

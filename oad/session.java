@@ -45,7 +45,6 @@ public class session {
 		Iterator<User> iterator = user_db.iterator();
 		while (iterator.hasNext()){
 			User current = iterator.next();
-			System.out.println(input_username + " == " + current.getUserName());
 			if (current.getUserName().equals(input_username)){
 				System.out.println("User found!");
 				if (current.checkPW(input_pw)){

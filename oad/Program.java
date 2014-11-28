@@ -30,11 +30,9 @@ public class Program {
 		synchronized(w_login.visiblity){
 			try {
 				w_login.visiblity.wait();
-			} catch (InterruptedException e) {
-				System.out.println("wait ended");
-			}
+			} catch (InterruptedException e) {}
 		}
-		
+
 		w_main = new HomeWindow(current_session);
 		w_main.show();
 		

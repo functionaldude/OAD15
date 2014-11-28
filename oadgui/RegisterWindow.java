@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -41,6 +42,7 @@ public class RegisterWindow extends Window{
 		this.current_session = input_session;
 		//setup frame
 		init();
+		this.window.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setName("Register");
 		this.setSize(300, 700);
 		this.initSize();
