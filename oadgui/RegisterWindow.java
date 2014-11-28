@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -15,7 +16,7 @@ public class RegisterWindow extends Window{
 	//elements
 	
 	//panel
-	private JPanel 
+	private JPanel r_panel;
 	
 	//labels
 	private JLabel l_title;

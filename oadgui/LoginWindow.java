@@ -30,13 +30,13 @@ public class LoginWindow extends Window{
 	//frames
 	private RegisterWindow w_reg;
 	
-	private JPanel login_panel;
+	private JPanel l_panel;
 	
 	//vars
 	session current_session;
 	
 	public LoginWindow(session input_session){
-		//setup vars
+		//setup bars
 		this.current_session = input_session;
 		//setup frame
 		init();
@@ -45,7 +45,7 @@ public class LoginWindow extends Window{
 		this.initSize();
 		
 		//setup elements
-		this.login_panel = new JPanel();
+		this.l_panel = new JPanel();
 		
 		this.l_title = new JLabel("Welcome");
 		l_title.setHorizontalAlignment(SwingConstants.CENTER);
@@ -74,19 +74,19 @@ public class LoginWindow extends Window{
 		l_panel.setLayout(null);
 		this.w_reg = new RegisterWindow(input_session);
 		
-		login_panel.setLayout(null);
+		l_panel.setLayout(null);
 		
 		
 		//add elements
-		this.login_panel.add(this.l_title);
-		this.login_panel.add(this.l_email);
-		this.login_panel.add(this.l_pw);
-		this.login_panel.add(this.login);
-		this.login_panel.add(this.register);
-		this.login_panel.add(this.f_email);
-		this.login_panel.add(this.f_pw);
+		this.l_panel.add(this.l_title);
+		this.l_panel.add(this.l_email);
+		this.l_panel.add(this.l_pw);
+		this.l_panel.add(this.login);
+		this.l_panel.add(this.register);
+		this.l_panel.add(this.f_email);
+		this.l_panel.add(this.f_pw);
 		
-		this.window.getContentPane().add(this.login_panel);
+		this.window.getContentPane().add(this.l_panel);
 		
 		this.initListeners();
 	}
