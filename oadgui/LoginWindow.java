@@ -30,7 +30,7 @@ public class LoginWindow extends Window{
 	//frames
 	private RegisterWindow w_reg;
 	
-	private JPanel l_panel;
+	private JPanel login_panel;
 	
 	//vars
 	session current_session;
@@ -45,40 +45,48 @@ public class LoginWindow extends Window{
 		this.initSize();
 		
 		//setup elements
-		this.l_panel = new JPanel();
+		this.login_panel = new JPanel();
 		
 		this.l_title = new JLabel("Welcome");
 		l_title.setHorizontalAlignment(SwingConstants.CENTER);
 		l_title.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		l_title.setBounds(6, 6, 438, 20);
+		
 		this.l_email = new JLabel("E-Mail:");
 		l_email.setHorizontalAlignment(SwingConstants.RIGHT);
 		l_email.setBounds(6, 100, 158, 20);
+		
 		this.l_pw = new JLabel("Password:");
 		l_pw.setHorizontalAlignment(SwingConstants.RIGHT);
 		l_pw.setBounds(6, 153, 158, 20);
+		
 		this.login = new JButton("Login");
 		login.setBounds(24, 235, 140, 20);
+		
 		this.register = new JButton("Register");
 		register.setBounds(238, 235, 140, 20);
 		this.f_email = new JTextField();
+		
 		f_email.setBounds(238, 100, 140, 20);
 		this.f_pw = new JPasswordField();
+		
 		f_pw.setBounds(238, 153, 140, 20);
 		l_panel.setLayout(null);
 		this.w_reg = new RegisterWindow(input_session);
 		
+		login_panel.setLayout(null);
+		
 		
 		//add elements
-		this.l_panel.add(this.l_title);
-		this.l_panel.add(this.l_email);
-		this.l_panel.add(this.l_pw);
-		this.l_panel.add(this.login);
-		this.l_panel.add(this.register);
-		this.l_panel.add(this.f_email);
-		this.l_panel.add(this.f_pw);
+		this.login_panel.add(this.l_title);
+		this.login_panel.add(this.l_email);
+		this.login_panel.add(this.l_pw);
+		this.login_panel.add(this.login);
+		this.login_panel.add(this.register);
+		this.login_panel.add(this.f_email);
+		this.login_panel.add(this.f_pw);
 		
-		this.window.getContentPane().add(this.l_panel);
+		this.window.getContentPane().add(this.login_panel);
 		
 		this.initListeners();
 	}
