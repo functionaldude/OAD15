@@ -30,7 +30,7 @@ public class LoginWindow extends Window{
 		//setup frame
 		init();
 		this.setName("Welcome");
-		this.setSize(300, 700);
+		this.setSize(800, 600);
 		this.initSize();
 		
 		//setup elements
