@@ -28,11 +28,7 @@ public class Program {
 		
 		//TODO: Busy wait
 		while(w_login.window.isVisible()){
-			try {
-				w_login.wait(1);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-			}
+			System.out.println("Login");
 		}
 		
 		w_main = new HomeWindow(current_session);
