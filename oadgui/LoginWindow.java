@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import oad.session;
+import java.awt.Font;
 
 
 public class LoginWindow extends Window{
@@ -21,6 +22,8 @@ public class LoginWindow extends Window{
 	private JTextField f_email;
 	private JPasswordField f_pw;
 	
+	private JPanel l_panel;
+	
 	//vars
 	session current_session;
 	
@@ -30,28 +33,43 @@ public class LoginWindow extends Window{
 		//setup frame
 		init();
 		this.setName("Welcome");
-		this.setSize(800, 600);
+		this.setSize(450, 300);
 		this.initSize();
 		
 		//setup elements
-		this.l_title = new JLabel("LOGIN");
-		this.l_email = new JLabel("E-Mail:");
-		this.l_pw = new JLabel("Password");
-		this.login = new JButton("Login");
-		this.register = new JButton("Register");
-		this.f_email = new JTextField();
-		this.f_pw = new JPasswordField();
+		this.l_panel = new JPanel();
 		
-		//TODO!: element design
+		this.l_title = new JLabel("Welcome");
+		l_title.setHorizontalAlignment(SwingConstants.CENTER);
+		l_title.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+		l_title.setBounds(6, 6, 438, 20);
+		this.l_email = new JLabel("E-Mail:");
+		l_email.setHorizontalAlignment(SwingConstants.RIGHT);
+		l_email.setBounds(6, 100, 158, 20);
+		this.l_pw = new JLabel("Password:");
+		l_pw.setHorizontalAlignment(SwingConstants.RIGHT);
+		l_pw.setBounds(6, 153, 158, 20);
+		this.login = new JButton("Login");
+		login.setBounds(24, 235, 140, 20);
+		this.register = new JButton("Register");
+		register.setBounds(238, 235, 140, 20);
+		this.f_email = new JTextField();
+		f_email.setBounds(238, 100, 140, 20);
+		this.f_pw = new JPasswordField();
+		f_pw.setBounds(238, 153, 140, 20);
+		l_panel.setLayout(null);
+		
 		
 		//add elements
-		this.window.add(this.l_title);
-		this.window.add(this.l_email);
-		this.window.add(this.l_pw);
-		this.window.add(this.login);
-		this.window.add(this.register);
-		this.window.add(this.f_email);
-		this.window.add(this.f_pw);
+		this.l_panel.add(this.l_title);
+		this.l_panel.add(this.l_email);
+		this.l_panel.add(this.l_pw);
+		this.l_panel.add(this.login);
+		this.l_panel.add(this.register);
+		this.l_panel.add(this.f_email);
+		this.l_panel.add(this.f_pw);
+		
+		this.window.getContentPane().add(this.l_panel);
 		
 		this.initListeners();
 	}
