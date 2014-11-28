@@ -19,7 +19,7 @@ public class Program {
 		
 		//testuser
 		try {
-			current_session.addUser(new User("test", "test", "test"));
+			current_session.addUser(new User("test", "test", "test@test.test"));
 		} catch (Exception e) {}
 		
 		//login
@@ -27,14 +27,16 @@ public class Program {
 		w_login.show();
 		
 		//TODO: Busy wait
-		while(w_login.window.isVisible()){
-			System.out.println("Login");
+		synchronized(w_login.visiblity){
+			try {
+				w_login.visiblity.wait();
+			} catch (InterruptedException e) {
+				System.out.println("wait ended");
+			}
 		}
 		
 		w_main = new HomeWindow(current_session);
 		w_main.show();
-		System.out.println("test");
-	
 		
 		//main
 		//w_main = new AppWindow(current_session);

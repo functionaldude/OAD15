@@ -6,11 +6,13 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import oad.MonitorObject;
+
 
 public abstract class Window{
 	//attribute
 	public JFrame window;
-	public Window thisObject = this;
+	public MonitorObject visiblity = new MonitorObject();
 	
 	private int width = 0, height = 0;
 		
