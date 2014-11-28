@@ -1,5 +1,7 @@
 package oadgui;
 
-public class AppWindow {
 
+
+public class AppWindow extends Window{
+	
 }

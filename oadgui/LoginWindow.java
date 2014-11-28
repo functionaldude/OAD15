@@ -20,6 +20,8 @@ public class LoginWindow extends Window{
 	//textfields
 	private JTextField f_email;
 	private JPasswordField f_pw;
+	//frames
+	private RegisterWindow w_reg;
 	
 	//vars
 	session current_session;
@@ -41,6 +43,7 @@ public class LoginWindow extends Window{
 		this.register = new JButton("Register");
 		this.f_email = new JTextField();
 		this.f_pw = new JPasswordField();
+		this.w_reg = new RegisterWindow(input_session);
 		
 		//TODO!: element design
 		
@@ -81,7 +84,7 @@ public class LoginWindow extends Window{
 		this.register.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				//TODO: Open register frame
+				w_reg.show();
 			}
 		});
 	}
