@@ -28,4 +28,8 @@ public class game {
 			this.rating[1]++;
 		}
 	}
+	public void resetRating(){
+		this.rating[0] = 0;
+		this.rating[1] = 0;
+	}
 }

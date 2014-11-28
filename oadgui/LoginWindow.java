@@ -3,7 +3,10 @@ package oadgui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 import oad.session;
 
@@ -80,7 +83,6 @@ public class LoginWindow extends Window{
 				}
 			}
 		});
-		
 		this.register.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
