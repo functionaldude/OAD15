@@ -12,18 +12,20 @@ import javax.swing.JTextField;
 
 import oad.User;
 import oad.session;
+import javax.swing.SwingConstants;
 
 public class RegisterWindow extends Window{
 	//elements
 	
 	//panel
-	private JPanel r_panel;
+	private JPanel register_panel;
 	
 	//labels
 	private JLabel l_title;
 	private JLabel l_username;
 	private JLabel l_email;
 	private JLabel l_pw;
+	private JLabel l_pw_repeat;
 	
 	//buttons
 	private JButton register;
@@ -32,6 +34,7 @@ public class RegisterWindow extends Window{
 	private JTextField f_username;
 	private JTextField f_email;
 	private JPasswordField f_pw;
+	private JPasswordField f_pw_repeat;
 	
 	//vars
 	session current_session;
@@ -44,30 +47,66 @@ public class RegisterWindow extends Window{
 		init();
 		this.window.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setName("Register");
-		this.setSize(300, 700);
+		this.setSize(450, 300);
 		this.initSize();
 		
 		//init elements
 		
-		this.l_title = new JLabel("REGISTER");
-		this.l_username = new JLabel("E-Mail:");
-		this.l_pw = new JLabel("Password");
-		this.l_email = new JLabel("Email");
-		this.register = new JButton("Register");
+		this.register_panel = new JPanel();
+		
+		this.l_title = new JLabel("Register");
+		l_title.setHorizontalAlignment(SwingConstants.CENTER);
+		l_title.setBounds(6,6,438,20);
+		
+		this.l_username = new JLabel("Nickname:");
+		l_username.setHorizontalAlignment(SwingConstants.RIGHT);
+		l_username.setBounds(6,60,190,20);
+				
+		this.l_email = new JLabel("Email:");
+		l_email.setHorizontalAlignment(SwingConstants.RIGHT);
+		l_email.setBounds(6,92,190,20);
+		
+		this.l_pw = new JLabel("Password:");
+		l_pw.setHorizontalAlignment(SwingConstants.RIGHT);
+		l_pw.setBounds(6,124,190,20);
+		
+		this.l_pw_repeat = new JLabel("Password - Repeat:");
+		l_pw_repeat.setHorizontalAlignment(SwingConstants.RIGHT);
+		l_pw_repeat.setBounds(6,156,190,20);
+		
 		this.f_username = new JTextField();
-		this.f_pw = new JPasswordField();
+		f_username.setBounds(254,60,190,20);
+		
 		this.f_email = new JTextField();
+		f_email.setBounds(254,92,190,20);
+		
+		this.f_pw = new JPasswordField();
+		f_pw.setBounds(254,124,190,20);
+		
+		this.f_pw_repeat = new JPasswordField();
+		f_pw_repeat.setBounds(254,156,190,20);
+		
+		this.register = new JButton("Register");
+		register.setBounds(180,240,100,20);
+
+		register_panel.setLayout(null);
 		
 		//add elements
-		this.window.add(this.l_title);
-		this.window.add(this.l_username);
-		this.window.add(this.l_pw);
-		this.window.add(this.register);
-		this.window.add(this.f_username);
-		this.window.add(this.f_pw);
-		this.window.add(this.l_email);
-		this.window.add(this.f_email);
+		this.register_panel.add(this.l_title);
+		this.register_panel.add(this.l_username);
+		this.register_panel.add(this.l_email);
+		this.register_panel.add(this.l_pw);
+		this.register_panel.add(this.l_pw_repeat);
+		this.register_panel.add(this.f_username);
+		this.register_panel.add(this.f_email);
+		this.register_panel.add(this.f_pw);
+		this.register_panel.add(this.f_pw_repeat);
 		
+		this.register_panel.add(this.register);
+		
+		this.window.getContentPane().add(this.register_panel);
+
+
 		this.initListeners();
 	}
 	

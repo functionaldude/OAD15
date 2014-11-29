@@ -71,9 +71,13 @@ public class LoginWindow extends Window{
 		this.f_pw = new JPasswordField();
 		
 		f_pw.setBounds(238, 153, 140, 20);
-		this.w_reg = new RegisterWindow(input_session);
 		
 		l_panel.setLayout(null);
+		
+		
+		this.w_reg = new RegisterWindow(input_session);
+		
+		//l_panel.setLayout(null);
 		
 		
 		//add elements
