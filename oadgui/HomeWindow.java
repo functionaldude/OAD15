@@ -87,9 +87,6 @@ public class HomeWindow extends Window{
 		this.menu_help_tutorial = new JMenuItem("Tutorials");
 		this.menu_help_forum = new JMenuItem("Forum");
 		
-		
-		
-		
 		this.home_panel.setLayout(new BorderLayout());
 		
 		//add elements
@@ -111,11 +108,7 @@ public class HomeWindow extends Window{
 		
 		this.home_panel.add(this.menu, BorderLayout.PAGE_START);
 		
-		
 		this.window.getContentPane().add(this.home_panel);
-
-		
-
 		
 		this.initListeners();
 	}

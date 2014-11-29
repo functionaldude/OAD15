@@ -106,7 +106,6 @@ public class RegisterWindow extends Window{
 		
 		this.window.getContentPane().add(this.register_panel);
 
-
 		this.initListeners();
 	}
 	
