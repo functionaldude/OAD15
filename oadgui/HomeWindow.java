@@ -2,32 +2,38 @@ package oadgui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-
 import oad.User;
 import oad.session;
 
 import javax.swing.SwingConstants;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
 import java.awt.Component;
 import java.awt.Font;
+import javax.swing.ListSelectionModel;
+import javax.swing.JEditorPane;
+import javax.swing.border.BevelBorder;
+import javax.swing.AbstractListModel;
 
 public class HomeWindow extends Window {
 	//elements
@@ -71,11 +77,6 @@ public class HomeWindow extends Window {
 	private JButton editor_back_button;
 	private JButton ranking_back_button;
 	
-
-	
-	
-	//textfields/passwordfields
-	
 	
 	//menu
 	private JMenuBar 	main_menu;
@@ -96,6 +97,7 @@ public class HomeWindow extends Window {
 	
 	//vars
 	session current_session;
+	
 	
 	public HomeWindow(session input_session){
 		//setup vars
@@ -181,8 +183,7 @@ public class HomeWindow extends Window {
 		this.public_game_back_button = new JButton("Back");
 		this.editor_back_button = new JButton("Back");
 		this.ranking_back_button = new JButton("Back");
-		
-		
+				
 		
 		//add elements
 		
@@ -221,6 +222,9 @@ public class HomeWindow extends Window {
 		
 		
 		this.private_game_panel.add(this.private_game_button_panel, BorderLayout.SOUTH);
+		
+		
+		
 		this.public_game_panel.add(this.public_game_button_panel, BorderLayout.SOUTH);
 		this.editor_panel.add(this.editor_button_panel, BorderLayout.SOUTH);
 		this.ranking_panel.add(this.ranking_button_panel, BorderLayout.SOUTH);
@@ -236,8 +240,6 @@ public class HomeWindow extends Window {
 		this.master_container.add(this.main_menu, BorderLayout.NORTH);
 		this.master_container.add(this.master_container_switch, BorderLayout.CENTER);
 
-		
-		
 		
 		this.window.getContentPane().add(this.master_container);
 		
