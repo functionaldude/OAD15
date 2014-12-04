@@ -22,6 +22,10 @@ public class Program {
 			current_session.addUser(new User("test", "test", "test@test.test"));
 		} catch (Exception e) {}
 		
+		//connect to SQL
+		SQLConnection conn = new SQLConnection("jdbc:mysql://127.0.0.1:8889/OAD");
+		conn.getInstance();
+		
 		//login
 		w_login = new LoginWindow(current_session);
 		w_login.show();
