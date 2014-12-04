@@ -113,9 +113,8 @@ public class RegisterWindow extends Window{
 		this.register.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				created_user = new User(f_username.getText(), new String(f_pw.getPassword()), f_email.getText());
 				try{
-					current_session.addUser(created_user);
+					current_session.addUser(f_username.getText(), new String(f_pw.getPassword()), f_email.getText());
 				}
 				catch (Exception e1){
 					if (e1.getMessage() == "DuplicateUser"){
