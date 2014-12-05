@@ -45,8 +45,8 @@ public class session {
 		Boolean retval = false;
 		try {
 			stmt = server.getConn().createStatement();
-			res = stmt.executeQuery("SELECT username FROM user WHERE username = '" + input_username + "'");
-			retval = res.first() && res.getString("username") == input_username;
+			res = stmt.executeQuery("SELECT id FROM user WHERE username = '" + input_username + "'");
+			retval = res.first();
 		} catch (SQLException ex) {
         	System.out.println("SQLException(check): " + ex.getMessage());
         	return false;
