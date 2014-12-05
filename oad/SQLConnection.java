@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 
 public class SQLConnection{
     private String url;
@@ -23,6 +25,7 @@ public class SQLConnection{
             try {
                 connect = DriverManager.getConnection(url, user, passwd);
             } catch (SQLException ex) {
+            	JOptionPane.showMessageDialog(null, "Server error!");
             	System.out.println("SQLException(connect): " + ex.getMessage());
                 System.out.println("SQLState: " + ex.getSQLState());
                 System.out.println("VendorError: " + ex.getErrorCode());
