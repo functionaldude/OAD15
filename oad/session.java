@@ -28,10 +28,10 @@ public class session {
 			try {
 				stmt = server.getConn().createStatement();
 				stmt.executeUpdate("INSERT INTO user (username, password, email) VALUES ('"+ 
-				input_username+"', '"+
-				input_pw+"', '"+
-				input_email+
-				"')");
+						input_username+"', '"+
+						input_pw+"', '"+
+						input_email+
+						"')");
 			} catch (SQLException ex) {
 	        	System.out.println("SQLException(add): " + ex.getMessage());
 			}

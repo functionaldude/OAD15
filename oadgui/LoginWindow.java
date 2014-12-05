@@ -52,7 +52,7 @@ public class LoginWindow extends Window{
 		l_title.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		l_title.setBounds(6, 6, 438, 20);
 		
-		this.l_email = new JLabel("E-Mail:");
+		this.l_email = new JLabel("Nickname:");
 		l_email.setHorizontalAlignment(SwingConstants.RIGHT);
 		l_email.setBounds(6, 100, 158, 20);
 		
