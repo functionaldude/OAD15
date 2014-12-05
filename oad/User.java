@@ -17,9 +17,6 @@ public class User {
 	private int type;
 	private int ID;
 
-	//games
-	Set<game> user_games;
-	
 	//constructor
 	public User(String input_name, String input_pw, String input_email){
 		this.username = input_name;
@@ -46,6 +43,9 @@ public class User {
 	public String getPW(){
 		return this.password;
 	}
+	public int getID(){
+		return this.ID;
+	}
 	public void changePW(String input_pw, String new_pw) throws Exception{
 		if (input_pw != this.password){
 			throw new Exception("InvalidPW");
@@ -55,27 +55,5 @@ public class User {
 	}
 	public void changeEmail(String input){
 		this.email = input;
-	}
-	
-	//game methods
-	public void addGame(game input_game){
-		this.user_games.add(input_game);
-	}
-	public void deleteGame(game input_game) throws Exception{
-		Iterator<game> iterator = this.user_games.iterator();
-		while (iterator.hasNext()){
-			if (iterator.equals(input_game)){
-				iterator.remove();
-				return;
-			} else {
-				iterator.next();
-			}
-		}
-		throw new Exception("NoSuchElement");
-	}
-	
-	//admin methods
-	public void changeUserType(int new_type){
-		this.type = new_type;
 	}
 }

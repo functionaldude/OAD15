@@ -11,9 +11,10 @@ import java.util.Set;
 
 public class session {
 	public int sessionID;
-	public User current_user;
 	private boolean logged_in;
-	public SQLConnection server;
+	private SQLConnection server;
+	private User current_user;
+	private game current_game;
 	
 	//constructor
 	public session(){
@@ -26,8 +27,11 @@ public class session {
 			Statement stmt;
 			try {
 				stmt = server.getConn().createStatement();
-				stmt.executeUpdate("INSERT INTO user (username, password, email) VALUES ('" 
-				+ input_username + "', '" + input_pw + "', '" + input_email + "')");
+				stmt.executeUpdate("INSERT INTO user (username, password, email) VALUES ('"+ 
+				input_username+"', '"+
+				input_pw+"', '"+
+				input_email+
+				"')");
 			} catch (SQLException ex) {
 	        	System.out.println("SQLException(add): " + ex.getMessage());
 			}
@@ -38,7 +42,7 @@ public class session {
 	public Boolean getLoginState(){
 		return this.logged_in;
 	}
-	public Boolean checkForUser(String input_username){
+	private Boolean checkForUser(String input_username){
 		Statement stmt;
 		ResultSet res;
 		Boolean retval = false;
@@ -80,14 +84,17 @@ public class session {
 			}
 		}
 	}
-	public void updateDB(){
+	public void syncBackUserData(){
 		Statement stmt;
 		try {
 			stmt = server.getConn().createStatement();
-			stmt.executeUpdate("UPDATE user SET password='"
-			+current_user.getPW()+"', email='"+current_user.getEmail()+"' WHERE username='"+current_user.getUserName()+"')");
+			stmt.executeUpdate("UPDATE user SET password='"+current_user.getPW()+
+					"', email='"+current_user.getEmail()+
+					"', username='"+current_user.getUserName()+
+					" WHERE id="+current_user.getID());;
 		} catch (SQLException ex) {
-        	System.out.println("SQLException(update): " + ex.getMessage());
+        	System.out.println("Error at pushing userdata");
+        	System.out.println("SQLException: " + ex.getMessage());
 		}
 	}
 	public void deauthenticate(){
@@ -96,5 +103,8 @@ public class session {
 	}
 	public SQLConnection getServer(){
 		return server;
+	}
+	public User getUser(){
+		return current_user;
 	}
 }
