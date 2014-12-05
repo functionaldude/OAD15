@@ -98,6 +98,7 @@ public class game {
 			stmt = cur_session.getServer().getConn().createStatement();
 			res = stmt.executeQuery("SELECT id FROM game WHERE Name = '"+this.name+"'");
 		} catch (SQLException ex) {
+			System.out.println("Error at checking for duplicate game");
 		    System.out.println("SQLException: " + ex.getMessage());
 		}
 		if (res.first()){
@@ -113,6 +114,7 @@ public class game {
 						this.privacy+
 						")");
 			} catch (SQLException ex) {
+				System.out.println("Error at inserting game in db");
 			    System.out.println("SQLException: " + ex.getMessage());
 			}
 		}

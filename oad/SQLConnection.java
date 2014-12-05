@@ -23,7 +23,8 @@ public class SQLConnection{
             try {
                 connect = DriverManager.getConnection(url, user, passwd);
             } catch (SQLException ex) {
-            	System.out.println("SQLException(connect): " + ex.getMessage());
+            	System.out.println("Error at creating SQL connection");
+            	System.out.println("SQLException: " + ex.getMessage());
                 System.out.println("SQLState: " + ex.getSQLState());
                 System.out.println("VendorError: " + ex.getErrorCode());
             }
