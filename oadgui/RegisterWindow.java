@@ -6,12 +6,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import oad.User;
 import oad.session;
+
 import javax.swing.SwingConstants;
 
 public class RegisterWindow extends Window{
@@ -118,7 +120,7 @@ public class RegisterWindow extends Window{
 				}
 				catch (Exception e1){
 					if (e1.getMessage() == "DuplicateUser"){
-						//TODO: Pop-up
+						JOptionPane.showMessageDialog(window, "Username already exists!");
 						return;
 					}
 				}
