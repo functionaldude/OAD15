@@ -1,20 +1,10 @@
 package oadgui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
 import oad.session;
 
 import java.awt.CardLayout;
-import java.awt.Font;
 
 
 public class AdminWindow extends Window{

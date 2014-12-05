@@ -2,12 +2,9 @@ package oad;
 import oad.User;
 
 import java.lang.Exception;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashSet;
-import java.util.Set;
 
 public class session {
 	public int sessionID;

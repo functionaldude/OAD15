@@ -8,32 +8,16 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-import oad.User;
 import oad.session;
 
 import javax.swing.SwingConstants;
 
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-/*
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;*/
-
-import java.awt.Component;
 import java.awt.Font;
-import javax.swing.ListSelectionModel;
-import javax.swing.JEditorPane;
-import javax.swing.border.BevelBorder;
-import javax.swing.AbstractListModel;
 
 public class HomeWindow extends Window {
 	//elements
@@ -164,7 +148,7 @@ public class HomeWindow extends Window {
 		this.help_menu_item4 = new JMenuItem("About Us");
 		
 		
-		this.home_label = new JLabel("Hello User");
+		this.home_label = new JLabel("Hello "+current_session.getUser().getUserName());
 		home_label.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		home_label.setHorizontalAlignment(SwingConstants.CENTER);
 		

@@ -22,7 +22,6 @@ public class Program {
 		w_login = new LoginWindow(current_session);
 		w_login.show();
 		
-		//TODO: Busy wait
 		synchronized(w_login.visiblity){
 			try {
 				w_login.visiblity.wait();
