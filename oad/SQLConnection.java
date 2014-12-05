@@ -25,6 +25,7 @@ public class SQLConnection{
             try {
                 connect = DriverManager.getConnection(url, user, passwd);
             } catch (SQLException ex) {
+            	JOptionPane.showMessageDialog(null, "Server error!");
             	System.out.println("Error at creating SQL connection");
             	System.out.println("SQLException: " + ex.getMessage());
                 System.out.println("SQLState: " + ex.getSQLState());
