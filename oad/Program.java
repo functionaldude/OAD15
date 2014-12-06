@@ -36,10 +36,6 @@ public class Program {
 			w_main = new HomeWindow(current_session);
 			w_main.show();
 		}
-		
-		//main
-		//w_main = new AppWindow(current_session);
-		
 	}
 
 }

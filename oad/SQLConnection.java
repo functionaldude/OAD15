@@ -17,7 +17,8 @@ public class SQLConnection{
     	try {
     		Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-			System.out.println("forName error: " + e.getMessage());
+			System.out.println("Exception at referencing MySQL Driver");
+			System.out.println(e.getMessage());
 		}
     }
     public Connection getConn(){
