@@ -6,11 +6,14 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import oad.MonitorObject;
+
 
 public abstract class Window{
 	//attribute
 	public JFrame window;
-
+	public MonitorObject visiblity = new MonitorObject();
+	
 	private int width = 0, height = 0;
 		
 	//functions
@@ -26,6 +29,12 @@ public abstract class Window{
 		//create frame
 		this.window = new JFrame();
 		this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public void init_without_exit(){
+		//create frame
+		this.window = new JFrame();
+		//this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public void initSize(){

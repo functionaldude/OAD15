@@ -52,7 +52,7 @@ public class LoginWindow extends Window{
 		l_title.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		l_title.setBounds(6, 6, 438, 20);
 		
-		this.l_email = new JLabel("E-Mail:");
+		this.l_email = new JLabel("Nickname:");
 		l_email.setHorizontalAlignment(SwingConstants.RIGHT);
 		l_email.setBounds(6, 100, 158, 20);
 		
@@ -71,10 +71,13 @@ public class LoginWindow extends Window{
 		this.f_pw = new JPasswordField();
 		
 		f_pw.setBounds(238, 153, 140, 20);
-		l_panel.setLayout(null);
-		this.w_reg = new RegisterWindow(input_session);
 		
 		l_panel.setLayout(null);
+		
+		
+		this.w_reg = new RegisterWindow(input_session);
+		
+		//l_panel.setLayout(null);
 		
 		
 		//add elements
@@ -95,11 +98,12 @@ public class LoginWindow extends Window{
 		this.login.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String input_email = f_email.toString();
-				String input_pw = f_pw.toString();
+				String input_email = f_email.getText();
+				String input_pw = new String(f_pw.getPassword());
 				try {
 					current_session.authenticate(input_email, input_pw);
 				} catch (Exception e1) {
+					System.out.println("Login error: " + e1.getMessage());
 					if (e1.getMessage().equals("InvalidPW")){
 						//TODO: Pop-up
 					}
@@ -109,6 +113,9 @@ public class LoginWindow extends Window{
 				}
 				if (current_session.getLoginState()){
 					hide();
+					synchronized(visiblity){
+						visiblity.notify();
+					}
 				}
 			}
 		});

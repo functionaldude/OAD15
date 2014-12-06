@@ -4,13 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import oad.User;
 import oad.session;
+
 import javax.swing.SwingConstants;
 
 public class RegisterWindow extends Window{
@@ -21,7 +24,7 @@ public class RegisterWindow extends Window{
 	
 	//labels
 	private JLabel l_title;
-	private JLabel l_nickname;
+	private JLabel l_username;
 	private JLabel l_email;
 	private JLabel l_pw;
 	private JLabel l_pw_repeat;
@@ -30,7 +33,7 @@ public class RegisterWindow extends Window{
 	private JButton register;
 	
 	//textfields
-	private JTextField f_nickname;
+	private JTextField f_username;
 	private JTextField f_email;
 	private JPasswordField f_pw;
 	private JPasswordField f_pw_repeat;
@@ -42,9 +45,9 @@ public class RegisterWindow extends Window{
 	RegisterWindow(session input_session){
 		//setup vars
 		this.current_session = input_session;
-		
 		//setup frame
 		init();
+		this.window.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setName("Register");
 		this.setSize(450, 300);
 		this.initSize();
@@ -57,10 +60,10 @@ public class RegisterWindow extends Window{
 		l_title.setHorizontalAlignment(SwingConstants.CENTER);
 		l_title.setBounds(6,6,438,20);
 		
-		this.l_nickname = new JLabel("Nickname:");
-		l_nickname.setHorizontalAlignment(SwingConstants.RIGHT);
-		l_nickname.setBounds(6,60,190,20);
-		
+		this.l_username = new JLabel("Nickname:");
+		l_username.setHorizontalAlignment(SwingConstants.RIGHT);
+		l_username.setBounds(6,60,190,20);
+				
 		this.l_email = new JLabel("Email:");
 		l_email.setHorizontalAlignment(SwingConstants.RIGHT);
 		l_email.setBounds(6,92,190,20);
@@ -73,8 +76,8 @@ public class RegisterWindow extends Window{
 		l_pw_repeat.setHorizontalAlignment(SwingConstants.RIGHT);
 		l_pw_repeat.setBounds(6,156,190,20);
 		
-		this.f_nickname = new JTextField();
-		f_nickname.setBounds(254,60,190,20);
+		this.f_username = new JTextField();
+		f_username.setBounds(254,60,190,20);
 		
 		this.f_email = new JTextField();
 		f_email.setBounds(254,92,190,20);
@@ -86,26 +89,25 @@ public class RegisterWindow extends Window{
 		f_pw_repeat.setBounds(254,156,190,20);
 		
 		this.register = new JButton("Register");
-		register.setBounds(170, 250, 100, 20);
-						
+		register.setBounds(180,240,100,20);
+
 		register_panel.setLayout(null);
 		
 		//add elements
 		this.register_panel.add(this.l_title);
-		this.register_panel.add(this.l_nickname);
+		this.register_panel.add(this.l_username);
 		this.register_panel.add(this.l_email);
 		this.register_panel.add(this.l_pw);
 		this.register_panel.add(this.l_pw_repeat);
-		this.register_panel.add(this.f_nickname);
+		this.register_panel.add(this.f_username);
 		this.register_panel.add(this.f_email);
 		this.register_panel.add(this.f_pw);
 		this.register_panel.add(this.f_pw_repeat);
 		
 		this.register_panel.add(this.register);
-
+		
 		this.window.getContentPane().add(this.register_panel);
 
-		
 		this.initListeners();
 	}
 	
@@ -113,13 +115,12 @@ public class RegisterWindow extends Window{
 		this.register.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
-				created_user = new User(f_email.toString(), f_pw.toString());
 				try{
-					current_session.addUser(created_user);
+					current_session.addUser(f_username.getText(), new String(f_pw.getPassword()), f_email.getText());
 				}
 				catch (Exception e1){
 					if (e1.getMessage() == "DuplicateUser"){
-						//TODO: Pop-up
+						JOptionPane.showMessageDialog(window, "Username already exists!");
 						return;
 					}
 				}

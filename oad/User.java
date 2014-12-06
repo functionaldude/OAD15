@@ -1,6 +1,8 @@
 package oad;
 
 import java.lang.Exception;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -10,50 +12,50 @@ public class User {
 	
 	//initial data
 	private String username;
+	private String email;
 	private String password;
-	public int type;
+	private int type;
+	private int ID;
 
-	//games
-	Set<game> user_games;
-	
 	//constructor
-	public User(String input_name, String input_pw){
+	public User(String input_name, String input_pw, String input_email){
 		this.username = input_name;
 		this.password = input_pw;
+		this.email = input_email;
 	}
+	public User(String input_name, String input_pw, String input_email, int input_ID){
+		this.username = input_name;
+		this.password = input_pw;
+		this.email = input_email;
+		this.ID = input_ID;
+	} 
 
 	//user methods
 	public String getUserName(){
 		return this.username;
 	}
-	public Boolean checkPW(String input_PW){
-		if (input_PW == this.password){
-			return true;
-		} else {
-			return false;
-		}
+	public String getEmail(){
+		return this.email;
 	}
-	public void changePW(String input_pw, String new_pw) throws Exception{
-		if (input_pw != this.password){
-			throw new Exception("InvalidPW");
-		} else {
-			this.password = new_pw;
-		}
+	public int getType(){
+		return this.type;
 	}
-	//game methods
-	public void addGame(game input_game){
-		this.user_games.add(input_game);
+	public String getPW(){
+		return this.password;
 	}
-	public void deleteGame(game input_game) throws Exception{
-		Iterator<game> iterator = this.user_games.iterator();
-		while (iterator.hasNext()){
-			if (iterator.equals(input_game)){
-				iterator.remove();
-				return;
-			} else {
-				iterator.next();
-			}
-		}
-		throw new Exception("NoSuchElement");
+	public int getID(){
+		return this.ID;
+	}
+	public void changePW(String input){
+		this.password = input;
+	}
+	public void changeUserName(String input){
+		this.username = input;
+	}
+	public void changeEmail(String input){
+		this.email = input;
+	}
+	public Boolean checkPW(String input){
+		return this.password.equals(input);
 	}
 }

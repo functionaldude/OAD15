@@ -2,24 +2,37 @@ package oad;
 import oad.User;
 
 import java.lang.Exception;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class session {
 	public int sessionID;
-	public User current_user;
 	private boolean logged_in;
-	private Set<User> user_db;
+	private SQLConnection server;
+	private User current_user;
+	private game current_game;
+	public FeedbackHandler feedbackhandler;
 	
 	//constructor
 	public session(){
+		//connect to SQL
+		server = new SQLConnection("jdbc:mysql://127.0.0.1:3306/OAD");
 		this.logged_in = false;
-		this.user_db = new HashSet<User>();
 	}
-	public void addUser(User input_user) throws Exception{
-		if (this.checkForUser(input_user) == false){
-			this.user_db.add(input_user);
+	public void addUser(String input_username, String input_pw, String input_email) throws Exception{
+		if (this.checkForUser(input_username) == false){
+			Statement stmt;
+			try {
+				stmt = server.getConn().createStatement();
+				stmt.executeUpdate("INSERT INTO user (username, password, email) VALUES ('"+ 
+						input_username+"', '"+
+						input_pw+"', '"+
+						input_email+
+						"')");
+			} catch (SQLException ex) {
+	        	System.out.println("SQLException(add): " + ex.getMessage());
+			}
 		} else {
 			throw new Exception("DuplicateUser");
 		}
@@ -27,39 +40,70 @@ public class session {
 	public Boolean getLoginState(){
 		return this.logged_in;
 	}
-	public Boolean checkForUser(User input_user){
-		Iterator<User> iterator = user_db.iterator();
-		User iter_usr;
-		while(iterator.hasNext()){
-			iter_usr = iterator.next();
-			if (iter_usr.getUserName() == input_user.getUserName()){
-				return true;
-			}
+	public Boolean checkForUser(String input_username){
+		Statement stmt;
+		ResultSet res;
+		Boolean retval = false;
+		try {
+			stmt = server.getConn().createStatement();
+			res = stmt.executeQuery("SELECT id FROM user WHERE username = '" + input_username + "'");
+			retval = res.first();
+		} catch (SQLException ex) {
+        	System.out.println("SQLException(check): " + ex.getMessage());
+        	return false;
 		}
-		return false;
+		return retval;
 	}
-	public void authenticate(String input_username, String input_pw) throws Exception{
+	public void authenticate(String input_username, String input_pw) throws Exception {
 		if (logged_in){
 			throw new Exception("UserAlreadyIn");
 		}
-		Iterator<User> iterator = user_db.iterator();
-		while (iterator.hasNext()){
-			User current = iterator.next();
-			if (current.getUserName().equals(input_username)){
-				if (current.checkPW(input_pw)){
-					this.current_user = current;
-					this.logged_in = true;
-					return;
-				} else {
-					throw new Exception("InvalidPW");
-				}
+		Statement stmt;
+		ResultSet res;
+		try{
+			stmt = server.getConn().createStatement();
+			res = stmt.executeQuery("SELECT id, password, email FROM user WHERE username = '" + input_username + "'");
+		}
+		catch (SQLException ex) {
+        	System.out.println("SQLException(auth): " + ex.getMessage());
+        	return;
+		}
+		if (!res.first()){
+			throw new Exception("NoSuchUser");
+		} else {
+			System.out.println("User found!");
+			if (input_pw.equals(res.getString("password"))){
+				this.current_user = new User(input_username, input_pw, res.getString("email"), res.getInt("id"));
+				logged_in = true;
+				feedbackhandler = new FeedbackHandler(this);
+				System.out.println("Auth success!");
+			} else {
+				System.out.println(input_pw + " != " + res.getString("password"));
+				throw new Exception("InvalidPW");
 			}
 		}
-		throw new Exception("NoSuchUser");
+	}
+	public void syncBackUserData(){
+		Statement stmt;
+		try {
+			stmt = server.getConn().createStatement();
+			stmt.executeUpdate("UPDATE user SET password='"+current_user.getPW()+
+					"', email='"+current_user.getEmail()+
+					"', username='"+current_user.getUserName()+
+					"' WHERE id="+current_user.getID());
+		} catch (SQLException ex) {
+        	System.out.println("Error at pushing userdata");
+        	System.out.println("SQLException: " + ex.getMessage());
+		}
 	}
 	public void deauthenticate(){
 		this.current_user = null;
 		this.logged_in = false;
 	}
-	
+	public SQLConnection getServer(){
+		return server;
+	}
+	public User getUser(){
+		return current_user;
+	}
 }
