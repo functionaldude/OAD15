@@ -18,7 +18,7 @@ public class AdminWindow extends Window{
 	private JPanel master_container;
 	private JPanel user_panel;
 	private JPanel game_panel;
-	private JPanel ranking_panel;
+	private JPanel notification_panel;
 	
 	
 	//buttons
@@ -50,7 +50,7 @@ public class AdminWindow extends Window{
 		
 		this.user_panel = new JPanel();
 		this.game_panel = new JPanel();
-		this.ranking_panel = new JPanel();
+		this.notification_panel = new JPanel();
 		
 		this.admin_pane = new JTabbedPane();
 		
@@ -64,7 +64,7 @@ public class AdminWindow extends Window{
 		
 		
 		this.admin_pane.addTab("Game", game_panel);
-		this.admin_pane.addTab("Ranking", ranking_panel);
+		this.admin_pane.addTab("Notification", notification_panel);
 		
 		this.master_container.add(this.admin_pane);
 		

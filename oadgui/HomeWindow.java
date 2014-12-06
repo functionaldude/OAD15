@@ -18,6 +18,9 @@ import oad.session;
 import javax.swing.SwingConstants;
 
 import java.awt.Font;
+import javax.swing.JList;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class HomeWindow extends Window {
 	//elements
@@ -48,6 +51,9 @@ public class HomeWindow extends Window {
 	private JLabel home_label;
 	private JLabel photo_label;
 	
+	//list
+	String stringlist[] = {"1", "2", "3", "4"};
+	private JList notification_list;
 	
 	
 	//buttons
@@ -88,6 +94,7 @@ public class HomeWindow extends Window {
 	
 	//vars
 	session current_session;
+	private JList list;
 	
 	
 	public HomeWindow(session input_session){
@@ -163,6 +170,9 @@ public class HomeWindow extends Window {
 		this.photo_label = new JLabel(new ImageIcon("/Users/martinzagar/Documents/oad_images/fb_punisher.jpg"));
 		photo_label.setVerticalAlignment(SwingConstants.TOP);
 		
+		this.notification_list = new JList(stringlist);
+		notification_list.setBorder(new LineBorder(new Color(0, 0, 0)));
+		
 		
 		this.play_private_game_button = new JButton("Play Private Game");
 		this.play_public_game_button = new JButton("Play Public Game");
@@ -202,6 +212,7 @@ public class HomeWindow extends Window {
 		
 		this.user_panel.add(this.home_label, BorderLayout.NORTH);
 		this.user_panel.add(this.photo_label, BorderLayout.CENTER);
+		this.user_panel.add(this.notification_list, BorderLayout.EAST);
 		
 		
 		this.buttons_panel.add(this.play_private_game_button);
