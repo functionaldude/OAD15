@@ -81,10 +81,7 @@ public class HomeWindow extends Window {
 	private GameSettingWindow gameSetting;
 	private ContactWindow contact;
 	private TutorialWindow tutorial;
-	
-	
-	
-	
+	private FeedbackWindow feedback;
 	private AboutUsWindow aboutUs;
 	
 		
@@ -183,7 +180,7 @@ public class HomeWindow extends Window {
 		this.gameSetting = new GameSettingWindow(input_session);
 		this.contact = new ContactWindow(input_session);
 		this.tutorial = new TutorialWindow(input_session);
-		
+		this.feedback = new FeedbackWindow(input_session);
 		this.aboutUs = new AboutUsWindow(input_session);
 				
 		
@@ -379,6 +376,15 @@ public class HomeWindow extends Window {
 			public void actionPerformed(ActionEvent e) 
 			{
 				tutorial.show();
+			}	
+		});
+		
+		this.help_menu_item2.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				feedback.show();
 			}	
 		});
 		
