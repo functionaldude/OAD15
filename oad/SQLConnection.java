@@ -9,8 +9,8 @@ import javax.swing.JOptionPane;
 
 public class SQLConnection{
     private String url;
-    private static String user = "root";
-    private static String passwd = "root";
+    private static final String user = "root";
+    private static final String passwd = "root";
     private Connection connect;
     public SQLConnection(String input_url){
     	url = input_url;

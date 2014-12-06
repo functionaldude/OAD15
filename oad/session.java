@@ -16,7 +16,7 @@ public class session {
 	//constructor
 	public session(){
 		//connect to SQL
-		server = new SQLConnection("jdbc:mysql://127.0.0.1:8889/OAD");
+		server = new SQLConnection("jdbc:mysql://127.0.0.1:3306/OAD");
 		this.logged_in = false;
 	}
 	public void addUser(String input_username, String input_pw, String input_email) throws Exception{
