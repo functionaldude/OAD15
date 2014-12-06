@@ -5,6 +5,8 @@ import javax.swing.JTabbedPane;
 import oad.session;
 
 import java.awt.CardLayout;
+import java.awt.BorderLayout;
+import javax.swing.JList;
 
 
 public class AdminWindow extends Window{
@@ -56,6 +58,11 @@ public class AdminWindow extends Window{
 		//add elements
 		
 		this.admin_pane.addTab("User", user_panel);
+		user_panel.setLayout(new BorderLayout(0, 0));
+		
+		
+		
+		
 		this.admin_pane.addTab("Game", game_panel);
 		this.admin_pane.addTab("Ranking", ranking_panel);
 		
