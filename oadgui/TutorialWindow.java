@@ -136,16 +136,18 @@ public class TutorialWindow extends Window {
 	
 		
 		
-		//this.initListeners();
+		this.initListeners();
 		
 	}
 	
-	/*private void initListeners()
-	{
-		
-		
-	
-	}*/
+	private void initListeners(){
+		this.tutorial_window_ok.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e){
+				hide();
+			}
+		});
+	}
 
 
 
