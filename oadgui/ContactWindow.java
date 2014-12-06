@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -20,6 +21,8 @@ import oad.session;
 import javax.swing.SwingConstants;
 
 import java.awt.Font;
+import javax.swing.DropMode;
+import javax.swing.JTextPane;
 
 public class ContactWindow extends Window {
 	//elements
@@ -27,34 +30,34 @@ public class ContactWindow extends Window {
 	
 	//panel
 	
-	private JPanel user_settings_panel;
+	private JPanel contact_window_panel;
+	
 	
 	
 	//labels
 	
-	private JLabel old_nickname_label;
-	private JLabel new_nickname_label;
-	private JLabel old_password_label;
-	private JLabel new_password_label;
-	
+	private JLabel contact_name_label;
+	private JLabel contact_mail_label;
+	private JLabel contact_type_label;
+	private JLabel contact_message_label;
 	
 	//buttons
 	
-	private JButton user_settings_cancel;
-	private JButton user_settings_save;
-	
+	private JButton contact_send;
+	private JButton contact_cancel;
 	
 	
 	//fields
-	private JTextField old_nickname_field;
-	private JTextField new_nickname_field;
-	private JPasswordField old_password_field;
-	private JPasswordField new_password_field;
+	
+	private JTextField contact_name_field;
+	private JTextField contact_mail_field;
+	private JTextPane contact_message_field;
+	private JComboBox<Object> contact_type_box;
+	
+	//string
+	String errors[] = {"Bugs", "Question about the game", "Question about the editor"};
 	
 	
-	
-	
-		
 	
 	//vars
 	session current_session;
@@ -66,89 +69,87 @@ public class ContactWindow extends Window {
 		
 		//setup frame
 		init_without_exit();
-		this.setName("User Settings");
-		this.setSize(450, 300);
+		this.setName("Contact Window");
+		this.setSize(450, 400);
 		this.initSize();
 		
 		//init elements
 		
-		this.user_settings_panel = new JPanel();
-		user_settings_panel.setLayout(null);
+		this.contact_window_panel = new JPanel();
+		contact_window_panel.setLayout(null);
 		
-		this.old_nickname_label = new JLabel("Old nickname:");
-		old_nickname_label.setLocation(0, 40);
-		old_nickname_label.setSize(100, 20);
 		
-		this.new_nickname_label = new JLabel("New nickname:");
-		new_nickname_label.setLocation(0, 85);
-		new_nickname_label.setSize(100, 20);
 		
-		this.old_password_label = new JLabel("Old password:");
-		old_password_label.setLocation(0, 128);
-		old_password_label.setSize(100, 20);
+		this.contact_name_label = new JLabel("Name:");
+		contact_name_label.setHorizontalAlignment(SwingConstants.CENTER);
+		contact_name_label.setLocation(0, 52);
+		contact_name_label.setSize(215, 20);
 		
-		this.new_password_label = new JLabel("New password:");
-		new_password_label.setLocation(0, 162);
-		new_password_label.setSize(100, 20);
+		this.contact_mail_label = new JLabel("Email:");
+		contact_mail_label.setHorizontalAlignment(SwingConstants.CENTER);
+		contact_mail_label.setLocation(0, 81);
+		contact_mail_label.setSize(215, 20);
 		
-		this.old_nickname_field = new JTextField();
-		old_nickname_field.setSize(100, 20);
-		old_nickname_field.setLocation(344, 40);
+		this.contact_type_label = new JLabel("Type:");
+		contact_type_label.setHorizontalAlignment(SwingConstants.CENTER);
+		contact_type_label.setLocation(0, 116);
+		contact_type_label.setSize(215, 20);
 		
-		this.new_nickname_field = new JTextField();
-		new_nickname_field.setLocation(344, 85);
-		new_nickname_field.setSize(100, 20);
+		this.contact_message_label = new JLabel("Message:");
+		contact_message_label.setHorizontalAlignment(SwingConstants.CENTER);
+		contact_message_label.setLocation(0, 148);
+		contact_message_label.setSize(215, 20);
 		
-		this.old_password_field = new JPasswordField();
-		old_password_field.setLocation(344, 128);
-		old_password_field.setSize(100, 20);
+		this.contact_name_field = new JTextField();
+		contact_name_field.setLocation(229, 52);
+		contact_name_field.setSize(215, 20);
 		
-		this.new_password_field = new JPasswordField();
-		new_password_field.setLocation(344, 162);
-		new_password_field.setSize(100, 20);
+		this.contact_mail_field = new JTextField();
+		contact_mail_field.setLocation(229, 81);
+		contact_mail_field.setSize(215, 20);
 		
-		this.user_settings_cancel = new JButton("Cancel");
-		user_settings_cancel.setLocation(294, 260);
-		user_settings_cancel.setSize(100, 20);
+		this.contact_type_box = new JComboBox<Object>(errors);
+		contact_type_box.setLocation(229, 117);
+		contact_type_box.setSize(215, 20);
 		
-		this.user_settings_save = new JButton("Save");
-		user_settings_save.setLocation(91, 260);
-		user_settings_save.setSize(100, 20);
+		this.contact_message_field = new JTextPane();
+		contact_message_field.setBounds(229, 149, 217, 123);
+		
+		this.contact_send = new JButton("Send");
+		contact_send.setLocation(63, 344);
+		contact_send.setSize(100, 20);
+		
+		this.contact_cancel = new JButton("Cancel");
+		contact_cancel.setLocation(307, 344);
+		contact_cancel.setSize(100, 20);
+		
 		
 				
 		
 		//add elements
 		
-		this.user_settings_panel.add(this.old_nickname_field);
-		this.user_settings_panel.add(this.new_nickname_field);
-		this.user_settings_panel.add(this.old_password_field);
-		this.user_settings_panel.add(this.new_password_field);
+		this.contact_window_panel.add(this.contact_name_label);
+		this.contact_window_panel.add(this.contact_mail_label);
+		this.contact_window_panel.add(this.contact_type_label);
+		this.contact_window_panel.add(this.contact_message_label);
 		
-		this.user_settings_panel.add(this.old_nickname_label);
-		this.user_settings_panel.add(this.new_nickname_label);
-		this.user_settings_panel.add(this.old_password_label);
-		this.user_settings_panel.add(this.new_password_label);
+		this.contact_window_panel.add(this.contact_name_field);
+		this.contact_window_panel.add(this.contact_mail_field);
+		this.contact_window_panel.add(this.contact_type_box);
+		this.contact_window_panel.add(this.contact_message_field);
 		
-		this.user_settings_panel.add(this.user_settings_cancel);
-		this.user_settings_panel.add(this.user_settings_save);
+		this.contact_window_panel.add(this.contact_send);
+		this.contact_window_panel.add(this.contact_cancel);
 		
-		this.window.getContentPane().add(this.user_settings_panel);
+		/*this.contact_window_panel.add(this.contact_window_label_panel, BorderLayout.WES);
+		this.contact_window_panel.add(this.contact_window_field_panel, BorderLayout.EAST);
+		this.contact_window_panel.add(this.contact_window_button_panel, BorderLayout.SOUTH);*/
 		
-	
+		this.window.getContentPane().add(this.contact_window_panel);
 		
+
 		
 		//this.initListeners();
 		
 	}
-	
-	/*private void initListeners()
-	{
-		
-		
-	
-	}*/
-
-
-
-		
 }
