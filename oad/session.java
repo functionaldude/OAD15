@@ -39,7 +39,7 @@ public class session {
 	public Boolean getLoginState(){
 		return this.logged_in;
 	}
-	private Boolean checkForUser(String input_username){
+	public Boolean checkForUser(String input_username){
 		Statement stmt;
 		ResultSet res;
 		Boolean retval = false;
@@ -88,7 +88,7 @@ public class session {
 			stmt.executeUpdate("UPDATE user SET password='"+current_user.getPW()+
 					"', email='"+current_user.getEmail()+
 					"', username='"+current_user.getUserName()+
-					" WHERE id="+current_user.getID());;
+					"' WHERE id="+current_user.getID());
 		} catch (SQLException ex) {
         	System.out.println("Error at pushing userdata");
         	System.out.println("SQLException: " + ex.getMessage());
