@@ -130,22 +130,21 @@ public class TutorialWindow extends Window {
 		
 		
 		this.window.getContentPane().add(this.tutorial_panel);
-		
-		
-		
 	
 		
-		
-		//this.initListeners();
+		this.initListeners();
 		
 	}
 	
-	/*private void initListeners()
+	private void initListeners()
 	{
-		
-		
-	
-	}*/
+		this.tutorial_window_ok.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e){
+				hide();
+			}
+		});
+	}
 
 
 
