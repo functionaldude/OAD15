@@ -14,6 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 import oad.session;
 
@@ -27,34 +28,29 @@ public class FeedbackWindow extends Window {
 	
 	//panel
 	
-	private JPanel user_settings_panel;
+	private JPanel feedback_panel;
 	
 	
 	//labels
 	
-	private JLabel old_nickname_label;
-	private JLabel new_nickname_label;
-	private JLabel old_password_label;
-	private JLabel new_password_label;
+	private JLabel feedback_name_label;
+	private JLabel feedback_titel_label;
+	private JLabel feedback_message_label;
 	
 	
 	//buttons
 	
-	private JButton user_settings_cancel;
-	private JButton user_settings_save;
-	
+	private JButton feedback_send;
+	private JButton feedback_cancel;
 	
 	
 	//fields
-	private JTextField old_nickname_field;
-	private JTextField new_nickname_field;
-	private JPasswordField old_password_field;
-	private JPasswordField new_password_field;
 	
+	private JTextField feedback_name_field;
+	private JTextField feedback_titel_field;
+	private JTextPane feedback_message_field;
 	
-	
-	
-		
+
 	
 	//vars
 	session current_session;
@@ -66,73 +62,69 @@ public class FeedbackWindow extends Window {
 		
 		//setup frame
 		init_without_exit();
-		this.setName("User Settings");
-		this.setSize(450, 300);
+		this.setName("Feedback");
+		this.setSize(600, 425);
 		this.initSize();
 		
 		//init elements
 		
-		this.user_settings_panel = new JPanel();
-		user_settings_panel.setLayout(null);
+		this.feedback_panel = new JPanel();
+		feedback_panel.setLayout(null);
 		
-		this.old_nickname_label = new JLabel("Old nickname:");
-		old_nickname_label.setLocation(0, 40);
-		old_nickname_label.setSize(100, 20);
+		this.feedback_name_label = new JLabel("Name:");
+		feedback_name_label.setHorizontalAlignment(SwingConstants.CENTER);
+		feedback_name_label.setLocation(6, 52);
+		feedback_name_label.setSize(225, 20);
 		
-		this.new_nickname_label = new JLabel("New nickname:");
-		new_nickname_label.setLocation(0, 85);
-		new_nickname_label.setSize(100, 20);
+		this.feedback_titel_label = new JLabel("Titel:");
+		feedback_titel_label.setHorizontalAlignment(SwingConstants.CENTER);
+		feedback_titel_label.setLocation(6, 85);
+		feedback_titel_label.setSize(225, 20);
 		
-		this.old_password_label = new JLabel("Old password:");
-		old_password_label.setLocation(0, 128);
-		old_password_label.setSize(100, 20);
+		this.feedback_message_label = new JLabel("Message:");
+		feedback_message_label.setHorizontalAlignment(SwingConstants.CENTER);
+		feedback_message_label.setLocation(6, 117);
+		feedback_message_label.setSize(225, 20);
 		
-		this.new_password_label = new JLabel("New password:");
-		new_password_label.setLocation(0, 162);
-		new_password_label.setSize(100, 20);
+		this.feedback_name_field = new JTextField();
+		feedback_name_field.setLocation(269, 52);
+		feedback_name_field.setSize(325, 20);
 		
-		this.old_nickname_field = new JTextField();
-		old_nickname_field.setSize(100, 20);
-		old_nickname_field.setLocation(344, 40);
+		this.feedback_titel_field = new JTextField();
+		feedback_titel_field.setLocation(269, 85);
+		feedback_titel_field.setSize(325, 20);
 		
-		this.new_nickname_field = new JTextField();
-		new_nickname_field.setLocation(344, 85);
-		new_nickname_field.setSize(100, 20);
+		this.feedback_message_field = new JTextPane();
+		feedback_message_field.setLocation(269, 117);
+		feedback_message_field.setSize(325, 200);
 		
-		this.old_password_field = new JPasswordField();
-		old_password_field.setLocation(344, 128);
-		old_password_field.setSize(100, 20);
+		this.feedback_send = new JButton("Send");
+		feedback_send.setLocation(75, 363);
+		feedback_send.setSize(100, 20);
 		
-		this.new_password_field = new JPasswordField();
-		new_password_field.setLocation(344, 162);
-		new_password_field.setSize(100, 20);
-		
-		this.user_settings_cancel = new JButton("Cancel");
-		user_settings_cancel.setLocation(294, 260);
-		user_settings_cancel.setSize(100, 20);
-		
-		this.user_settings_save = new JButton("Save");
-		user_settings_save.setLocation(91, 260);
-		user_settings_save.setSize(100, 20);
+		this.feedback_cancel = new JButton("Cancel");
+		feedback_cancel.setLocation(460, 363);
+		feedback_cancel.setSize(100, 20);
 		
 				
 		
 		//add elements
 		
-		this.user_settings_panel.add(this.old_nickname_field);
-		this.user_settings_panel.add(this.new_nickname_field);
-		this.user_settings_panel.add(this.old_password_field);
-		this.user_settings_panel.add(this.new_password_field);
+		this.feedback_panel.add(this.feedback_name_label);
+		this.feedback_panel.add(this.feedback_titel_label);
+		this.feedback_panel.add(this.feedback_message_label);
 		
-		this.user_settings_panel.add(this.old_nickname_label);
-		this.user_settings_panel.add(this.new_nickname_label);
-		this.user_settings_panel.add(this.old_password_label);
-		this.user_settings_panel.add(this.new_password_label);
+		this.feedback_panel.add(this.feedback_name_field);
+		this.feedback_panel.add(this.feedback_titel_field);
+		this.feedback_panel.add(this.feedback_message_field);
 		
-		this.user_settings_panel.add(this.user_settings_cancel);
-		this.user_settings_panel.add(this.user_settings_save);
+		this.feedback_panel.add(this.feedback_send);
+		this.feedback_panel.add(this.feedback_cancel);
 		
-		this.window.getContentPane().add(this.user_settings_panel);
+		
+		this.window.getContentPane().add(this.feedback_panel);
+		
+		
 		
 	
 		
