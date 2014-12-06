@@ -142,18 +142,50 @@ public class UserSettingWindow extends Window {
 	
 		
 		
-		//this.initListeners();
+		this.initListeners();
 		
 	}
 	
-	/*private void initListeners()
-	{
-		
-		
-	
-	}*/
-
-
-
-		
+	public void show(){
+		old_nickname_field.setText(null);
+		new_nickname_field.setText(null);
+		old_password_field.setText(null);
+		new_password_field.setText(null);
+		this.window.setVisible(true);
+	}
+	private void initListeners(){
+		this.user_settings_cancel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e){
+				old_nickname_field.setText(null);
+				new_nickname_field.setText(null);
+				old_password_field.setText(null);
+				new_password_field.setText(null);
+				hide();
+			}
+		});
+		this.user_settings_save.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e){
+				String old_pw = new String(old_password_field.getPassword());
+				if (current_session.getUser().checkPW(old_pw)){
+					if(!new_nickname_field.getText().isEmpty()){
+						String new_username = new_nickname_field.getText();
+						if(current_session.checkForUser(new_username)){
+							//TODO: username taken
+						} else {
+							current_session.getUser().changeUserName(new_username);
+						}
+					}
+					if (! new String(new_password_field.getPassword()).isEmpty()){
+						current_session.getUser().changePW(new String(new_password_field.getPassword()));
+					}
+					current_session.syncBackUserData();
+					hide();
+				} else {
+					//TODO: invalid pw
+				}
+			}
+		});
+	}
 }

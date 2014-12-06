@@ -12,11 +12,12 @@ public class session {
 	private SQLConnection server;
 	private User current_user;
 	private game current_game;
+	public FeedbackHandler feedbackhandler;
 	
 	//constructor
 	public session(){
 		//connect to SQL
-		server = new SQLConnection("jdbc:mysql://127.0.0.1:8889/OAD");
+		server = new SQLConnection("jdbc:mysql://127.0.0.1:3306/OAD");
 		this.logged_in = false;
 	}
 	public void addUser(String input_username, String input_pw, String input_email) throws Exception{
@@ -39,14 +40,14 @@ public class session {
 	public Boolean getLoginState(){
 		return this.logged_in;
 	}
-	private Boolean checkForUser(String input_username){
+	public Boolean checkForUser(String input_username){
 		Statement stmt;
 		ResultSet res;
 		Boolean retval = false;
 		try {
 			stmt = server.getConn().createStatement();
-			res = stmt.executeQuery("SELECT username FROM user WHERE username = '" + input_username + "'");
-			retval = res.first() && res.getString("username") == input_username;
+			res = stmt.executeQuery("SELECT id FROM user WHERE username = '" + input_username + "'");
+			retval = res.first();
 		} catch (SQLException ex) {
         	System.out.println("SQLException(check): " + ex.getMessage());
         	return false;
@@ -74,6 +75,7 @@ public class session {
 			if (input_pw.equals(res.getString("password"))){
 				this.current_user = new User(input_username, input_pw, res.getString("email"), res.getInt("id"));
 				logged_in = true;
+				feedbackhandler = new FeedbackHandler(this);
 				System.out.println("Auth success!");
 			} else {
 				System.out.println(input_pw + " != " + res.getString("password"));
@@ -88,7 +90,7 @@ public class session {
 			stmt.executeUpdate("UPDATE user SET password='"+current_user.getPW()+
 					"', email='"+current_user.getEmail()+
 					"', username='"+current_user.getUserName()+
-					" WHERE id="+current_user.getID());;
+					"' WHERE id="+current_user.getID());
 		} catch (SQLException ex) {
         	System.out.println("Error at pushing userdata");
         	System.out.println("SQLException: " + ex.getMessage());

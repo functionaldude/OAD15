@@ -46,14 +46,16 @@ public class User {
 	public int getID(){
 		return this.ID;
 	}
-	public void changePW(String input_pw, String new_pw) throws Exception{
-		if (input_pw != this.password){
-			throw new Exception("InvalidPW");
-		} else {
-			this.password = new_pw;
-		}
+	public void changePW(String input){
+		this.password = input;
+	}
+	public void changeUserName(String input){
+		this.username = input;
 	}
 	public void changeEmail(String input){
 		this.email = input;
+	}
+	public Boolean checkPW(String input){
+		return this.password.equals(input);
 	}
 }
