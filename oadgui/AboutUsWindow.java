@@ -141,16 +141,19 @@ public class AboutUsWindow extends Window {
 		this.window.getContentPane().add(this.about_us_panel);
 		
 		
-		//this.initListeners();
+		this.initListeners();
 		
 	}
 	
-	/*private void initListeners()
+	private void initListeners()
 	{
-		
-		
-	
-	}*/
+		this.about_us_ok.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e){
+				hide();
+			}
+		});
+	}
 
 
 
