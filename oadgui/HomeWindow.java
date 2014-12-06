@@ -76,6 +76,14 @@ public class HomeWindow extends Window {
 	private JMenuItem	help_menu_item3;
 	private JMenuItem	help_menu_item4;
 	
+	//frame
+	private UserSettingWindow userSetting;
+	private GameSettingWindow gameSetting;
+	
+	
+	
+	
+	private AboutUsWindow aboutUs;
 	
 		
 	
@@ -167,6 +175,14 @@ public class HomeWindow extends Window {
 		this.public_game_back_button = new JButton("Back");
 		this.editor_back_button = new JButton("Back");
 		this.ranking_back_button = new JButton("Back");
+		
+		
+		this.userSetting = new UserSettingWindow(input_session);
+		this.gameSetting = new GameSettingWindow(input_session);
+		
+		
+		
+		this.aboutUs = new AboutUsWindow(input_session);
 				
 		
 		//add elements
@@ -316,6 +332,33 @@ public class HomeWindow extends Window {
 			{
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte1" );
+			}	
+		});
+		
+		this.setting_menu_item1.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				userSetting.show();
+			}	
+		});
+		
+		this.setting_menu_item2.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				gameSetting.show();
+			}	
+		});
+		
+		this.help_menu_item4.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				aboutUs.show();
 			}	
 		});
 		

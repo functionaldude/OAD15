@@ -31,6 +31,12 @@ public abstract class Window{
 		this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	public void init_without_exit(){
+		//create frame
+		this.window = new JFrame();
+		//this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
 	public void initSize(){
 		//set size
 		Toolkit t = Toolkit.getDefaultToolkit();
