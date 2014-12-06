@@ -129,17 +129,36 @@ public class FeedbackWindow extends Window {
 	
 		
 		
-		//this.initListeners();
+		this.initListeners();
 		
 	}
 	
-	/*private void initListeners()
+	private void initListeners()
 	{
-		
-		
+		this.feedback_cancel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e){
+				feedback_name_field.setText(null);
+				feedback_titel_field.setText(null);
+				feedback_message_field.setText(null);
+				hide();
+			}
+		});
+		this.feedback_send.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e){
+				current_session.feedbackhandler.addFeedback(feedback_titel_field.getText(), feedback_message_field.getText());
+				hide();
+			}
+		});
+	}
 	
-	}*/
-
+	public void show(){
+		feedback_name_field.setText(null);
+		feedback_titel_field.setText(null);
+		feedback_message_field.setText(null);
+		this.window.setVisible(true);
+	}
 
 
 		

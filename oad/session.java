@@ -12,6 +12,7 @@ public class session {
 	private SQLConnection server;
 	private User current_user;
 	private game current_game;
+	public FeedbackHandler feedbackhandler;
 	
 	//constructor
 	public session(){
@@ -74,6 +75,7 @@ public class session {
 			if (input_pw.equals(res.getString("password"))){
 				this.current_user = new User(input_username, input_pw, res.getString("email"), res.getInt("id"));
 				logged_in = true;
+				feedbackhandler = new FeedbackHandler(this);
 				System.out.println("Auth success!");
 			} else {
 				System.out.println(input_pw + " != " + res.getString("password"));
