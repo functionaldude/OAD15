@@ -127,18 +127,18 @@ public class GameSettingWindow extends Window {
 	
 		
 		
-		//this.initListeners();
+		this.initListeners();
 		
 	}
 	
-	/*private void initListeners()
-	{
-		
-		
-	
-	}*/
-
-
+	private void initListeners(){
+		this.game_settings_cancel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e){
+				hide();
+			}
+		});
+	}
 
 		
 }

@@ -9,15 +9,14 @@ import java.sql.Statement;
 public class session {
 	public int sessionID;
 	private boolean logged_in;
-	private SQLConnection server;
 	private User current_user;
 	private game current_game;
+	public SQLConnection server;
 	public FeedbackHandler feedbackhandler;
+	public AudioHandler musicplayer;
 	
 	//constructor
 	public session(){
-		//connect to SQL
-		server = new SQLConnection("jdbc:mysql://127.0.0.1:8889/OAD");
 		this.logged_in = false;
 	}
 	public void addUser(String input_username, String input_pw, String input_email) throws Exception{
@@ -75,7 +74,6 @@ public class session {
 			if (input_pw.equals(res.getString("password"))){
 				this.current_user = new User(input_username, input_pw, res.getString("email"), res.getInt("id"));
 				logged_in = true;
-				feedbackhandler = new FeedbackHandler(this);
 				System.out.println("Auth success!");
 			} else {
 				System.out.println(input_pw + " != " + res.getString("password"));
@@ -99,9 +97,6 @@ public class session {
 	public void deauthenticate(){
 		this.current_user = null;
 		this.logged_in = false;
-	}
-	public SQLConnection getServer(){
-		return server;
 	}
 	public User getUser(){
 		return current_user;

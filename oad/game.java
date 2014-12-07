@@ -48,7 +48,7 @@ public class game {
 		Statement stmt;
 		ResultSet res = null;
 		try {
-			stmt = cur_session.getServer().getConn().createStatement();
+			stmt = cur_session.server.getConn().createStatement();
 			res = stmt.executeQuery("SELECT * FROM game WHERE Name = '"+this.name+"'");
 		} catch (SQLException ex) {
 		    System.out.println("SQLException: " + ex.getMessage());
@@ -95,7 +95,7 @@ public class game {
 		Statement stmt;
 		ResultSet res = null;
 		try {
-			stmt = cur_session.getServer().getConn().createStatement();
+			stmt = cur_session.server.getConn().createStatement();
 			res = stmt.executeQuery("SELECT id FROM game WHERE Name = '"+this.name+"'");
 		} catch (SQLException ex) {
 			System.out.println("Error at checking for duplicate game");
@@ -105,7 +105,7 @@ public class game {
 			throw new Exception("DuplicateGame");
 		} else {
 			try {
-				stmt = cur_session.getServer().getConn().createStatement();
+				stmt = cur_session.server.getConn().createStatement();
 				stmt.executeUpdate("INSERT INTO game (user_id, name, rating_sum, rating_count, privacy) VALUES ("+
 						this.user_id+", "+
 						"'"+this.name+"', "+
