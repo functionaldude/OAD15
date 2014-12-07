@@ -2,24 +2,34 @@ package oadgui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextPane;
 
+import oad.AudioHandler;
 import oad.session;
 
 import javax.swing.SwingConstants;
 
 import java.awt.Font;
+
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 
 public class HomeWindow extends Window {
@@ -35,10 +45,16 @@ public class HomeWindow extends Window {
 	private JPanel buttons_panel;
 	
 	private JPanel private_game_panel;
+	private JPanel private_game_playground_panel;
 	private JPanel private_game_button_panel;
+	private JPanel private_game_right_side;
 	
 	private JPanel public_game_panel;
+	private JPanel public_game_title_panel;
+	private JPanel public_game_playground_panel;
 	private JPanel public_game_button_panel;
+	private JPanel public_game_right_side;
+	private JPanel public_game_ranking_panel;
 	
 	private JPanel editor_panel;
 	private JPanel editor_button_panel;
@@ -50,6 +66,10 @@ public class HomeWindow extends Window {
 	//labels
 	private JLabel home_label;
 	private JLabel photo_label;
+	private JLabel private_game_titel;
+	private JLabel public_game_titel;
+	private JLabel public_rating_label;
+	private JLabel public_rating_result_label;
 	
 	//list
 	String stringlist[] = {"1", "2", "3", "4"};
@@ -67,6 +87,13 @@ public class HomeWindow extends Window {
 	private JButton editor_back_button;
 	private JButton ranking_back_button;
 	
+	//radiobutton
+	private JRadioButton ranking1;
+	private JRadioButton ranking2;
+	private JRadioButton ranking3;
+	private JRadioButton ranking4;
+	private JRadioButton ranking5;
+		
 	
 	//menu
 	private JMenuBar 	main_menu;
@@ -90,11 +117,18 @@ public class HomeWindow extends Window {
 	private FeedbackWindow feedback;
 	private AboutUsWindow aboutUs;
 	
+	
+	//combobox
+	private JComboBox private_game_box;
+	private JComboBox public_game_box;
+	
+	//textpane
+	private JTextPane private_game_description;
+	private JTextPane public_game_description;
 		
 	
 	//vars
 	session current_session;
-	private JList list;
 	
 	
 	public HomeWindow(session input_session){
@@ -110,35 +144,48 @@ public class HomeWindow extends Window {
 		//init elements
 		
 		this.master_container = new JPanel();
-		master_container.setLayout(new BorderLayout(0, 0));
+		master_container.setLayout(new BorderLayout(5, 5));
 		
 		this.master_container_switch = new JPanel(new CardLayout());
 				
 		this.home_panel = new JPanel();
-		home_panel.setLayout(new BorderLayout(0, 0));
+		home_panel.setLayout(new BorderLayout(5, 5));
 		
 		this.user_panel = new JPanel();
-		user_panel.setLayout(new BorderLayout(0, 0));
+		user_panel.setLayout(new BorderLayout(5, 5));
 		
 		this.buttons_panel = new JPanel();
 		
 		this.private_game_panel = new JPanel();
-		private_game_panel.setLayout(new BorderLayout(0, 0));
+		private_game_panel.setLayout(new BorderLayout(5, 5));
 		
 		this.private_game_button_panel = new JPanel();
+		this.private_game_playground_panel = new JPanel();
+		private_game_playground_panel.setBorder(BorderFactory.createLoweredBevelBorder());
+		this.private_game_right_side = new JPanel();
+		private_game_right_side.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+		private_game_right_side.setLayout(new BoxLayout(private_game_right_side, BoxLayout.PAGE_AXIS));
 		
 		this.public_game_panel = new JPanel();
-		public_game_panel.setLayout(new BorderLayout(0, 0));
+		public_game_panel.setLayout(new BorderLayout(5, 5));
 		
 		this.public_game_button_panel = new JPanel();
+		this.public_game_title_panel = new JPanel();
+		this.public_game_ranking_panel = new JPanel();
+		public_game_title_panel.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+		this.public_game_playground_panel = new JPanel();
+		public_game_playground_panel.setBorder(BorderFactory.createLoweredBevelBorder());
+		this.public_game_right_side = new JPanel();
+		public_game_right_side.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+		public_game_right_side.setLayout(new BoxLayout(public_game_right_side, BoxLayout.PAGE_AXIS));
 		
 		this.editor_panel = new JPanel();
-		editor_panel.setLayout(new BorderLayout(0, 0));
+		editor_panel.setLayout(new BorderLayout(5, 5));
 		
 		this.editor_button_panel = new JPanel();
 		
 		this.ranking_panel = new JPanel();
-		ranking_panel.setLayout(new BorderLayout(0, 0));
+		ranking_panel.setLayout(new BorderLayout(5, 5));
 		
 		this.ranking_button_panel = new JPanel();
 		
@@ -170,8 +217,19 @@ public class HomeWindow extends Window {
 		this.photo_label = new JLabel(new ImageIcon("/Users/martinzagar/Documents/oad_images/fb_punisher.jpg"));
 		photo_label.setVerticalAlignment(SwingConstants.TOP);
 		
+		this.private_game_titel = new JLabel("Hier kommt der Titel des Spiels rein");
+		private_game_titel.setHorizontalAlignment(SwingConstants.CENTER);
+		private_game_titel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		private_game_titel.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+		
+		this.public_game_titel = new JLabel("Hier kommt der Titel des Spiels rein");
+		this.public_rating_label = new JLabel("Ranking:");
+		this.public_rating_result_label = new JLabel("Hier soll das Ergebnis rein");
+		
+		
+		
 		this.notification_list = new JList(stringlist);
-		notification_list.setBorder(new LineBorder(new Color(0, 0, 0)));
+		notification_list.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		
 		
 		this.play_private_game_button = new JButton("Play Private Game");
@@ -184,6 +242,25 @@ public class HomeWindow extends Window {
 		this.public_game_back_button = new JButton("Back");
 		this.editor_back_button = new JButton("Back");
 		this.ranking_back_button = new JButton("Back");
+		
+		
+		this.private_game_box = new JComboBox();
+		this.private_game_description = new JTextPane();
+		private_game_description.setText("Hier soll die Beschreibung\nstehen, die man im Editor\nerstellen kann");
+		
+		this.public_game_box = new JComboBox();
+		this.public_game_description = new JTextPane();
+		public_game_description.setText("Hier soll die Beschreibung\nstehen, die man im Editor\nerstellen kann");
+		
+		
+		this.ranking1 = new JRadioButton("1");
+		this.ranking2 = new JRadioButton("2");
+		this.ranking3 = new JRadioButton("3");
+		this.ranking4 = new JRadioButton("4");
+		this.ranking5 = new JRadioButton("5");
+				
+		
+		
 		
 		
 		this.userSetting = new UserSettingWindow(input_session);
@@ -220,9 +297,29 @@ public class HomeWindow extends Window {
 		this.buttons_panel.add(this.editor_button);
 		this.buttons_panel.add(this.rankings_button);
 		
+		this.public_game_ranking_panel.add(this.ranking1);
+		this.public_game_ranking_panel.add(this.ranking2);
+		this.public_game_ranking_panel.add(this.ranking3);
+		this.public_game_ranking_panel.add(this.ranking4);
+		this.public_game_ranking_panel.add(this.ranking5);
+		
+	
 		
 		this.home_panel.add(this.user_panel, BorderLayout.CENTER);
 		this.home_panel.add(this.buttons_panel, BorderLayout.SOUTH);
+		
+		
+		
+		this.private_game_right_side.add(this.private_game_box);
+		this.private_game_right_side.add(this.private_game_description);
+		
+		this.public_game_right_side.add(this.public_game_box);
+		this.public_game_right_side.add(this.public_game_description);
+		this.public_game_right_side.add(this.public_game_ranking_panel);
+		
+		this.public_game_title_panel.add(this.public_game_titel);
+		this.public_game_title_panel.add(this.public_rating_label);
+		this.public_game_title_panel.add(this.public_rating_result_label);
 		
 		
 		this.private_game_button_panel.add(this.private_game_back_button);
@@ -231,11 +328,19 @@ public class HomeWindow extends Window {
 		this.ranking_button_panel.add(this.ranking_back_button);
 		
 		
+		
+		this.private_game_panel.add(this.private_game_titel, BorderLayout.NORTH);
 		this.private_game_panel.add(this.private_game_button_panel, BorderLayout.SOUTH);
+		this.private_game_panel.add(this.private_game_playground_panel, BorderLayout.CENTER);
+		this.private_game_panel.add(this.private_game_right_side, BorderLayout.EAST);
 		
 		
-		
+		this.public_game_panel.add(this.public_game_title_panel, BorderLayout.NORTH);
 		this.public_game_panel.add(this.public_game_button_panel, BorderLayout.SOUTH);
+		this.public_game_panel.add(this.public_game_playground_panel, BorderLayout.CENTER);
+		this.public_game_panel.add(this.public_game_right_side, BorderLayout.EAST);
+		
+		
 		this.editor_panel.add(this.editor_button_panel, BorderLayout.SOUTH);
 		this.ranking_panel.add(this.ranking_button_panel, BorderLayout.SOUTH);
 		
@@ -258,6 +363,9 @@ public class HomeWindow extends Window {
         cl.show(master_container_switch,"Karte1" );
 		
 		
+        
+		
+        
 		this.initListeners();
 		
 	}
@@ -271,6 +379,10 @@ public class HomeWindow extends Window {
 			{
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte2" );	
+		        
+		        
+		        
+		        
 			}	
 		});
 		
