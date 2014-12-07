@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -105,11 +106,11 @@ public class LoginWindow extends Window{
 				} catch (Exception e1) {
 					System.out.println("Login error: " + e1.getMessage());
 					if (e1.getMessage().equals("InvalidPW")){
-						//TODO: Pop-up
+						JOptionPane.showMessageDialog(window, "The Password is wrong!");
 					}
 					else if (e1.getMessage().equals("NoSuchUser")){
-						//TODO: Pop-up
-					}
+						JOptionPane.showMessageDialog(window, "No User in our Database!");					
+						}
 				}
 				if (current_session.getLoginState()){
 					hide();

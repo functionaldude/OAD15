@@ -80,28 +80,30 @@ public class GameSettingWindow extends Window {
 		game_settings_panel.setLayout(null);
 		
 		this.background_color_label = new JLabel("Background - Color:");
+		background_color_label.setHorizontalAlignment(SwingConstants.CENTER);
 		background_color_label.setLocation(0, 52);
-		background_color_label.setSize(100, 20);
+		background_color_label.setSize(200, 20);
 		
 		this.background_music_label = new JLabel("Background - Music:");
+		background_music_label.setHorizontalAlignment(SwingConstants.CENTER);
 		background_music_label.setLocation(0, 99);
-		background_music_label.setSize(100, 20);
+		background_music_label.setSize(200, 20);
 		
 		this.game_settings_cancel = new JButton("Cancel");
-		game_settings_cancel.setLocation(250, 225);
+		game_settings_cancel.setLocation(300, 225);
 		game_settings_cancel.setSize(100, 20);
 		
 		this.game_settings_save = new JButton("Save");
-		game_settings_save.setLocation(63, 225);
+		game_settings_save.setLocation(40, 225);
 		game_settings_save.setSize(100, 20);
 		
 		this.background_color_box = new JComboBox<Object>(background_color);
-		background_color_box.setLocation(300, 53);
-		background_color_box.setSize(100, 20);
+		background_color_box.setLocation(264, 53);
+		background_color_box.setSize(180, 20);
 		
 		this.background_music_box = new JComboBox<Object>(background_music);
-		background_music_box.setLocation(300, 100);
-		background_music_box.setSize(100, 20);
+		background_music_box.setLocation(264, 100);
+		background_music_box.setSize(180, 20);
 		
 		
 				
