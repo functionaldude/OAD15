@@ -38,6 +38,7 @@ public class SQLConnection{
     public void closeConn(){
     	try {
 			connect.close();
+			connect = null;
 		} catch (SQLException ex) {
         	System.out.println("SQLException(close): " + ex.getMessage());
 		}
