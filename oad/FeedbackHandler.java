@@ -13,7 +13,7 @@ public class FeedbackHandler {
 	public void addFeedback(String title, String msg){
 		Statement stmt;
 		try {
-			stmt = current_session.getServer().getConn().createStatement();
+			stmt = current_session.server.getConn().createStatement();
 			stmt.executeUpdate("INSERT INTO feedback (user_id, title, msg) VALUES ("+
 					current_session.getUser().getID() + ", '"+
 					title + "' ,'" +
