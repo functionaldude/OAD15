@@ -132,10 +132,6 @@ public class TutorialWindow extends Window {
 		this.window.getContentPane().add(this.tutorial_panel);
 		
 		
-		
-	
-		
-		
 		this.initListeners();
 		
 	}
