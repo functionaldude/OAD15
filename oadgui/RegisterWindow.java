@@ -42,7 +42,7 @@ public class RegisterWindow extends Window{
 	session current_session;
 	User created_user;
 	
-	RegisterWindow(session input_session){
+	public RegisterWindow(session input_session){
 		//setup vars
 		this.current_session = input_session;
 		//setup frame

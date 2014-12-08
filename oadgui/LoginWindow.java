@@ -11,6 +11,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import oad.GUIController;
 import oad.session;
 
 import java.awt.Font;
@@ -30,8 +31,8 @@ public class LoginWindow extends Window{
 	private JButton reset_password;
 	
 	//textfields
-	private JTextField f_email;
-	private JPasswordField f_pw;
+	public JTextField f_email;
+	public JPasswordField f_pw;
 	
 	//frames
 	private RegisterWindow w_reg;
@@ -109,44 +110,9 @@ public class LoginWindow extends Window{
 	}
 	
 	private void initListeners(){
-		this.login.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String input_email = f_email.getText();
-				String input_pw = new String(f_pw.getPassword());
-				try {
-					current_session.authenticate(input_email, input_pw);
-				} catch (Exception e1) {
-					System.out.println("Login error: " + e1.getMessage());
-					if (e1.getMessage().equals("InvalidPW")){
-						JOptionPane.showMessageDialog(window, "The Password is wrong!");
-					}
-					else if (e1.getMessage().equals("NoSuchUser")){
-						JOptionPane.showMessageDialog(window, "No User in our Database!");					
-						}
-				}
-				if (current_session.getLoginState()){
-					hide();
-					synchronized(visiblity){
-						visiblity.notify();
-					}
-				}
-			}
-		});
-		this.register.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e){
-				w_reg.show();
-			}
-		});
-		
-		this.reset_password.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e){
-				reset_password_frame.show();
-				
-			}
-		});
+		this.login.addActionListener(GUIController.login);
+		this.register.addActionListener(GUIController.register);
+		this.reset_password.addActionListener(GUIController.reset_pw);
 	}
 	
 }
