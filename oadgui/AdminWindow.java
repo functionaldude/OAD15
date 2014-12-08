@@ -72,8 +72,8 @@ public class AdminWindow extends Window{
 	
 	
 	//string
-	
-	
+	//private String[] columnNames = {"ID", "Username", "PW", "E-Mail"};
+
 	
 	
 	//vars
