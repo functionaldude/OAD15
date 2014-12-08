@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import oad.GUIController;
 import oad.session;
 
 import java.awt.CardLayout;
@@ -62,26 +63,20 @@ public class AdminWindow extends Window{
 	
 	
 	//table
-	private JTable user_table;
-	private JTable game_table;
-	private JTable notification_table;
+	public JTable user_table;
+	public JTable game_table;
+	public JTable notification_table;
 	
 	
 	//textfields
 	
-	private JTabbedPane admin_pane;
-	private JTextField search_user_field;
-	private JTextField search_notification_field;
-	
-	
-	//string
-	//private String[] columnNames = {"ID", "Username", "PW", "E-Mail"};
-
-	
+	public JTabbedPane admin_pane;
+	public JTextField search_user_field;
+	public JTextField search_notification_field;
 	
 	//vars
 	session current_session;
-	UserTableModel user_table_content;
+	public UserTableModel user_table_content;
 	
 	public AdminWindow(session input_session){
 		//setup vars
@@ -233,16 +228,7 @@ public class AdminWindow extends Window{
 	
 	
 	private void initListeners(){
-		this.search_user.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e){
-				try {
-					user_table.setModel(new UserTableModel(current_session.searchUser(search_user_field.getText())));
-				} catch (SQLException e1) {
-					System.out.println("SQLException: "+e1.getMessage());
-				}
-			}
-		});
+		this.search_user.addActionListener(GUIController.search_users);
 	}
 	
 }

@@ -2,6 +2,7 @@ package oad;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
@@ -16,6 +17,7 @@ import oadgui.RegisterWindow;
 import oadgui.ResetPasswordWindow;
 import oadgui.TutorialWindow;
 import oadgui.UserSettingWindow;
+import oadgui.UserTableModel;
 import oadgui.Window;
 
 public class GUIController {
@@ -154,5 +156,15 @@ public class GUIController {
 			w_feedback.show();
 		}	
 	};
-	
+	//admin window
+	public static ActionListener search_users = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			try {
+				w_admin.user_table.setModel(new UserTableModel(sessionvar.searchUser(w_admin.search_user_field.getText())));
+			} catch (SQLException e1) {
+				System.out.println("SQLException: "+e1.getMessage());
+			}
+		}
+	};
 }
