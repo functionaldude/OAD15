@@ -53,6 +53,7 @@ public class GUIController {
 		w_about = new AboutUsWindow(sessionvar);
 		w_register = new RegisterWindow(sessionvar);
 		w_resetpw = new ResetPasswordWindow(sessionvar);
+		
 	}
 	
 	//actionlisteners
@@ -75,7 +76,12 @@ public class GUIController {
 			}
 			if (sessionvar.getLoginState()){
 				w_login.hide();
-				w_main.show();
+				if (sessionvar.getUser().getUserName().equals("admin")){
+					w_admin.show();
+				} else {
+					w_main.home_label.setText("Hello "+sessionvar.getUser().getUserName());
+					w_main.show();
+				}
 			}
 		}
 	};

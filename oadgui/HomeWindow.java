@@ -65,7 +65,7 @@ public class HomeWindow extends Window {
 	
 	
 	//labels
-	private JLabel home_label;
+	public JLabel home_label;
 	private JLabel photo_label;
 	private JLabel private_game_titel;
 	private JLabel public_game_titel;
@@ -201,7 +201,7 @@ public class HomeWindow extends Window {
 		this.help_menu_item4 = new JMenuItem("About Us");
 		
 		
-		this.home_label = new JLabel("Hello "+current_session.getUser().getUserName());
+		this.home_label = new JLabel();
 		home_label.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		home_label.setHorizontalAlignment(SwingConstants.CENTER);
 		
