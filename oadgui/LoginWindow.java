@@ -18,18 +18,24 @@ import java.awt.Font;
 
 public class LoginWindow extends Window{
 	//elemente
+	
 	//labels
 	private JLabel l_title;
 	private JLabel l_email;
 	private JLabel l_pw;
+	
 	//buttons
 	private JButton login;
 	private JButton register;
+	private JButton reset_password;
+	
 	//textfields
 	private JTextField f_email;
 	private JPasswordField f_pw;
+	
 	//frames
 	private RegisterWindow w_reg;
+	private ResetPasswordWindow reset_password_frame;
 	
 	private JPanel l_panel;
 	
@@ -62,21 +68,27 @@ public class LoginWindow extends Window{
 		l_pw.setBounds(6, 153, 158, 20);
 		
 		this.login = new JButton("Login");
-		login.setBounds(24, 235, 140, 20);
+		login.setBounds(6, 235, 140, 20);
 		
 		this.register = new JButton("Register");
-		register.setBounds(238, 235, 140, 20);
+		register.setBounds(158, 235, 140, 20);
+		
+		this.reset_password = new JButton("Reset Password");
+		reset_password.setLocation(304, 235);
+		reset_password.setSize(140, 20);
+		
+		
 		this.f_email = new JTextField();
-		
 		f_email.setBounds(238, 100, 140, 20);
-		this.f_pw = new JPasswordField();
 		
+		this.f_pw = new JPasswordField();
 		f_pw.setBounds(238, 153, 140, 20);
 		
 		l_panel.setLayout(null);
 		
 		
 		this.w_reg = new RegisterWindow(input_session);
+		this.reset_password_frame = new ResetPasswordWindow(input_session);
 		
 		//l_panel.setLayout(null);
 		
@@ -89,6 +101,7 @@ public class LoginWindow extends Window{
 		this.l_panel.add(this.register);
 		this.l_panel.add(this.f_email);
 		this.l_panel.add(this.f_pw);
+		this.l_panel.add(this.reset_password);
 		
 		this.window.getContentPane().add(this.l_panel);
 		
@@ -124,6 +137,14 @@ public class LoginWindow extends Window{
 			@Override
 			public void actionPerformed(ActionEvent e){
 				w_reg.show();
+			}
+		});
+		
+		this.reset_password.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e){
+				reset_password_frame.show();
+				
 			}
 		});
 	}

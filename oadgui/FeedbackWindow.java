@@ -34,6 +34,7 @@ public class FeedbackWindow extends Window {
 	//labels
 	
 	private JLabel feedback_name_label;
+	private JLabel feedback_email_label;
 	private JLabel feedback_titel_label;
 	private JLabel feedback_message_label;
 	
@@ -47,6 +48,7 @@ public class FeedbackWindow extends Window {
 	//fields
 	
 	private JTextField feedback_name_field;
+	private JTextField feedback_email_field;
 	private JTextField feedback_titel_field;
 	private JTextPane feedback_message_field;
 	
@@ -78,24 +80,33 @@ public class FeedbackWindow extends Window {
 		
 		this.feedback_titel_label = new JLabel("Titel:");
 		feedback_titel_label.setHorizontalAlignment(SwingConstants.CENTER);
-		feedback_titel_label.setLocation(6, 85);
+		feedback_titel_label.setLocation(6, 118);
 		feedback_titel_label.setSize(225, 20);
+		
+		this.feedback_email_label = new JLabel("Email:");
+		feedback_email_label.setHorizontalAlignment(SwingConstants.CENTER);
+		feedback_email_label.setLocation(6, 86);
+		feedback_email_label.setSize(225, 20);
 		
 		this.feedback_message_label = new JLabel("Message:");
 		feedback_message_label.setHorizontalAlignment(SwingConstants.CENTER);
-		feedback_message_label.setLocation(6, 117);
+		feedback_message_label.setLocation(6, 150);
 		feedback_message_label.setSize(225, 20);
 		
 		this.feedback_name_field = new JTextField();
 		feedback_name_field.setLocation(269, 52);
 		feedback_name_field.setSize(325, 20);
 		
+		this.feedback_email_field = new JTextField();
+		feedback_email_field.setLocation(269, 86);
+		feedback_email_field.setSize(325, 20);
+		
 		this.feedback_titel_field = new JTextField();
-		feedback_titel_field.setLocation(269, 85);
+		feedback_titel_field.setLocation(269, 118);
 		feedback_titel_field.setSize(325, 20);
 		
 		this.feedback_message_field = new JTextPane();
-		feedback_message_field.setLocation(269, 117);
+		feedback_message_field.setLocation(269, 150);
 		feedback_message_field.setSize(325, 200);
 		
 		this.feedback_send = new JButton("Send");
@@ -111,10 +122,12 @@ public class FeedbackWindow extends Window {
 		//add elements
 		
 		this.feedback_panel.add(this.feedback_name_label);
+		this.feedback_panel.add(this.feedback_email_label);
 		this.feedback_panel.add(this.feedback_titel_label);
 		this.feedback_panel.add(this.feedback_message_label);
 		
 		this.feedback_panel.add(this.feedback_name_field);
+		this.feedback_panel.add(this.feedback_email_field);
 		this.feedback_panel.add(this.feedback_titel_field);
 		this.feedback_panel.add(this.feedback_message_field);
 		
@@ -124,9 +137,6 @@ public class FeedbackWindow extends Window {
 		
 		this.window.getContentPane().add(this.feedback_panel);
 		
-		
-		
-	
 		
 		
 		this.initListeners();
