@@ -5,7 +5,9 @@ import java.lang.Exception;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class session {
 	public int sessionID;
@@ -104,8 +106,8 @@ public class session {
 	}
 	
 	//admin functions
-	public HashSet<User> searchUser(String input) throws Exception{
-		HashSet<User> ret_val = new HashSet<User>();
+	public List<User> searchUser(String input) throws SQLException{
+		List<User> ret_val = new ArrayList<User>();
 		Statement stmt = server.getConn().createStatement();
 		ResultSet res;
 		if (input == null){ // null -> all users

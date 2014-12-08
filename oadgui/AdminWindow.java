@@ -15,7 +15,11 @@ import java.awt.BorderLayout;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 
 public class AdminWindow extends Window{
@@ -194,13 +198,22 @@ public class AdminWindow extends Window{
 		this.window.getContentPane().add(this.master_container);
 		
 		
-		//this.initListeners();
+		this.initListeners();
 	}
 
 	
 	
-	/*private void initListeners(){
-		
-	}*/
+	private void initListeners(){
+		this.search_user.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e){
+				try {
+					user_table.setModel(new UserTableModel(current_session.searchUser(search_user_field.getText())));
+				} catch (SQLException e1) {
+					System.out.println("SQLException: "+e1.getMessage());
+				}
+			}
+		});
+	}
 	
 }
