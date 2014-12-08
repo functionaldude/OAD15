@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.5.34)
 # Database: OAD
-# Generation Time: 2014-12-06 20:20:44 +0000
+# Generation Time: 2014-12-08 19:02:26 +0000
 # ************************************************************
 
 
@@ -64,6 +64,7 @@ CREATE TABLE `user` (
   `password` varchar(20) NOT NULL DEFAULT '',
   `email` varchar(32) NOT NULL DEFAULT '',
   `img` mediumblob,
+  `music` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -71,13 +72,12 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `img`)
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `img`, `music`)
 VALUES
-	(2,'zoli','zoli','zoli',NULL),
-	(3,'adam','adam','adam',NULL),
-	(4,'admin','admin','admin',NULL),
-	(5,'test','test','',NULL),
-	(6,'adam12','adam','adam',NULL);
+	(1,'test','test','',NULL,0),
+	(2,'zoli','zoli','zoli',NULL,0),
+	(3,'adam','adam','adam',NULL,0),
+	(4,'admin','admin','admin',NULL,0);
 
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
