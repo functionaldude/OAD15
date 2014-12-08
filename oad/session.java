@@ -5,6 +5,7 @@ import java.lang.Exception;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
 
 public class session {
 	public int sessionID;
@@ -100,5 +101,21 @@ public class session {
 	}
 	public User getUser(){
 		return current_user;
+	}
+	
+	//admin functions
+	public HashSet<User> searchUser(String input) throws Exception{
+		HashSet<User> ret_val = new HashSet<User>();
+		Statement stmt = server.getConn().createStatement();
+		ResultSet res;
+		if (input == null){ // null -> all users
+			res = stmt.executeQuery("SELECT * FROM user");
+		} else {
+			res = stmt.executeQuery("SELECT * FROM user WHERE username LIKE '"+input+"%'");
+		}
+		while(res.next()){
+			ret_val.add(new User(res.getString("username"), res.getString("password"), res.getString("email"), res.getInt("id")));
+		}
+		return ret_val;
 	}
 }
