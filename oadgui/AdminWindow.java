@@ -33,6 +33,7 @@ public class AdminWindow extends Window{
 	private JPanel master_container;
 	
 	private JPanel user_panel;
+	private JPanel user_table_panel;
 	private JPanel user_buttons_panel;
 	private JPanel user_search_panel;
 	
@@ -107,6 +108,9 @@ public class AdminWindow extends Window{
 		user_search_panel.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		user_search_panel.setLayout(new BoxLayout(user_search_panel, BoxLayout.LINE_AXIS));
 		
+		this.user_table_panel = new JPanel();
+		user_table_panel.setLayout(new BorderLayout(0, 0));
+		
 		this.game_panel = new JPanel();
 		game_panel.setLayout(new BorderLayout(5, 5));
 		
@@ -149,7 +153,6 @@ public class AdminWindow extends Window{
 		this.search_notification_field = new JTextField();
 		
 		this.user_table = new JTable(user_table_content.getData(), new String[] {"ID", "Username", "PW", "E-Mail"});
-		user_table.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		
 		this.game_table = new JTable();
 		game_table.setBorder(new LineBorder(new Color(0, 0, 0), 1));
@@ -169,9 +172,13 @@ public class AdminWindow extends Window{
 		this.user_search_panel.add(this.search_user_field);
 		this.user_search_panel.add(this.search_user);
 		
-		this.user_panel.add(this.user_table, BorderLayout.CENTER);
+		this.user_table_panel.add(this.user_table, BorderLayout.CENTER);
+		this.user_table_panel.add(user_table.getTableHeader(), BorderLayout.NORTH);
+		
+		//this.user_panel.add(this.user_table, BorderLayout.CENTER);
 		this.user_panel.add(this.user_buttons_panel, BorderLayout.EAST);
 		this.user_panel.add(this.user_search_panel, BorderLayout.NORTH);
+		this.user_panel.add(this.user_table_panel, BorderLayout.CENTER);
 		
 		
 		this.admin_pane.addTab("Game", game_panel);
