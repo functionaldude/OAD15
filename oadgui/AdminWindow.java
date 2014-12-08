@@ -38,9 +38,11 @@ public class AdminWindow extends Window{
 	private JPanel user_search_panel;
 	
 	private JPanel game_panel;
+	private JPanel game_table_panel;
 	private JPanel game_buttons_panel;
 	
 	private JPanel notification_panel;
+	private JPanel notification_table_panel;
 	private JPanel notification_buttons_panel;
 	private JPanel notification_search_panel;
 	
@@ -109,7 +111,9 @@ public class AdminWindow extends Window{
 		user_search_panel.setLayout(new BoxLayout(user_search_panel, BoxLayout.LINE_AXIS));
 		
 		this.user_table_panel = new JPanel();
+		user_table_panel.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		user_table_panel.setLayout(new BorderLayout(0, 0));
+		
 		
 		this.game_panel = new JPanel();
 		game_panel.setLayout(new BorderLayout(5, 5));
@@ -118,8 +122,16 @@ public class AdminWindow extends Window{
 		game_buttons_panel.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		game_buttons_panel.setLayout(new BoxLayout(game_buttons_panel, BoxLayout.PAGE_AXIS));
 		
+		this.game_table_panel = new JPanel();
+		game_table_panel.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+		game_table_panel.setLayout(new BorderLayout(0, 0));
+		
 		this.notification_panel = new JPanel();
 		notification_panel.setLayout(new BorderLayout(5, 5));
+		
+		this.notification_table_panel = new JPanel();
+		notification_table_panel.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+		notification_table_panel.setLayout(new BorderLayout(0, 0));
 		
 		this.notification_buttons_panel = new JPanel();
 		notification_buttons_panel.setBorder(new LineBorder(new Color(0, 0, 0), 1));
@@ -154,6 +166,7 @@ public class AdminWindow extends Window{
 		
 		this.user_table = new JTable(user_table_content.getData(), new String[] {"ID", "Username", "PW", "E-Mail"});
 		
+		
 		this.game_table = new JTable();
 		game_table.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		
@@ -175,7 +188,6 @@ public class AdminWindow extends Window{
 		this.user_table_panel.add(this.user_table, BorderLayout.CENTER);
 		this.user_table_panel.add(user_table.getTableHeader(), BorderLayout.NORTH);
 		
-		//this.user_panel.add(this.user_table, BorderLayout.CENTER);
 		this.user_panel.add(this.user_buttons_panel, BorderLayout.EAST);
 		this.user_panel.add(this.user_search_panel, BorderLayout.NORTH);
 		this.user_panel.add(this.user_table_panel, BorderLayout.CENTER);
@@ -186,7 +198,10 @@ public class AdminWindow extends Window{
 		this.game_buttons_panel.add(this.delete_game);
 		this.game_buttons_panel.add(this.add_new_game);
 		
-		this.game_panel.add(this.game_table, BorderLayout.CENTER);
+		this.game_table_panel.add(this.game_table, BorderLayout.CENTER);
+		this.game_table_panel.add(game_table.getTableHeader(), BorderLayout.NORTH);
+		
+		this.game_panel.add(this.game_table_panel, BorderLayout.CENTER);
 		this.game_panel.add(this.game_buttons_panel, BorderLayout.EAST);
 		
 		
@@ -200,9 +215,12 @@ public class AdminWindow extends Window{
 		this.notification_buttons_panel.add(this.answer_notification);
 		this.notification_buttons_panel.add(this.delete_notification);
 		
+		this.notification_table_panel.add(this.notification_table, BorderLayout.CENTER);
+		this.notification_table_panel.add(this.notification_table.getTableHeader(), BorderLayout.NORTH);
+		
 		this.notification_panel.add(this.notification_search_panel, BorderLayout.NORTH);
 		this.notification_panel.add(this.notification_buttons_panel, BorderLayout.EAST);
-		this.notification_panel.add(this.notification_table, BorderLayout.CENTER);
+		this.notification_panel.add(this.notification_table_panel, BorderLayout.CENTER);
 		
 		this.master_container.add(this.admin_pane);
 		
