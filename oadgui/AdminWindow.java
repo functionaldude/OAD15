@@ -78,10 +78,14 @@ public class AdminWindow extends Window{
 	
 	//vars
 	session current_session;
+	UserTableModel user_table_content;
 	
 	public AdminWindow(session input_session){
-		//setup bars
+		//setup vars
 		this.current_session = input_session;
+		try {
+			this.user_table_content = new UserTableModel(current_session.searchUser(null));
+		} catch (SQLException e) {}
 		//setup frame
 		init();
 		this.setName("Admin-Window");
@@ -144,7 +148,7 @@ public class AdminWindow extends Window{
 		this.search_user_field = new JTextField();
 		this.search_notification_field = new JTextField();
 		
-		this.user_table = new JTable();
+		this.user_table = new JTable(user_table_content.getData(), new String[] {"ID", "Username", "PW", "E-Mail"});
 		user_table.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		
 		this.game_table = new JTable();
