@@ -76,17 +76,31 @@ public class GUIController {
 			}
 		}
 	};
-	public static ActionListener register = new ActionListener() {
+	public static ActionListener open_register = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e){
 			w_register.show();
 		}
 	};
-	public static ActionListener reset_pw = new ActionListener() {
+	public static ActionListener open_reset_pw = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e){
 			w_resetpw.show();
 		}
 	};
-	
+	public static ActionListener register = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			try{
+				sessionvar.addUser(w_register.f_username.getText(), new String(w_register.f_pw.getPassword()), w_register.f_email.getText());
+			}
+			catch (Exception e1){
+				if (e1.getMessage() == "DuplicateUser"){
+					JOptionPane.showMessageDialog(w_register.window, "Username already exists!");
+					return;
+				}
+			}
+			w_register.hide();
+		}
+	};
 }

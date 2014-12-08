@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import oad.GUIController;
 import oad.User;
 import oad.session;
 
@@ -33,10 +34,10 @@ public class RegisterWindow extends Window{
 	private JButton register;
 	
 	//textfields
-	private JTextField f_username;
-	private JTextField f_email;
-	private JPasswordField f_pw;
-	private JPasswordField f_pw_repeat;
+	public JTextField f_username;
+	public JTextField f_email;
+	public JPasswordField f_pw;
+	public JPasswordField f_pw_repeat;
 	
 	//vars
 	session current_session;
@@ -112,20 +113,6 @@ public class RegisterWindow extends Window{
 	}
 	
 	private void initListeners(){
-		this.register.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e){
-				try{
-					current_session.addUser(f_username.getText(), new String(f_pw.getPassword()), f_email.getText());
-				}
-				catch (Exception e1){
-					if (e1.getMessage() == "DuplicateUser"){
-						JOptionPane.showMessageDialog(window, "Username already exists!");
-						return;
-					}
-				}
-				hide();
-			}
-		});
+		this.register.addActionListener(GUIController.register);
 	}
 }

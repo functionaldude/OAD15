@@ -34,10 +34,6 @@ public class LoginWindow extends Window{
 	public JTextField f_email;
 	public JPasswordField f_pw;
 	
-	//frames
-	private RegisterWindow w_reg;
-	private ResetPasswordWindow reset_password_frame;
-	
 	private JPanel l_panel;
 	
 	//vars
@@ -87,10 +83,6 @@ public class LoginWindow extends Window{
 		
 		l_panel.setLayout(null);
 		
-		
-		this.w_reg = new RegisterWindow(input_session);
-		this.reset_password_frame = new ResetPasswordWindow(input_session);
-		
 		//l_panel.setLayout(null);
 		
 		
@@ -111,8 +103,8 @@ public class LoginWindow extends Window{
 	
 	private void initListeners(){
 		this.login.addActionListener(GUIController.login);
-		this.register.addActionListener(GUIController.register);
-		this.reset_password.addActionListener(GUIController.reset_pw);
+		this.register.addActionListener(GUIController.open_register);
+		this.reset_password.addActionListener(GUIController.open_reset_pw);
 	}
 	
 }
