@@ -71,6 +71,7 @@ public class AdminWindow extends Window{
 	
 	
 	
+	
 	//vars
 	session current_session;
 	
