@@ -54,6 +54,7 @@ public class GUIController {
 	}
 	
 	//actionlisteners
+	//login window
 	public static ActionListener login = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -88,6 +89,7 @@ public class GUIController {
 			w_resetpw.show();
 		}
 	};
+	//register window
 	public static ActionListener register = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e){
@@ -103,4 +105,54 @@ public class GUIController {
 			w_register.hide();
 		}
 	};
+	//home window
+	public static ActionListener open_usersettings = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			w_usersettings.show();
+		}	
+	};
+	public static ActionListener open_gamesettings = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			w_gamesettings.show();
+		}	
+	};
+	public static ActionListener open_about = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			w_about.show();
+		}	
+	};
+	public static ActionListener open_contact = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			w_contact.show();
+		}	
+	};
+	public static ActionListener open_tutorial = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			w_tutorial.show();
+		}	
+	};
+	public static ActionListener open_feedback = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			w_feedback.show();
+		}	
+	};
+	
 }

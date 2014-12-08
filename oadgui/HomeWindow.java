@@ -21,6 +21,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
 
 import oad.AudioHandler;
+import oad.GUIController;
 import oad.session;
 
 import javax.swing.SwingConstants;
@@ -108,15 +109,6 @@ public class HomeWindow extends Window {
 	private JMenuItem	help_menu_item2;
 	private JMenuItem	help_menu_item3;
 	private JMenuItem	help_menu_item4;
-	
-	//frame
-	private UserSettingWindow userSetting;
-	private GameSettingWindow gameSetting;
-	private ContactWindow contact;
-	private TutorialWindow tutorial;
-	private FeedbackWindow feedback;
-	private AboutUsWindow aboutUs;
-	
 	
 	//combobox
 	private JComboBox private_game_box;
@@ -257,19 +249,7 @@ public class HomeWindow extends Window {
 		this.ranking2 = new JRadioButton("2");
 		this.ranking3 = new JRadioButton("3");
 		this.ranking4 = new JRadioButton("4");
-		this.ranking5 = new JRadioButton("5");
-				
-		
-		
-		
-		
-		this.userSetting = new UserSettingWindow(input_session);
-		this.gameSetting = new GameSettingWindow(input_session);
-		this.contact = new ContactWindow(input_session);
-		this.tutorial = new TutorialWindow(input_session);
-		this.feedback = new FeedbackWindow(input_session);
-		this.aboutUs = new AboutUsWindow(input_session);
-				
+		this.ranking5 = new JRadioButton("5");				
 		
 		//add elements
 		
@@ -457,59 +437,12 @@ public class HomeWindow extends Window {
 			}	
 		});
 		
-		this.setting_menu_item1.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				userSetting.show();
-			}	
-		});
-		
-		this.setting_menu_item2.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				gameSetting.show();
-			}	
-		});
-		
-		this.help_menu_item4.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				aboutUs.show();
-			}	
-		});
-		
-		this.help_menu_item3.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				contact.show();
-			}	
-		});
-		
-		this.help_menu_item1.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				tutorial.show();
-			}	
-		});
-		
-		this.help_menu_item2.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				feedback.show();
-			}	
-		});
+		this.setting_menu_item1.addActionListener(GUIController.open_usersettings);
+		this.setting_menu_item2.addActionListener(GUIController.open_gamesettings);
+		this.help_menu_item4.addActionListener(GUIController.open_about);
+		this.help_menu_item3.addActionListener(GUIController.open_contact);
+		this.help_menu_item1.addActionListener(GUIController.open_contact);
+		this.help_menu_item2.addActionListener(GUIController.open_feedback);
 		
 	
 	}
