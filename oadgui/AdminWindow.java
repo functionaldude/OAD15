@@ -153,7 +153,7 @@ public class AdminWindow extends Window{
 		
 		this.search_user_field = new JTextField();
 		this.search_notification_field = new JTextField();
-		
+		user_table_content = new UserTableModel(null);
 		this.user_table = new JTable(user_table_content.getData(), new String[] {"ID", "Username", "PW", "E-Mail"});
 		
 		

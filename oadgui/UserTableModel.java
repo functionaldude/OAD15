@@ -44,6 +44,9 @@ public class UserTableModel extends AbstractTableModel {
 	}
 	
 	public String[][] getData(){
+		if (userlist == null){
+			return new String[][] {{"","","",""}};
+		}
 		String[][] retval = new String[getRowCount()][getColumnCount()];
 		for (int i = 0; i < getRowCount(); i++){
 			retval[i][0] = new String(getValueAt(i,0).toString());
