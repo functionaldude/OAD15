@@ -57,13 +57,9 @@ public class AboutUsWindow extends Window {
 	
 		
 	
-	//vars
-	session current_session;
 	
 	
-	public AboutUsWindow(session input_session){
-		//setup vars
-		this.current_session = input_session;
+	public AboutUsWindow(){
 		
 		//setup frame
 		init_without_exit();

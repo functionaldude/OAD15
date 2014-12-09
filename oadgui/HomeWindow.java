@@ -119,13 +119,11 @@ public class HomeWindow extends Window {
 	private JTextPane public_game_description;
 		
 	
-	//vars
-	session current_session;
+
 	
 	
-	public HomeWindow(session input_session){
-		//setup vars
-		this.current_session = input_session;
+	public HomeWindow(){
+
 		
 		//setup frame
 		init();

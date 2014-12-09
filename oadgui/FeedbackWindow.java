@@ -16,6 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import oad.GUIController;
 import oad.session;
 
 import javax.swing.SwingConstants;
@@ -47,10 +48,10 @@ public class FeedbackWindow extends Window {
 	
 	//fields
 	
-	private JTextField feedback_name_field;
-	private JTextField feedback_email_field;
-	private JTextField feedback_titel_field;
-	private JTextPane feedback_message_field;
+	public JTextField feedback_name_field;
+	public JTextField feedback_email_field;
+	public JTextField feedback_titel_field;
+	public JTextPane feedback_message_field;
 	
 
 	
@@ -145,22 +146,8 @@ public class FeedbackWindow extends Window {
 	
 	private void initListeners()
 	{
-		this.feedback_cancel.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e){
-				feedback_name_field.setText(null);
-				feedback_titel_field.setText(null);
-				feedback_message_field.setText(null);
-				hide();
-			}
-		});
-		this.feedback_send.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e){
-				current_session.feedbackhandler.addFeedback(feedback_titel_field.getText(), feedback_message_field.getText());
-				hide();
-			}
-		});
+		this.feedback_cancel.addActionListener(GUIController.feedback_cancel);
+		this.feedback_send.addActionListener(GUIController.send_feedback);
 	}
 	
 	public void show(){

@@ -42,21 +42,20 @@ public class GUIController {
 	}
 	
 	public void init(){
-		w_login = new LoginWindow(sessionvar);
-		w_admin = new AdminWindow(sessionvar);
-		w_main = new HomeWindow(sessionvar);
-		w_usersettings = new UserSettingWindow(sessionvar);
-		w_gamesettings = new GameSettingWindow(sessionvar);
-		w_contact = new ContactWindow(sessionvar);
-		w_tutorial = new TutorialWindow(sessionvar);
-		w_feedback = new FeedbackWindow(sessionvar);
-		w_about = new AboutUsWindow(sessionvar);
-		w_register = new RegisterWindow(sessionvar);
-		w_resetpw = new ResetPasswordWindow(sessionvar);
+		w_login = new LoginWindow();
+		w_admin = new AdminWindow();
+		w_main = new HomeWindow();
+		w_usersettings = new UserSettingWindow();
+		w_gamesettings = new GameSettingWindow();
+		w_contact = new ContactWindow();
+		w_tutorial = new TutorialWindow();
+		w_feedback = new FeedbackWindow();
+		w_about = new AboutUsWindow();
+		w_register = new RegisterWindow();
+		w_resetpw = new ResetPasswordWindow();
 		
 	}
 	
-	//actionlisteners
 	//login window
 	public static ActionListener login = new ActionListener() {
 		@Override
@@ -164,6 +163,7 @@ public class GUIController {
 	};
 	//admin window
 	public static ActionListener search_users = new ActionListener() {
+
 		@Override
 		public void actionPerformed(ActionEvent e){
 			try {
@@ -173,4 +173,19 @@ public class GUIController {
 			}
 		}
 	};
+	//feedback window
+	public static ActionListener feedback_cancel = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			w_feedback.hide();
+		}
+	};
+	public static ActionListener send_feedback = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			sessionvar.feedbackhandler.addFeedback(w_feedback.feedback_titel_field.getText(), w_feedback.feedback_message_field.getText());
+			w_feedback.hide();
+		}
+	};
+	
 }

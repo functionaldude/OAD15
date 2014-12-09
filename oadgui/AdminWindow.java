@@ -75,15 +75,10 @@ public class AdminWindow extends Window{
 	public JTextField search_notification_field;
 	
 	//vars
-	session current_session;
 	public UserTableModel user_table_content;
 	
-	public AdminWindow(session input_session){
-		//setup vars
-		this.current_session = input_session;
-		try {
-			this.user_table_content = new UserTableModel(current_session.searchUser(null));
-		} catch (SQLException e) {}
+	public AdminWindow(){
+		
 		//setup frame
 		init();
 		this.setName("Admin-Window");
