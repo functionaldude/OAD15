@@ -188,4 +188,28 @@ public class GUIController {
 		}
 	};
 	
+	//user setting window
+	public static ActionListener change_usr_settings = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			String old_pw = new String(w_usersettings.old_password_field.getPassword());
+			if (sessionvar.getUser().checkPW(old_pw)){
+				if(!w_usersettings.new_nickname_field.getText().isEmpty()){
+					String new_username = w_usersettings.new_nickname_field.getText();
+					if(sessionvar.checkForUser(new_username)){
+						//TODO: username taken
+					} else {
+						sessionvar.getUser().changeUserName(new_username);
+					}
+				}
+				if (! new String(w_usersettings.new_password_field.getPassword()).isEmpty()){
+					sessionvar.getUser().changePW(new String(w_usersettings.new_password_field.getPassword()));
+				}
+				sessionvar.syncBackUserData();
+				w_usersettings.hide();
+			} else {
+				//TODO: invalid pw
+			}
+		}
+	};
 }

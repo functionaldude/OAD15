@@ -57,15 +57,10 @@ public class TutorialWindow extends Window {
 	private JTextPane tutorial_game_pane;
 	private JTextPane tutorial_travelsale_pane;
 	
+	
+	
+	public TutorialWindow(){
 
-	
-	//vars
-	session current_session;
-	
-	
-	public TutorialWindow(session input_session){
-		//setup vars
-		this.current_session = input_session;
 		
 		//setup frame
 		init_without_exit();

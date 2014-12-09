@@ -39,9 +39,8 @@ public class LoginWindow extends Window{
 	//vars
 	session current_session;
 	
-	public LoginWindow(session input_session){
-		//setup bars
-		this.current_session = input_session;
+	public LoginWindow(){
+
 		//setup frame
 		init();
 		this.setName("Welcome");

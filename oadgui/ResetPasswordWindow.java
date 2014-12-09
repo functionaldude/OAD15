@@ -55,17 +55,10 @@ public class ResetPasswordWindow extends Window {
 	private JTextField nickname_field;
 	private JTextField email_field;
 	
+
 	
-	
-		
-	
-	//vars
-	session current_session;
-	
-	
-	public ResetPasswordWindow(session input_session){
-		//setup vars
-		this.current_session = input_session;
+	public ResetPasswordWindow(){
+
 		
 		//setup frame
 		init_without_exit();

@@ -38,14 +38,10 @@ public class RegisterWindow extends Window{
 	public JTextField f_email;
 	public JPasswordField f_pw;
 	public JPasswordField f_pw_repeat;
+
 	
-	//vars
-	session current_session;
-	User created_user;
-	
-	public RegisterWindow(session input_session){
-		//setup vars
-		this.current_session = input_session;
+	public RegisterWindow(){
+
 		//setup frame
 		init();
 		this.window.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

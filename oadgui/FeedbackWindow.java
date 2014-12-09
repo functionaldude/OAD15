@@ -52,16 +52,10 @@ public class FeedbackWindow extends Window {
 	public JTextField feedback_email_field;
 	public JTextField feedback_titel_field;
 	public JTextPane feedback_message_field;
-	
 
 	
-	//vars
-	session current_session;
-	
-	
-	public FeedbackWindow(session input_session){
-		//setup vars
-		this.current_session = input_session;
+	public FeedbackWindow(){
+
 		
 		//setup frame
 		init_without_exit();

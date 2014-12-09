@@ -58,14 +58,10 @@ public class ContactWindow extends Window {
 	String errors[] = {"Bugs", "Question about the game", "Question about the editor"};
 	
 	
-	
-	//vars
-	session current_session;
+
 	
 	
-	public ContactWindow(session input_session){
-		//setup vars
-		this.current_session = input_session;
+	public ContactWindow(){
 		
 		//setup frame
 		init_without_exit();
