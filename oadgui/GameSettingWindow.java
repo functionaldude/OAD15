@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import oad.GUIController;
 import oad.session;
 
 import javax.swing.SwingConstants;
@@ -47,8 +48,8 @@ public class GameSettingWindow extends Window {
 	
 	//combobox
 	
-	private JComboBox<?> background_color_box;
-	private JComboBox<?> background_music_box;
+	public JComboBox<?> background_color_box;
+	public JComboBox<?> background_music_box;
 	
 	
 	//strings
@@ -135,6 +136,7 @@ public class GameSettingWindow extends Window {
 				hide();
 			}
 		});
+		this.game_settings_save.addActionListener(GUIController.save_game_settings);
 	}
 
 		

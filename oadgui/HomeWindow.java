@@ -37,22 +37,22 @@ public class HomeWindow extends Window {
 	//elements
 	
 	//panel
-	private JPanel master_container;
+	public JPanel master_container;
 	
 	private JPanel master_container_switch;
 	
-	private JPanel home_panel;
-	private JPanel user_panel;
-	private JPanel buttons_panel;
+	public JPanel home_panel;
+	public JPanel user_panel;
+	public JPanel buttons_panel;
 	
-	private JPanel private_game_panel;
-	private JPanel private_game_playground_panel;
+	public JPanel private_game_panel;
+	public JPanel private_game_playground_panel;
 	private JPanel private_game_button_panel;
 	private JPanel private_game_right_side;
 	
-	private JPanel public_game_panel;
-	private JPanel public_game_title_panel;
-	private JPanel public_game_playground_panel;
+	public JPanel public_game_panel;
+	public JPanel public_game_title_panel;
+	public JPanel public_game_playground_panel;
 	private JPanel public_game_button_panel;
 	private JPanel public_game_right_side;
 	private JPanel public_game_ranking_panel;

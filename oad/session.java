@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+
+
 
 public class session {
 	public int sessionID;
@@ -103,6 +104,14 @@ public class session {
 	}
 	public User getUser(){
 		return current_user;
+	}
+	
+	public void resetPW(String username, String email){
+		if (checkForUser(username)){
+
+		} else {
+			//Pop-up: no such user
+		}
 	}
 	
 	//admin functions

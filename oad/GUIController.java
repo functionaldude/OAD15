@@ -1,5 +1,6 @@
 package oad;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -210,6 +211,28 @@ public class GUIController {
 			} else {
 				//TODO: invalid pw
 			}
+		}
+	};
+	
+	//game settings
+	public static ActionListener save_game_settings = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			int newcolor = w_gamesettings.background_color_box.getSelectedIndex();
+			Color bg;
+			switch (newcolor){
+			case 1: bg = Color.red; break;
+			case 2: bg = Color.black; break;
+			case 3: bg = Color.white; break;
+			case 4: bg = Color.blue; break;
+			case 5: bg = Color.green; break;
+			default: bg = Color.lightGray; break;
+			}
+			w_main.public_game_panel.setBackground(bg);
+			w_main.public_game_playground_panel.setBackground(bg);
+			w_main.private_game_panel.setBackground(bg);
+			w_main.private_game_playground_panel.setBackground(bg);
+			w_gamesettings.hide();
 		}
 	};
 }
