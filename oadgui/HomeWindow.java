@@ -66,7 +66,7 @@ public class HomeWindow extends Window {
 	
 	//labels
 	public JLabel home_label;
-	private JLabel photo_label;
+	public JLabel photo_label;
 	private JLabel private_game_titel;
 	private JLabel public_game_titel;
 	private JLabel public_rating_label;
@@ -190,7 +190,6 @@ public class HomeWindow extends Window {
 		
 		this.setting_menu = new JMenu("Settings");
 		this.help_menu = new JMenu("Help");
-		this.session_menu = new JMenu("Session");
 		
 		
 		this.setting_menu_item1 = new JMenuItem("User Settings");
@@ -202,15 +201,14 @@ public class HomeWindow extends Window {
 		this.help_menu_item3 = new JMenuItem("Contact");
 		this.help_menu_item4 = new JMenuItem("About Us");
 		
-		this.session_menu_item1 = new JMenuItem("Logout");
-		
 		this.home_label = new JLabel();
 		home_label.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		home_label.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
-		this.photo_label = new JLabel(new ImageIcon("/Users/martinzagar/Documents/oad_images/fb_punisher.jpg"));
+		this.photo_label = new JLabel();
 		photo_label.setVerticalAlignment(SwingConstants.TOP);
+		photo_label.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		this.private_game_titel = new JLabel("Hier kommt der Titel des Spiels rein");
 		private_game_titel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -264,13 +262,16 @@ public class HomeWindow extends Window {
 		this.help_menu.add(this.help_menu_item2);
 		this.help_menu.add(this.help_menu_item3);
 		this.help_menu.add(this.help_menu_item4);
+		this.session_menu = new JMenu("Session");
+		
+		this.session_menu_item1 = new JMenuItem("Logout");
+		this.main_menu.add(this.session_menu);
+		
+		this.session_menu.add(this.session_menu_item1);
 		
 		
 		this.main_menu.add(this.setting_menu);
 		this.main_menu.add(this.help_menu);
-		this.main_menu.add(this.session_menu);
-		
-		this.session_menu.add(this.session_menu_item1);
 		
 		this.user_panel.add(this.home_label, BorderLayout.NORTH);
 		this.user_panel.add(this.photo_label, BorderLayout.CENTER);

@@ -29,25 +29,16 @@ public class UserSettingWindow extends Window {
 	//panel
 	
 	private JPanel user_settings_panel;
-	
-	
-	//labels
-	
-	private JLabel old_nickname_label;
 	private JLabel new_nickname_label;
 	private JLabel old_password_label;
 	private JLabel new_password_label;
+	public JLabel usrimg;
 	
 	
 	//buttons
 	
 	private JButton user_settings_cancel;
 	private JButton user_settings_save;
-	
-	
-	
-	//fields
-	public JTextField old_nickname_field;
 	public JTextField new_nickname_field;
 	public JPasswordField old_password_field;
 	public JPasswordField new_password_field;
@@ -74,40 +65,31 @@ public class UserSettingWindow extends Window {
 		this.user_settings_panel = new JPanel();
 		user_settings_panel.setLayout(null);
 		
-		this.old_nickname_label = new JLabel("Old nickname:");
-		old_nickname_label.setHorizontalAlignment(SwingConstants.RIGHT);
-		old_nickname_label.setLocation(0, 25);
-		old_nickname_label.setSize(215, 20);
-		
 		this.new_nickname_label = new JLabel("New nickname:");
 		new_nickname_label.setHorizontalAlignment(SwingConstants.RIGHT);
-		new_nickname_label.setLocation(2, 57);
-		new_nickname_label.setSize(215, 20);
+		new_nickname_label.setLocation(8, 57);
+		new_nickname_label.setSize(176, 20);
 		
 		this.old_password_label = new JLabel("Old password:");
 		old_password_label.setHorizontalAlignment(SwingConstants.RIGHT);
-		old_password_label.setLocation(0, 89);
-		old_password_label.setSize(215, 20);
+		old_password_label.setLocation(6, 89);
+		old_password_label.setSize(178, 20);
 		
 		this.new_password_label = new JLabel("New password:");
 		new_password_label.setHorizontalAlignment(SwingConstants.RIGHT);
-		new_password_label.setLocation(0, 121);
-		new_password_label.setSize(215, 20);
-		
-		this.old_nickname_field = new JTextField();
-		old_nickname_field.setSize(215, 20);
-		old_nickname_field.setLocation(229, 25);
+		new_password_label.setLocation(6, 121);
+		new_password_label.setSize(178, 20);
 		
 		this.new_nickname_field = new JTextField();
-		new_nickname_field.setLocation(229, 57);
+		new_nickname_field.setLocation(196, 57);
 		new_nickname_field.setSize(215, 20);
 		
 		this.old_password_field = new JPasswordField();
-		old_password_field.setLocation(229, 89);
+		old_password_field.setLocation(196, 89);
 		old_password_field.setSize(215, 20);
 		
 		this.new_password_field = new JPasswordField();
-		new_password_field.setLocation(229, 121);
+		new_password_field.setLocation(196, 121);
 		new_password_field.setSize(215, 20);
 		
 		this.user_settings_cancel = new JButton("Cancel");
@@ -118,17 +100,9 @@ public class UserSettingWindow extends Window {
 		this.user_settings_save = new JButton("Save");
 		user_settings_save.setLocation(91, 245);
 		user_settings_save.setSize(100, 20);
-		
-				
-		
-		//add elements
-		
-		this.user_settings_panel.add(this.old_nickname_field);
 		this.user_settings_panel.add(this.new_nickname_field);
 		this.user_settings_panel.add(this.old_password_field);
 		this.user_settings_panel.add(this.new_password_field);
-		
-		this.user_settings_panel.add(this.old_nickname_label);
 		this.user_settings_panel.add(this.new_nickname_label);
 		this.user_settings_panel.add(this.old_password_label);
 		this.user_settings_panel.add(this.new_password_label);
@@ -138,6 +112,10 @@ public class UserSettingWindow extends Window {
 		
 		this.window.getContentPane().add(this.user_settings_panel);
 		
+		usrimg = new JLabel("New label");
+		usrimg.setBounds(123, 180, 61, 16);
+		user_settings_panel.add(usrimg);
+		
 	
 		
 		
@@ -146,7 +124,6 @@ public class UserSettingWindow extends Window {
 	}
 	
 	public void show(){
-		old_nickname_field.setText(null);
 		new_nickname_field.setText(null);
 		old_password_field.setText(null);
 		new_password_field.setText(null);

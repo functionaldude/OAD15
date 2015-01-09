@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 
 import oadgui.AboutUsWindow;
 import oadgui.AdminWindow;
@@ -106,6 +109,13 @@ public class GUIController {
 				}
 				w_gamesettings.background_music_box.setSelectedIndex(music);
 				sessionvar.musicplayer.setAudioData(music_path);
+				if(sessionvar.getUser().userimage != null){
+					w_main.photo_label.setText(null);
+					w_main.photo_label.setIcon(new ImageIcon(sessionvar.getUser().userimage));
+				} else {
+					w_main.photo_label.setIcon(null);
+					w_main.photo_label.setText("No image found! Please uplouad an avatar.");
+				}
 				if (sessionvar.getUser().getUserName().equals("admin")){
 					w_admin.show();
 				} else {
@@ -172,7 +182,6 @@ public class GUIController {
 		{
 			w_usersettings.new_nickname_field.setText(null);
 			w_usersettings.new_password_field.setText(null);
-			w_usersettings.old_nickname_field.setText(null);
 			w_usersettings.old_password_field.setText(null);
 			w_usersettings.show();
 		}	

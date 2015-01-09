@@ -1,5 +1,6 @@
 package oad;
 
+import java.awt.Image;
 import java.lang.Exception;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,7 +20,8 @@ public class User {
 	private String password;
 	private int type;
 	private int ID;
-	public int[] settings; 
+	public int[] settings;
+	public Image userimage;
 
 	//constructor
 	public User(String input_name, String input_pw, String input_email){
@@ -35,7 +37,7 @@ public class User {
 		this.ID = input_ID;
 		this.settings = new int[2];
 	} 
-	public User(String input_name, String input_pw, String input_email, int input_ID, int bg, int music){
+	public User(String input_name, String input_pw, String input_email, int input_ID, int bg, int music, Image inputimage){
 		this.username = input_name;
 		this.password = input_pw;
 		this.email = input_email;
@@ -43,6 +45,7 @@ public class User {
 		this.settings = new int[2];
 		this.settings[0] = bg;
 		this.settings[1] = music;
+		this.userimage = inputimage;
 	}
 
 	//user methods

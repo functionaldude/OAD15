@@ -1,14 +1,17 @@
 package oad;
 import oad.User;
 
+import java.awt.Image;
 import java.lang.Exception;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
+
 
 
 
@@ -27,13 +30,12 @@ public class session {
 	}
 	public void addUser(String input_username, String input_pw, String input_email) throws Exception{
 		if (this.checkForUser(input_username) == false){
-			Statement stmt;
-			stmt = server.getConn().createStatement();
-			stmt.executeUpdate("INSERT INTO user (username, password, email) VALUES ('"+ 
-					input_username+"', '"+
-					input_pw+"', '"+
-					input_email+
-					"')");
+			PreparedStatement stmt;
+			stmt = server.getConn().prepareStatement("INSERT INTO user (username, password, email) VALUES (?,?,?");
+			stmt.setString(1, input_username);
+			stmt.setString(2, input_pw);
+			stmt.setString(3, input_email);
+			stmt.executeUpdate();
 		} else {
 			throw new Exception("DuplicateUser");
 		}
@@ -62,13 +64,19 @@ public class session {
 		Statement stmt;
 		ResultSet res;
 		stmt = server.getConn().createStatement();
-		res = stmt.executeQuery("SELECT id, password, email, bg, music FROM user WHERE username = '" + input_username + "'");
+		res = stmt.executeQuery("SELECT id, password, email, bg, music, img FROM user WHERE username = '" + input_username + "'");
 		if (!res.first()){
 			throw new Exception("NoSuchUser");
 		} else {
 			System.out.println("User found!");
 			if (input_pw.equals(res.getString("password"))){
-				this.current_user = new User(input_username, input_pw, res.getString("email"), res.getInt("id"), res.getInt("bg"), res.getInt("music"));
+				Image userimage = null;
+				try {
+					userimage = ImageIO.read(res.getBinaryStream("img"));
+				} catch (Exception e) {
+					System.out.println("No user image at login!");
+				}
+				this.current_user = new User(input_username, input_pw, res.getString("email"), res.getInt("id"), res.getInt("bg"), res.getInt("music"), userimage);
 				logged_in = true;
 				System.out.println("Auth success!");
 			} else {
@@ -78,15 +86,18 @@ public class session {
 		}
 	}
 	public void syncBackUserData(){
-		Statement stmt;
+		PreparedStatement stmt;
+		String query;
 		try {
-			stmt = server.getConn().createStatement();
-			stmt.executeUpdate("UPDATE user SET password='"+current_user.getPW()+
-					"', email='"+current_user.getEmail()+
-					"', username='"+current_user.getUserName()+
-					"', bg="+current_user.settings[0]+
-					",music="+current_user.settings[1]+
-					" WHERE id="+current_user.getID());
+			query = "UPDATE user SET password = ?, email = ?, username = ?, bg= ?, music= ? WHERE id= ?";
+			stmt = server.getConn().prepareStatement(query);
+			stmt.setString(1, current_user.getPW());
+			stmt.setString(2, current_user.getEmail());
+			stmt.setString(3, current_user.getUserName());
+			stmt.setInt(4, current_user.settings[0]);
+			stmt.setInt(5, current_user.settings[1]);
+			stmt.setInt(6, current_user.getID());
+			stmt.executeUpdate();
 		} catch (SQLException ex) {
         	System.out.println("Error at pushing userdata");
         	System.out.println("SQLException: " + ex.getMessage());
