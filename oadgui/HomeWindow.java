@@ -101,6 +101,7 @@ public class HomeWindow extends Window {
 	
 	private JMenu 		setting_menu;
 	private JMenu		help_menu;
+	private JMenu session_menu;
 	
 	private JMenuItem	setting_menu_item1;
 	private JMenuItem	setting_menu_item2;
@@ -109,6 +110,8 @@ public class HomeWindow extends Window {
 	private JMenuItem	help_menu_item2;
 	private JMenuItem	help_menu_item3;
 	private JMenuItem	help_menu_item4;
+	
+	private JMenuItem session_menu_item1;
 	
 	//combobox
 	private JComboBox private_game_box;
@@ -187,6 +190,7 @@ public class HomeWindow extends Window {
 		
 		this.setting_menu = new JMenu("Settings");
 		this.help_menu = new JMenu("Help");
+		this.session_menu = new JMenu("Session");
 		
 		
 		this.setting_menu_item1 = new JMenuItem("User Settings");
@@ -198,6 +202,7 @@ public class HomeWindow extends Window {
 		this.help_menu_item3 = new JMenuItem("Contact");
 		this.help_menu_item4 = new JMenuItem("About Us");
 		
+		this.session_menu_item1 = new JMenuItem("Logout");
 		
 		this.home_label = new JLabel();
 		home_label.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
@@ -263,7 +268,9 @@ public class HomeWindow extends Window {
 		
 		this.main_menu.add(this.setting_menu);
 		this.main_menu.add(this.help_menu);
+		this.main_menu.add(this.session_menu);
 		
+		this.session_menu.add(this.session_menu_item1);
 		
 		this.user_panel.add(this.home_label, BorderLayout.NORTH);
 		this.user_panel.add(this.photo_label, BorderLayout.CENTER);
@@ -443,7 +450,7 @@ public class HomeWindow extends Window {
 		this.help_menu_item3.addActionListener(GUIController.open_contact);
 		this.help_menu_item1.addActionListener(GUIController.open_contact);
 		this.help_menu_item2.addActionListener(GUIController.open_feedback);
-		
+		this.session_menu_item1.addActionListener(GUIController.logout);
 	
 	}
 

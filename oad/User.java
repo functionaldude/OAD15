@@ -19,19 +19,31 @@ public class User {
 	private String password;
 	private int type;
 	private int ID;
+	public int[] settings; 
 
 	//constructor
 	public User(String input_name, String input_pw, String input_email){
 		this.username = input_name;
 		this.password = input_pw;
 		this.email = input_email;
+		this.settings = new int[2];
 	}
 	public User(String input_name, String input_pw, String input_email, int input_ID){
 		this.username = input_name;
 		this.password = input_pw;
 		this.email = input_email;
 		this.ID = input_ID;
+		this.settings = new int[2];
 	} 
+	public User(String input_name, String input_pw, String input_email, int input_ID, int bg, int music){
+		this.username = input_name;
+		this.password = input_pw;
+		this.email = input_email;
+		this.ID = input_ID;
+		this.settings = new int[2];
+		this.settings[0] = bg;
+		this.settings[1] = music;
+	}
 
 	//user methods
 	public String getUserName(){

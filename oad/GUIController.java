@@ -80,6 +80,32 @@ public class GUIController {
 			}
 			if (sessionvar.getLoginState()){
 				w_login.hide();
+				// bg color
+				Color bg;
+				int color = sessionvar.getUser().settings[0];
+				switch (color){
+				case 1: bg = Color.red; break;
+				case 2: bg = Color.black; break;
+				case 3: bg = Color.white; break;
+				case 4: bg = Color.blue; break;
+				case 5: bg = Color.green; break;
+				default: bg = Color.lightGray; break;
+				}
+				w_gamesettings.background_color_box.setSelectedIndex(color);
+				w_main.public_game_playground_panel.setBackground(bg);
+				w_main.private_game_playground_panel.setBackground(bg);
+			
+				//bg music
+				int music = sessionvar.getUser().settings[1]; 
+				String music_path = null;
+				switch (sessionvar.getUser().settings[1]){
+				case 1: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music1.wav"; break;
+				case 2: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music2.wav"; break;
+				case 3: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music3.wav"; break;
+				default: music_path = null;
+				}
+				w_gamesettings.background_music_box.setSelectedIndex(music);
+				sessionvar.musicplayer.setAudioData(music_path);
 				if (sessionvar.getUser().getUserName().equals("admin")){
 					w_admin.show();
 				} else {
@@ -124,12 +150,21 @@ public class GUIController {
 				}
 			}
 			w_register.hide();
-			w_register.f_email.setText(null);
-			w_register.f_username.setText(null);
-			w_register.f_pw.setText(null);
 		}
 	};
 	//home window
+	public static ActionListener logout = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			w_main.hide();
+			sessionvar.deauthenticate();
+			w_login.f_email.setText(null);
+			w_login.f_pw.setText(null);
+			w_login.show();
+		}	
+	};
 	public static ActionListener open_usersettings = new ActionListener(){
 
 		@Override
@@ -264,30 +299,35 @@ public class GUIController {
 		public void actionPerformed(ActionEvent e){
 			// bg color
 			int newcolor = w_gamesettings.background_color_box.getSelectedIndex();
-			Color bg;
-			switch (newcolor){
-			case 1: bg = Color.red; break;
-			case 2: bg = Color.black; break;
-			case 3: bg = Color.white; break;
-			case 4: bg = Color.blue; break;
-			case 5: bg = Color.green; break;
-			default: bg = Color.lightGray; break;
+			if (newcolor != sessionvar.getUser().settings[0]){
+				Color bg;
+				switch (newcolor){
+				case 1: bg = Color.red; break;
+				case 2: bg = Color.black; break;
+				case 3: bg = Color.white; break;
+				case 4: bg = Color.blue; break;
+				case 5: bg = Color.green; break;
+				default: bg = Color.lightGray; break;
+				}
+				sessionvar.getUser().settings[0] = newcolor;
+				w_main.public_game_playground_panel.setBackground(bg);
+				w_main.private_game_playground_panel.setBackground(bg);
 			}
-			w_main.public_game_playground_panel.setBackground(bg);
-			w_main.private_game_playground_panel.setBackground(bg);
-			
 			//bg music
 			int newmusic = w_gamesettings.background_music_box.getSelectedIndex();
-			String music_path = null;
-			switch (newmusic){
-			case 1: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music1.wav"; break;
-			case 2: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music2.wav"; break;
-			case 3: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music3.wav"; break;
-			default: music_path = null;
+			if(newmusic != sessionvar.getUser().settings[1]){
+				String music_path = null;
+				switch (newmusic){
+				case 1: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music1.wav"; break;
+				case 2: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music2.wav"; break;
+				case 3: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music3.wav"; break;
+				default: music_path = null;
+				}
+				sessionvar.getUser().settings[1] = newmusic;
+				sessionvar.musicplayer.setAudioData(music_path);
 			}
-			System.out.println(newmusic + " new music: " + music_path);
-			sessionvar.musicplayer.setAudioData(music_path);
 			w_gamesettings.hide();
+			sessionvar.syncBackUserData();
 		}
 	};
 	

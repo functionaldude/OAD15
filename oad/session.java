@@ -62,13 +62,13 @@ public class session {
 		Statement stmt;
 		ResultSet res;
 		stmt = server.getConn().createStatement();
-		res = stmt.executeQuery("SELECT id, password, email FROM user WHERE username = '" + input_username + "'");
+		res = stmt.executeQuery("SELECT id, password, email, bg, music FROM user WHERE username = '" + input_username + "'");
 		if (!res.first()){
 			throw new Exception("NoSuchUser");
 		} else {
 			System.out.println("User found!");
 			if (input_pw.equals(res.getString("password"))){
-				this.current_user = new User(input_username, input_pw, res.getString("email"), res.getInt("id"));
+				this.current_user = new User(input_username, input_pw, res.getString("email"), res.getInt("id"), res.getInt("bg"), res.getInt("music"));
 				logged_in = true;
 				System.out.println("Auth success!");
 			} else {
@@ -84,7 +84,9 @@ public class session {
 			stmt.executeUpdate("UPDATE user SET password='"+current_user.getPW()+
 					"', email='"+current_user.getEmail()+
 					"', username='"+current_user.getUserName()+
-					"' WHERE id="+current_user.getID());
+					"', bg="+current_user.settings[0]+
+					",music="+current_user.settings[1]+
+					" WHERE id="+current_user.getID());
 		} catch (SQLException ex) {
         	System.out.println("Error at pushing userdata");
         	System.out.println("SQLException: " + ex.getMessage());
@@ -111,7 +113,6 @@ public class session {
 			Statement stmt = server.getConn().createStatement();
 			ResultSet res = stmt.executeQuery("SELECT id FROM user WHERE username = '"+input_username+"' AND email = '"+input_email+"'");
 			if (res.first()){
-				res.next();
 				stmt.executeUpdate("INSERT INTO pwresets (user_id) VALUES (" + res.getInt(1) + ")");
 			} else {
 				throw new Exception("InvalidEmail");
