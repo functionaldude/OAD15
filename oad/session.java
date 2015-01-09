@@ -106,11 +106,21 @@ public class session {
 		return current_user;
 	}
 	
-	public void resetPW(String username, String email){
+	public void resetPW(String username) throws Exception{
 		if (checkForUser(username)){
-
+			
 		} else {
-			//Pop-up: no such user
+			throw new Exception("NoSuchUser");
+		}
+	}
+	public void registerPWreset(String input_username, String input_email) throws Exception{
+		if (checkForUser(input_username)){
+			Statement stmt = server.getConn().createStatement();
+			ResultSet res = stmt.executeQuery("SELECT id FROM user WHERE username = '"+input_username+"' AND email = '"+input_email+"'");
+			res.next();
+			stmt.executeUpdate("INSERT INTO pwresets (user_id) VALUES (" + res.getInt(1) + ")");
+		} else {
+			throw new Exception("NoSuchUser");
 		}
 	}
 	
@@ -128,5 +138,9 @@ public class session {
 			ret_val.add(new User(res.getString("username"), res.getString("password"), res.getString("email"), res.getInt("id")));
 		}
 		return ret_val;
+	}
+	public void deleteUser(String username) throws SQLException{
+		Statement stmt = server.getConn().createStatement();
+		stmt.executeUpdate("DELETE FROM user WHERE username = '" + username +"'");
 	}
 }

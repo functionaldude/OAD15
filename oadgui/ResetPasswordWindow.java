@@ -18,6 +18,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import oad.GUIController;
 import oad.session;
 
 import javax.swing.SwingConstants;
@@ -52,8 +53,8 @@ public class ResetPasswordWindow extends Window {
 	
 	//fields
 	
-	private JTextField nickname_field;
-	private JTextField email_field;
+	public JTextField nickname_field;
+	public JTextField email_field;
 	
 
 	
@@ -122,12 +123,7 @@ public class ResetPasswordWindow extends Window {
 	
 	private void initListeners()
 	{
-		this.reset_password_button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e){
-				hide();
-			}
-		});
+		this.reset_password_button.addActionListener(GUIController.resetPWregister);
 		
 		this.cancel_button.addActionListener(new ActionListener() {
 			@Override

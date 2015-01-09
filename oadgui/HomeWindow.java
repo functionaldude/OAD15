@@ -357,7 +357,7 @@ public class HomeWindow extends Window {
 			{
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte2" );	
-		        
+		        GUIController.sessionvar.musicplayer.start();
 		        
 		        
 		        
@@ -371,7 +371,7 @@ public class HomeWindow extends Window {
 			{
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte1" );
-				
+		        GUIController.sessionvar.musicplayer.stop();
 			}	
 		});
 		
@@ -382,6 +382,7 @@ public class HomeWindow extends Window {
 			{
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte3" );
+		        GUIController.sessionvar.musicplayer.start();
 			}	
 		});
 		
@@ -392,6 +393,7 @@ public class HomeWindow extends Window {
 			{
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte1" );
+		        GUIController.sessionvar.musicplayer.stop();
 			}	
 		});
 		

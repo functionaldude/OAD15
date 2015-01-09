@@ -156,7 +156,6 @@ public class AdminWindow extends Window{
 		user_table_content = new UserTableModel(null);
 		this.user_table = new JTable(user_table_content.getData(), new String[] {"ID", "Username", "PW", "E-Mail"});
 		
-		
 		this.game_table = new JTable();
 		game_table.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		
@@ -224,6 +223,7 @@ public class AdminWindow extends Window{
 	
 	private void initListeners(){
 		this.search_user.addActionListener(GUIController.search_users);
+		this.delete_user.addActionListener(GUIController.delete_user);
 	}
 	
 }

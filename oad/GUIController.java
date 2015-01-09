@@ -168,10 +168,25 @@ public class GUIController {
 		@Override
 		public void actionPerformed(ActionEvent e){
 			try {
-				w_admin.user_table.setModel(new UserTableModel(sessionvar.searchUser(w_admin.search_user_field.getText())));
+				w_admin.user_table_content = new UserTableModel(sessionvar.searchUser(w_admin.search_user_field.getText()));
+				w_admin.user_table.setModel(w_admin.user_table_content);
 			} catch (SQLException e1) {
 				System.out.println("SQLException: "+e1.getMessage());
 			}
+		}
+	};
+	public static ActionListener delete_user = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e){
+			int selected = w_admin.user_table.getSelectedRow();
+			String username = (String)w_admin.user_table_content.getValueAt(selected, 1);
+			try {
+				sessionvar.deleteUser(username);
+			} catch (SQLException e1) {
+				System.out.println("SQLException: "+e1.getMessage());
+			}
+			search_users.actionPerformed(null);
 		}
 	};
 	//feedback window
@@ -218,6 +233,7 @@ public class GUIController {
 	public static ActionListener save_game_settings = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e){
+			// bg color
 			int newcolor = w_gamesettings.background_color_box.getSelectedIndex();
 			Color bg;
 			switch (newcolor){
@@ -228,11 +244,43 @@ public class GUIController {
 			case 5: bg = Color.green; break;
 			default: bg = Color.lightGray; break;
 			}
-			w_main.public_game_panel.setBackground(bg);
 			w_main.public_game_playground_panel.setBackground(bg);
-			w_main.private_game_panel.setBackground(bg);
 			w_main.private_game_playground_panel.setBackground(bg);
+			
+			//bg music
+			int newmusic = w_gamesettings.background_music_box.getSelectedIndex();
+			String music_path = null;
+			switch (newmusic){
+			case 1: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music1.wav"; break;
+			case 2: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music2.wav"; break;
+			case 3: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music3.wav"; break;
+			default: music_path = null;
+			}
+			System.out.println(newmusic + " new music: " + music_path);
+			sessionvar.musicplayer.setAudioData(music_path);
 			w_gamesettings.hide();
+		}
+	};
+	
+	//resetPW window
+	public static ActionListener resetPWregister = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			String usr = w_resetpw.nickname_field.getText();
+			String email = w_resetpw.email_field.getText();
+			try {
+				sessionvar.registerPWreset(usr, email);
+			} 
+			catch (SQLException ex) {
+	        	System.out.println("SQLException: " + ex.getMessage());
+			}
+			catch (Exception ex) {
+				System.out.println("Exception: " + ex.getMessage());
+				//TODO: POpup: no such usr
+			}
+			w_resetpw.hide();
+			w_resetpw.nickname_field.setText(null);
+			w_resetpw.email_field.setText(null);
 		}
 	};
 }
