@@ -205,6 +205,9 @@ public class GUIController {
 		@Override
 		public void actionPerformed(ActionEvent e){
 			int selected = w_admin.user_table.getSelectedRow();
+			if (selected == -1){
+				return;
+			}
 			String username = (String)w_admin.user_table_content.getValueAt(selected, 1);
 			try {
 				sessionvar.deleteUser(username);
@@ -317,6 +320,9 @@ public class GUIController {
 		@Override
 		public void actionPerformed(ActionEvent e){
 			int selected = w_admin.user_table.getSelectedRow();
+			if (selected == -1){
+				return;
+			}
 			String username = (String)w_admin.user_table_content.getValueAt(selected, 1);
 			try {
 				sessionvar.resetPW(username);
