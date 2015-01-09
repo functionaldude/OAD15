@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 
 
 public class session {
@@ -26,16 +28,12 @@ public class session {
 	public void addUser(String input_username, String input_pw, String input_email) throws Exception{
 		if (this.checkForUser(input_username) == false){
 			Statement stmt;
-			try {
-				stmt = server.getConn().createStatement();
-				stmt.executeUpdate("INSERT INTO user (username, password, email) VALUES ('"+ 
-						input_username+"', '"+
-						input_pw+"', '"+
-						input_email+
-						"')");
-			} catch (SQLException ex) {
-	        	System.out.println("SQLException(add): " + ex.getMessage());
-			}
+			stmt = server.getConn().createStatement();
+			stmt.executeUpdate("INSERT INTO user (username, password, email) VALUES ('"+ 
+					input_username+"', '"+
+					input_pw+"', '"+
+					input_email+
+					"')");
 		} else {
 			throw new Exception("DuplicateUser");
 		}
@@ -63,14 +61,8 @@ public class session {
 		}
 		Statement stmt;
 		ResultSet res;
-		try{
-			stmt = server.getConn().createStatement();
-			res = stmt.executeQuery("SELECT id, password, email FROM user WHERE username = '" + input_username + "'");
-		}
-		catch (SQLException ex) {
-        	System.out.println("SQLException(auth): " + ex.getMessage());
-        	return;
-		}
+		stmt = server.getConn().createStatement();
+		res = stmt.executeQuery("SELECT id, password, email FROM user WHERE username = '" + input_username + "'");
 		if (!res.first()){
 			throw new Exception("NoSuchUser");
 		} else {
@@ -108,7 +100,8 @@ public class session {
 	
 	public void resetPW(String username) throws Exception{
 		if (checkForUser(username)){
-			
+			Statement stmt = server.getConn().createStatement();
+			stmt.executeUpdate("UPDATE user SET password='default' WHERE username='"+username+"'");
 		} else {
 			throw new Exception("NoSuchUser");
 		}
@@ -117,8 +110,12 @@ public class session {
 		if (checkForUser(input_username)){
 			Statement stmt = server.getConn().createStatement();
 			ResultSet res = stmt.executeQuery("SELECT id FROM user WHERE username = '"+input_username+"' AND email = '"+input_email+"'");
-			res.next();
-			stmt.executeUpdate("INSERT INTO pwresets (user_id) VALUES (" + res.getInt(1) + ")");
+			if (res.first()){
+				res.next();
+				stmt.executeUpdate("INSERT INTO pwresets (user_id) VALUES (" + res.getInt(1) + ")");
+			} else {
+				throw new Exception("InvalidEmail");
+			}
 		} else {
 			throw new Exception("NoSuchUser");
 		}

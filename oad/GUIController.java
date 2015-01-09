@@ -65,13 +65,17 @@ public class GUIController {
 			String input_pw = new String(w_login.f_pw.getPassword());
 			try {
 				sessionvar.authenticate(input_email, input_pw);
-			} catch (Exception e1) {
+			}
+			catch (SQLException e1){
+				JOptionPane.showMessageDialog(w_main.window, "Server error: "+ e1.getMessage());
+			}
+			catch (Exception e1) {
 				System.out.println("Login error: " + e1.getMessage());
 				if (e1.getMessage().equals("InvalidPW")){
-					JOptionPane.showMessageDialog(w_login.window, "The Password is wrong!");
+					JOptionPane.showMessageDialog(w_login.window, "The password is wrong!");
 				}
 				else if (e1.getMessage().equals("NoSuchUser")){
-					JOptionPane.showMessageDialog(w_login.window, "No User in our Database!");					
+					JOptionPane.showMessageDialog(w_login.window, "No such user in our Database!");					
 				}
 			}
 			if (sessionvar.getLoginState()){
@@ -88,12 +92,18 @@ public class GUIController {
 	public static ActionListener open_register = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e){
+			w_register.f_email.setText(null);
+			w_register.f_pw.setText(null);
+			w_register.f_pw_repeat.setText(null);
+			w_register.f_username.setText(null);
 			w_register.show();
 		}
 	};
 	public static ActionListener open_reset_pw = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e){
+			w_resetpw.nickname_field.setText(null);
+			w_resetpw.email_field.setText(null);
 			w_resetpw.show();
 		}
 	};
@@ -104,13 +114,19 @@ public class GUIController {
 			try{
 				sessionvar.addUser(w_register.f_username.getText(), new String(w_register.f_pw.getPassword()), w_register.f_email.getText());
 			}
+			catch (SQLException e1){
+				JOptionPane.showMessageDialog(w_main.window, "Server error: "+ e1.getMessage());
+			}
 			catch (Exception e1){
-				if (e1.getMessage() == "DuplicateUser"){
+				if (e1.getMessage().equals("DuplicateUser")){
 					JOptionPane.showMessageDialog(w_register.window, "Username already exists!");
 					return;
 				}
 			}
 			w_register.hide();
+			w_register.f_email.setText(null);
+			w_register.f_username.setText(null);
+			w_register.f_pw.setText(null);
 		}
 	};
 	//home window
@@ -119,6 +135,10 @@ public class GUIController {
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
+			w_usersettings.new_nickname_field.setText(null);
+			w_usersettings.new_password_field.setText(null);
+			w_usersettings.old_nickname_field.setText(null);
+			w_usersettings.old_password_field.setText(null);
 			w_usersettings.show();
 		}	
 	};
@@ -159,6 +179,10 @@ public class GUIController {
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
+			w_feedback.feedback_email_field.setText(null);
+			w_feedback.feedback_message_field.setText(null);
+			w_feedback.feedback_name_field.setText(null);
+			w_feedback.feedback_titel_field.setText(null);
 			w_feedback.show();
 		}	
 	};
@@ -172,6 +196,7 @@ public class GUIController {
 				w_admin.user_table.setModel(w_admin.user_table_content);
 			} catch (SQLException e1) {
 				System.out.println("SQLException: "+e1.getMessage());
+				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
 			}
 		}
 	};
@@ -185,6 +210,7 @@ public class GUIController {
 				sessionvar.deleteUser(username);
 			} catch (SQLException e1) {
 				System.out.println("SQLException: "+e1.getMessage());
+				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
 			}
 			search_users.actionPerformed(null);
 		}
@@ -213,7 +239,7 @@ public class GUIController {
 				if(!w_usersettings.new_nickname_field.getText().isEmpty()){
 					String new_username = w_usersettings.new_nickname_field.getText();
 					if(sessionvar.checkForUser(new_username)){
-						//TODO: username taken
+						JOptionPane.showMessageDialog(w_usersettings.window, "Username already taken!");
 					} else {
 						sessionvar.getUser().changeUserName(new_username);
 					}
@@ -224,7 +250,7 @@ public class GUIController {
 				sessionvar.syncBackUserData();
 				w_usersettings.hide();
 			} else {
-				//TODO: invalid pw
+				JOptionPane.showMessageDialog(w_usersettings.window, "The password is wrong!");
 			}
 		}
 	};
@@ -273,14 +299,37 @@ public class GUIController {
 			} 
 			catch (SQLException ex) {
 	        	System.out.println("SQLException: " + ex.getMessage());
+				JOptionPane.showMessageDialog(w_resetpw.window, "Server error: "+ ex.getMessage());
 			}
 			catch (Exception ex) {
 				System.out.println("Exception: " + ex.getMessage());
-				//TODO: POpup: no such usr
+				if (ex.getMessage().equals("NoSuchUser")){
+					JOptionPane.showMessageDialog(w_resetpw.window, "No such user in our Database!");					
+				}
+				else if (ex.getMessage().equals("InvalidEmail")){
+					JOptionPane.showMessageDialog(w_resetpw.window, "Data mismatch!");					
+				}
 			}
 			w_resetpw.hide();
-			w_resetpw.nickname_field.setText(null);
-			w_resetpw.email_field.setText(null);
+		}
+	};
+	public static ActionListener resetPW = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			int selected = w_admin.user_table.getSelectedRow();
+			String username = (String)w_admin.user_table_content.getValueAt(selected, 1);
+			try {
+				sessionvar.resetPW(username);
+			} catch (SQLException e1) {
+				System.out.println("SQLException: "+e1.getMessage());
+				JOptionPane.showMessageDialog(w_main.window, "Server error: "+ e1.getMessage());
+			} catch (Exception ex) {
+				System.out.println("Exception: " + ex.getMessage());
+				if (ex.getMessage().equals("NoSuchUser")){
+					JOptionPane.showMessageDialog(w_admin.window, "No such user in our Database!");					
+				}
+			}
+			search_users.actionPerformed(null);
 		}
 	};
 }

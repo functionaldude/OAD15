@@ -224,6 +224,7 @@ public class AdminWindow extends Window{
 	private void initListeners(){
 		this.search_user.addActionListener(GUIController.search_users);
 		this.delete_user.addActionListener(GUIController.delete_user);
+		this.reset_user_passwort.addActionListener(GUIController.resetPW);
 	}
 	
 }
