@@ -88,23 +88,17 @@ public class session {
 			}
 		}
 	}
-	public void syncBackUserData(){
+	public void syncBackUserData() throws SQLException{
 		PreparedStatement stmt;
-		String query;
-		try {
-			query = "UPDATE user SET password = ?, email = ?, username = ?, bg= ?, music= ? WHERE id= ?";
-			stmt = server.getConn().prepareStatement(query);
-			stmt.setString(1, current_user.getPW());
-			stmt.setString(2, current_user.getEmail());
-			stmt.setString(3, current_user.getUserName());
-			stmt.setInt(4, current_user.settings[0]);
-			stmt.setInt(5, current_user.settings[1]);
-			stmt.setInt(6, current_user.getID());
-			stmt.executeUpdate();
-		} catch (SQLException ex) {
-        	System.out.println("Error at pushing userdata");
-        	System.out.println("SQLException: " + ex.getMessage());
-		}
+		String query = "UPDATE user SET password = ?, email = ?, username = ?, bg= ?, music= ? WHERE id= ?";
+		stmt = server.getConn().prepareStatement(query);
+		stmt.setString(1, current_user.getPW());
+		stmt.setString(2, current_user.getEmail());
+		stmt.setString(3, current_user.getUserName());
+		stmt.setInt(4, current_user.settings[0]);
+		stmt.setInt(5, current_user.settings[1]);
+		stmt.setInt(6, current_user.getID());
+		stmt.executeUpdate();
 	}
 	public void deauthenticate(){
 		this.current_user = null;

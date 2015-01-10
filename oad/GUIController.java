@@ -301,7 +301,11 @@ public class GUIController {
 					sessionvar.getUser().changePW(new String(w_usersettings.new_password_field.getPassword()));
 				}
 				w_main.photo_label.setIcon(new ImageIcon(sessionvar.getUser().userimage));
-				sessionvar.syncBackUserData();
+				try {
+					sessionvar.syncBackUserData();
+				} catch (SQLException ex) {
+					JOptionPane.showMessageDialog(w_usersettings.window, "Server error: "+ ex.getMessage());
+				}
 				w_usersettings.hide();
 			} else {
 				if(new String(w_usersettings.old_password_field.getPassword()).isEmpty()){
@@ -321,15 +325,8 @@ public class GUIController {
 			if(retval == JFileChooser.APPROVE_OPTION){
 				try {
 					sessionvar.set_user_image(w_usersettings.image_chooser.getSelectedFile());
-				} catch (IOException e1) {
-					// TODO File not found
-					System.out.println("IO Error: "+e1.getMessage());
-				} catch (SQLException e1) {
-					// TODO Server error
-					System.out.println("Server Error: "+e1.getMessage());
-				} catch (Exception e1) {
-					// TODO Error
-					System.out.println("Error: "+e1.getMessage());
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(w_usersettings.window, ex.getClass()+" error: "+ ex.getMessage());
 				}
 			}
 			w_usersettings.usrimg.setIcon(new ImageIcon(sessionvar.getUser().userimage.getScaledInstance(50, 50, Image.SCALE_FAST)));
@@ -369,7 +366,11 @@ public class GUIController {
 				sessionvar.musicplayer.setAudioData(music_path);
 			}
 			w_gamesettings.hide();
-			sessionvar.syncBackUserData();
+			try {
+				sessionvar.syncBackUserData();
+			} catch (SQLException ex) {
+				JOptionPane.showMessageDialog(w_gamesettings.window, "Server error: "+ ex.getMessage());
+			}
 		}
 	};
 	
