@@ -1,9 +1,5 @@
 package oad;
 
-import oadgui.AdminWindow;
-import oadgui.HomeWindow;
-import oadgui.LoginWindow;
-
 
 public class Program {
 	
@@ -22,7 +18,7 @@ public class Program {
 		current_session.musicplayer = musicplayer;
 		guicontrol = new GUIController(current_session);
 		guicontrol.init();
-		guicontrol.w_login.show();
+		GUIController.w_login.show();
 	}
 
 }

@@ -4,18 +4,12 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-
 import oadgui.AboutUsWindow;
 import oadgui.AdminWindow;
 import oadgui.ContactWindow;
@@ -28,7 +22,6 @@ import oadgui.ResetPasswordWindow;
 import oadgui.TutorialWindow;
 import oadgui.UserSettingWindow;
 import oadgui.UserTableModel;
-import oadgui.Window;
 
 public class GUIController {
 	//windows

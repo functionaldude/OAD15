@@ -4,10 +4,8 @@ import oad.User;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.lang.Exception;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +23,6 @@ public class session {
 	public int sessionID;
 	private boolean logged_in;
 	private User current_user;
-	private game current_game;
 	public SQLConnection server;
 	public FeedbackHandler feedbackhandler;
 	public AudioHandler musicplayer;
