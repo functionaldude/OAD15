@@ -4,9 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageFilter;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -19,12 +21,13 @@ import oad.GUIController;
 import oad.session;
 
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileView;
 
 import java.awt.Font;
 
 public class UserSettingWindow extends Window {
 	//elements
-	
+	public JFileChooser image_chooser;
 	
 	//panel
 	
@@ -39,6 +42,7 @@ public class UserSettingWindow extends Window {
 	
 	private JButton user_settings_cancel;
 	private JButton user_settings_save;
+	private JButton btnSetImage;
 	public JTextField new_nickname_field;
 	public JPasswordField old_password_field;
 	public JPasswordField new_password_field;
@@ -113,10 +117,14 @@ public class UserSettingWindow extends Window {
 		this.window.getContentPane().add(this.user_settings_panel);
 		
 		usrimg = new JLabel("New label");
-		usrimg.setBounds(123, 180, 61, 16);
+		usrimg.setBounds(134, 165, 50, 50);
 		user_settings_panel.add(usrimg);
 		
-	
+		btnSetImage = new JButton("Set image");
+		btnSetImage.setBounds(220, 177, 117, 29);
+		user_settings_panel.add(btnSetImage);
+		
+		this.image_chooser = new JFileChooser();
 		
 		
 		this.initListeners();
@@ -136,6 +144,7 @@ public class UserSettingWindow extends Window {
 				hide();
 			}
 		});
+		this.btnSetImage.addActionListener(GUIController.set_image);
 		this.user_settings_save.addActionListener(GUIController.change_usr_settings);
 	}
 }

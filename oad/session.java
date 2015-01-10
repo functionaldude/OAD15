@@ -1,7 +1,13 @@
 package oad;
 import oad.User;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.lang.Exception;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -131,6 +137,38 @@ public class session {
 		} else {
 			throw new Exception("NoSuchUser");
 		}
+	}
+	public void set_user_image(File file) throws Exception{
+		//get the file
+		BufferedImage rawimage = ImageIO.read(file);
+		System.out.println(rawimage.getHeight());
+		double scalingfactor = 1.0;
+		if(rawimage.getHeight() > 500 || rawimage.getWidth() > 500){
+			if(rawimage.getHeight() < rawimage.getWidth()){
+				scalingfactor = (double)500 / rawimage.getWidth();
+			} else {
+				scalingfactor = (double)500 / rawimage.getHeight();
+			}
+		}
+		int scaled_width = (int)(rawimage.getWidth() * scalingfactor);
+		int scaled_heigh = (int)(rawimage.getHeight() * scalingfactor);
+		System.out.println(scaled_width);
+		BufferedImage scaledimage = new BufferedImage(scaled_width, scaled_heigh, rawimage.getType());
+		Graphics2D g2d = scaledimage.createGraphics();
+        g2d.drawImage(rawimage, 0, 0, scaled_width, scaled_heigh, null);
+        g2d.dispose();
+        
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		ImageIO.write(scaledimage, "jpg", stream);
+		
+		//send it to the server
+		PreparedStatement stmt = server.getConn().prepareStatement("UPDATE user SET img = ? WHERE id = ?");
+		stmt.setBytes(1, stream.toByteArray());
+		stmt.setInt(2, current_user.getID());
+		stmt.executeUpdate();
+		
+		//save it locally
+		current_user.userimage = scaledimage;
 	}
 	
 	//admin functions

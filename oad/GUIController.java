@@ -1,12 +1,18 @@
 package oad;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
@@ -183,6 +189,13 @@ public class GUIController {
 			w_usersettings.new_nickname_field.setText(null);
 			w_usersettings.new_password_field.setText(null);
 			w_usersettings.old_password_field.setText(null);
+			if (sessionvar.getUser().userimage != null){
+				w_usersettings.usrimg.setIcon(new ImageIcon(sessionvar.getUser().userimage.getScaledInstance(50, 50, Image.SCALE_FAST)));
+				w_usersettings.usrimg.setText(null);
+			} else {
+				w_usersettings.usrimg.setText("No image");
+				w_usersettings.usrimg.setIcon(null);
+			}
 			w_usersettings.show();
 		}	
 	};
@@ -294,14 +307,41 @@ public class GUIController {
 				if (! new String(w_usersettings.new_password_field.getPassword()).isEmpty()){
 					sessionvar.getUser().changePW(new String(w_usersettings.new_password_field.getPassword()));
 				}
+				w_main.photo_label.setIcon(new ImageIcon(sessionvar.getUser().userimage));
 				sessionvar.syncBackUserData();
 				w_usersettings.hide();
 			} else {
-				JOptionPane.showMessageDialog(w_usersettings.window, "The password is wrong!");
+				if(new String(w_usersettings.old_password_field.getPassword()).isEmpty()){
+					JOptionPane.showMessageDialog(w_usersettings.window, "You have to submit your password in order to make changes!");
+				} else {
+					JOptionPane.showMessageDialog(w_usersettings.window, "The password is wrong!");
+				}
 			}
 		}
 	};
-	
+	public static ActionListener set_image = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			int retval = w_usersettings.image_chooser.showOpenDialog(w_usersettings.window);
+			if(retval == JFileChooser.APPROVE_OPTION){
+				try {
+					sessionvar.set_user_image(w_usersettings.image_chooser.getSelectedFile());
+				} catch (IOException e1) {
+					// TODO File not found
+					System.out.println("IO Error: "+e1.getMessage());
+				} catch (SQLException e1) {
+					// TODO Server error
+					System.out.println("Server Error: "+e1.getMessage());
+				} catch (Exception e1) {
+					// TODO Error
+					System.out.println("Error: "+e1.getMessage());
+				}
+			}
+			w_usersettings.usrimg.setIcon(new ImageIcon(sessionvar.getUser().userimage.getScaledInstance(50, 50, Image.SCALE_FAST)));
+		}	
+	};
 	//game settings
 	public static ActionListener save_game_settings = new ActionListener() {
 		@Override
