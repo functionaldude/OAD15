@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
 import oadgui.AboutUsWindow;
 import oadgui.AdminWindow;
 import oadgui.ContactWindow;
@@ -17,8 +18,14 @@ import oadgui.FeedbackWindow;
 import oadgui.GameSettingWindow;
 import oadgui.HomeWindow;
 import oadgui.LoginWindow;
+import oadgui.PrivateDescriptionGameWindow;
+import oadgui.PrivateNewGameWindow;
+import oadgui.PublicDescriptionGameWindow;
+import oadgui.PublicNewGameWindow;
+import oadgui.PublicRankingGameWindow;
 import oadgui.RegisterWindow;
 import oadgui.ResetPasswordWindow;
+import oadgui.SaveEditorWindow;
 import oadgui.TutorialWindow;
 import oadgui.UserSettingWindow;
 import oadgui.UserTableModel;
@@ -36,6 +43,12 @@ public class GUIController {
 	public static TutorialWindow w_tutorial;
 	public static UserSettingWindow w_usersettings;
 	public static AboutUsWindow w_about;
+	public static PrivateNewGameWindow w_private_new_game;
+	public static PrivateDescriptionGameWindow w_private_description;
+	public static PublicNewGameWindow w_public_new_game;
+	public static PublicDescriptionGameWindow w_public_description;
+	public static PublicRankingGameWindow w_public_ranking;
+	public static SaveEditorWindow w_save_editor;
 	
 	//vars
 	public static session sessionvar;
@@ -56,6 +69,13 @@ public class GUIController {
 		w_about = new AboutUsWindow();
 		w_register = new RegisterWindow();
 		w_resetpw = new ResetPasswordWindow();
+		w_private_new_game = new PrivateNewGameWindow();
+		w_private_description = new PrivateDescriptionGameWindow();
+		w_public_new_game = new PublicNewGameWindow();
+		w_public_description = new PublicDescriptionGameWindow();
+		w_public_ranking = new PublicRankingGameWindow();
+		w_save_editor = new SaveEditorWindow();
+		
 		
 	}
 	
@@ -142,6 +162,49 @@ public class GUIController {
 			w_resetpw.show();
 		}
 	};
+	
+	public static ActionListener open_private_new_game = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			w_private_new_game.show();
+		}
+	};
+	
+	public static ActionListener open_private_description_game = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			w_private_description.show();
+		}
+	};
+	
+	public static ActionListener open_public_new_game = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			w_public_new_game.show();
+		}
+	};
+	
+	public static ActionListener open_public_ranking_game = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			w_public_ranking.show();
+		}
+	};
+	
+	public static ActionListener open_public_description_game = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			w_public_description.show();
+		}
+	};
+	
+	public static ActionListener open_save_editor = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			w_save_editor.show();
+		}
+	};
+	
 	//register window
 	public static ActionListener register = new ActionListener() {
 		@Override
