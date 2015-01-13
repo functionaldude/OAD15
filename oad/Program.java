@@ -9,11 +9,7 @@ public class Program {
 	
 	//vars
 	private static session current_session;
-	
-	//gui vars
-	private static LoginWindow w_login;
-	private static HomeWindow w_main;
-	private static AdminWindow w_admin;
+	private static GUIController guicontrol;
 	
 	public static void main(String[] args) {
 		//init vars
@@ -24,26 +20,10 @@ public class Program {
 		current_session.server = sqlserver;
 		current_session.feedbackhandler = feedbackhandler;
 		current_session.musicplayer = musicplayer;
+		guicontrol = new GUIController(current_session);
+		guicontrol.init();
+		guicontrol.w_login.show();
 		
-		
-		
-		
-		//login
-		w_login = new LoginWindow(current_session);
-		w_login.show();
-		
-		synchronized(w_login.visiblity){
-			try {
-				w_login.visiblity.wait();
-			} catch (InterruptedException e) {}
-		}
-		if (current_session.getUser().getUserName().equals("admin")){
-			w_admin = new AdminWindow(current_session);
-			w_admin.show();
-		} else {
-			w_main = new HomeWindow(current_session);
-			w_main.show();
-		}
 	}
 
 }
