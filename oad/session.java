@@ -39,6 +39,7 @@ public class session {
 			stmt.setString(2, input_pw);
 			stmt.setString(3, input_email);
 			stmt.executeUpdate();
+			stmt.close();
 		} else {
 			throw new Exception("DuplicateUser");
 		}
@@ -54,6 +55,7 @@ public class session {
 			stmt = server.getConn().createStatement();
 			res = stmt.executeQuery("SELECT id FROM user WHERE username = '" + input_username + "'");
 			retval = res.first();
+			stmt.close();
 		} catch (SQLException ex) {
         	System.out.println("SQLException(check): " + ex.getMessage());
         	return false;
@@ -69,6 +71,7 @@ public class session {
 		stmt = server.getConn().createStatement();
 		res = stmt.executeQuery("SELECT id, password, email, bg, music, img FROM user WHERE username = '" + input_username + "'");
 		if (!res.first()){
+			stmt.close();
 			throw new Exception("NoSuchUser");
 		} else {
 			System.out.println("User found!");
@@ -82,8 +85,9 @@ public class session {
 				this.current_user = new User(input_username, input_pw, res.getString("email"), res.getInt("id"), res.getInt("bg"), res.getInt("music"), userimage);
 				logged_in = true;
 				System.out.println("Auth success!");
+				stmt.close();
 			} else {
-				System.out.println(input_pw + " != " + res.getString("password"));
+				stmt.close();
 				throw new Exception("InvalidPW");
 			}
 		}
@@ -99,6 +103,7 @@ public class session {
 		stmt.setInt(5, current_user.settings[1]);
 		stmt.setInt(6, current_user.getID());
 		stmt.executeUpdate();
+		stmt.close();
 	}
 	public void deauthenticate(){
 		this.current_user = null;
@@ -112,6 +117,7 @@ public class session {
 		if (checkForUser(username)){
 			Statement stmt = server.getConn().createStatement();
 			stmt.executeUpdate("UPDATE user SET password='default' WHERE username='"+username+"'");
+			stmt.close();
 		} else {
 			throw new Exception("NoSuchUser");
 		}
@@ -122,7 +128,9 @@ public class session {
 			ResultSet res = stmt.executeQuery("SELECT id FROM user WHERE username = '"+input_username+"' AND email = '"+input_email+"'");
 			if (res.first()){
 				stmt.executeUpdate("INSERT INTO pwresets (user_id) VALUES (" + res.getInt(1) + ")");
+				stmt.close();
 			} else {
+				stmt.close();
 				throw new Exception("InvalidEmail");
 			}
 		} else {
@@ -175,10 +183,28 @@ public class session {
 		while(res.next()){
 			ret_val.add(new User(res.getString("username"), res.getString("password"), res.getString("email"), res.getInt("id")));
 		}
+		stmt.close();
 		return ret_val;
 	}
 	public void deleteUser(String username) throws SQLException{
 		Statement stmt = server.getConn().createStatement();
 		stmt.executeUpdate("DELETE FROM user WHERE username = '" + username +"'");
+		stmt.close();
+	}
+	public void sendMSG(int userid, String msg) throws SQLException {
+		Statement stmt = server.getConn().createStatement();
+		stmt.executeUpdate("INSERT INTO messages (`from`, `to`, msg) VALUES (1, "+ userid +", '"+ msg +"')");
+		stmt.close();
+	}
+	public void sendMSGalluser(String msg) throws SQLException{
+		Statement stmt = server.getConn().createStatement();
+		ResultSet res = stmt.executeQuery("SELECT id FROM user WHERE username != 'admin'");
+		Statement stmt2 = server.getConn().createStatement();
+		while(res.next()){
+			stmt2.addBatch("INSERT INTO messages (`from`, msg, `to`) VALUES (1, '"+ msg +"', "+ res.getInt("id") +")"); 
+		}
+		stmt2.executeBatch();
+		stmt.close();
+		stmt2.close();
 	}
 }
