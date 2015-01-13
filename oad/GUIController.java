@@ -301,6 +301,7 @@ public class GUIController {
 					sessionvar.getUser().changePW(new String(w_usersettings.new_password_field.getPassword()));
 				}
 				w_main.photo_label.setIcon(new ImageIcon(sessionvar.getUser().userimage));
+				w_main.photo_label.setText(null);
 				try {
 					sessionvar.syncBackUserData();
 				} catch (SQLException ex) {
