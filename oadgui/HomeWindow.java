@@ -400,8 +400,7 @@ public class HomeWindow extends Window {
 		CardLayout cl = (CardLayout)(master_container_switch.getLayout());
         cl.show(master_container_switch,"Karte1" );
 		
-        
-        
+  
 		
         
 		this.initListeners();
@@ -507,6 +506,49 @@ public class HomeWindow extends Window {
 			}	
 		});
 		
+		
+		this.editor_draw_circle_button.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				clickedButton = 1;
+			}
+			
+		});
+		
+		this.editor_draw_connection_button.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				clickedButton = 2;
+			}
+			
+		});
+		
+		this.editor_draw_figure_button.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				clickedButton = 3;
+			}
+			
+		});
+		
+		this.editor_rubber_button.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				clickedButton = 4;
+			}
+			
+		});
+		
+		
+		
 		this.editor_editor_panel.addMouseListener(new MouseListener(){
 
 			
@@ -522,9 +564,13 @@ public class HomeWindow extends Window {
 				{
 					System.out.println("Mouse Clicked (Connection): ("+e.getX()+", "+e.getY() +")");
 				}
-				else
+				else if(clickedButton == 3)
 				{
 					System.out.println("Mouse Clicked (Figure): ("+e.getX()+", "+e.getY() +")");
+				}
+				else
+				{
+					System.out.println("Mouse Clicked (Rubber): ("+e.getX()+", "+e.getY() + ")");
 				}
 			}
 			
@@ -557,14 +603,7 @@ public class HomeWindow extends Window {
 		
 		clickedButton = 0;
 
-		
-		
-		
-				
-				
-			
-		
-		
+
 		
 		this.setting_menu_item1.addActionListener(GUIController.open_usersettings);
 		this.setting_menu_item2.addActionListener(GUIController.open_gamesettings);
@@ -576,7 +615,5 @@ public class HomeWindow extends Window {
 	
 	}
 
-
-
-		
+	
 }
