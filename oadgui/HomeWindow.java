@@ -26,6 +26,7 @@ import javax.swing.JTextPane;
 
 import oad.AudioHandler;
 import oad.GUIController;
+import oad.GameController;
 import oad.session;
 
 import javax.swing.SwingConstants;
@@ -56,18 +57,18 @@ public class HomeWindow extends Window {
 	public JPanel buttons_panel;
 	
 	public JPanel private_game_panel;
-	public JPanel private_game_playground_panel;
+	public GamePanel private_game_playground_panel;
 	private JPanel private_game_button_panel;
 	private JPanel private_game_right_side;
 	
 	public JPanel public_game_panel;
 	public JPanel public_game_title_panel;
-	public JPanel public_game_playground_panel;
+	public GamePanel public_game_playground_panel;
 	private JPanel public_game_button_panel;
 	private JPanel public_game_right_side;
 	
 	private JPanel editor_panel;
-	private JPanel editor_editor_panel;
+	public GamePanel editor_editor_panel;
 	private JPanel editor_button_panel;
 	private JPanel editor_right_side;
 	
@@ -184,7 +185,7 @@ public class HomeWindow extends Window {
 		private_game_panel.setLayout(new BorderLayout(5, 5));
 		
 		this.private_game_button_panel = new JPanel();
-		this.private_game_playground_panel = new JPanel();
+		this.private_game_playground_panel = new GamePanel();
 		private_game_playground_panel.setBorder(BorderFactory.createLoweredBevelBorder());
 		
 		this.private_game_right_side = new JPanel();
@@ -198,7 +199,7 @@ public class HomeWindow extends Window {
 		this.public_game_title_panel = new JPanel();
 		public_game_title_panel.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		
-		this.public_game_playground_panel = new JPanel();
+		this.public_game_playground_panel = new GamePanel();
 		public_game_playground_panel.setBorder(BorderFactory.createLoweredBevelBorder());
 		
 		this.public_game_right_side = new JPanel();
@@ -209,7 +210,7 @@ public class HomeWindow extends Window {
 		editor_panel.setLayout(new BorderLayout(5, 5));
 		
 		this.editor_button_panel = new JPanel();
-		this.editor_editor_panel = new JPanel();
+		this.editor_editor_panel = new GamePanel();
 		editor_editor_panel.setBorder(BorderFactory.createLoweredBevelBorder());
 		
 		this.editor_right_side = new JPanel();
@@ -507,55 +508,8 @@ public class HomeWindow extends Window {
 			}	
 		});
 		
-		this.editor_editor_panel.addMouseListener(new MouseListener(){
-
-			
-			@Override
-			public void mouseClicked(MouseEvent e) 
-			{
-				if(clickedButton == 1)
-				{
-					System.out.println("Mouse Clicked (Circle): ("+e.getX()+", "+e.getY() +")");
-										
-				}
-				else if(clickedButton == 2)
-				{
-					System.out.println("Mouse Clicked (Connection): ("+e.getX()+", "+e.getY() +")");
-				}
-				else
-				{
-					System.out.println("Mouse Clicked (Figure): ("+e.getX()+", "+e.getY() +")");
-				}
-			}
-			
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
+		this.editor_editor_panel.addMouseListener(GameController.editor_click);
 		
-		clickedButton = 0;
 
 		
 		

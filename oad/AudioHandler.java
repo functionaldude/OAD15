@@ -20,19 +20,19 @@ public class AudioHandler {
 		playing = false;
 	}
 	public void setAudioData(String input){
+		if(playing){
+			this.MGP.stop(loop);
+		}
 		if (input == null){
 			playable = false;
 			return;
-		}
-		if(playing){
-			this.MGP.stop(loop);
 		}
 		try{
 			BGM = new AudioStream(new FileInputStream(input));
 			MD = BGM.getData();
 			loop = new ContinuousAudioDataStream(MD);
 			playable = true;
-		}catch(IOException error){
+		} catch(IOException error){
 			System.out.print("error: " + error.getMessage());
 			playable = false;
 			if(playing){

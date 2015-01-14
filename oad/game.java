@@ -3,6 +3,7 @@ import java.lang.Exception;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class game {
 	//initial data
@@ -11,13 +12,16 @@ public class game {
 	private String name;
 	private int rating[];
 	private int privacy;
-	private String rawdata;
 	private Boolean editable;
+	public ArrayList<Coordinate> circles;
+	public ArrayList<Coordinate> lines;
 	
 	//constructors
 	public game(String input_name){
 		this.name = input_name;
 		this.rating = new int[] {0,0};
+		this.circles = new ArrayList<Coordinate>();
+		this.lines = new ArrayList<Coordinate>();
 	}
 	
 	public String getName(){
@@ -63,7 +67,7 @@ public class game {
 				this.rating[1] = res.getInt("rating_count");
 				this.privacy = res.getInt("privacy");
 				this.editable = (res.getInt("user_id") == cur_session.getUser().getID());
-				//get rawdata
+				//TODO: get rawdata!!!
 			}
 		} else {
 			throw new Exception("NoSuchGameOnServer");
@@ -72,51 +76,43 @@ public class game {
 	public void syncBack(SQLConnection server) throws Exception{
 		Statement stmt;
 		ResultSet res = null;
-		try {
-			stmt = server.getConn().createStatement();
-			res = stmt.executeQuery("SELECT id FROM game WHERE Name = '"+this.name+"'");
-		} catch (SQLException ex) {
-		    System.out.println("SQLException: " + ex.getMessage());
-		}
-		if (!res.first()){throw new Exception("NoSuchGameOnServer");} //game deleted on remote during editing
-		try {
-			stmt = server.getConn().createStatement();
-			stmt.executeUpdate("UPDATE game SET name='"+this.name+
-					", rating_sum="+this.rating[0]+
-					", rating_count="+this.rating[1]+
-					", privacy="+this.privacy+
-					" WHERE id="+this.id);
-		} catch (SQLException ex) {
-		    System.out.println("SQLException: " + ex.getMessage());
-		}
+		stmt = server.getConn().createStatement();
+		res = stmt.executeQuery("SELECT id FROM game WHERE Name = '"+this.name+"'");
+		if (!res.first()){ //game deleted on remote during editing
+			stmt.close();
+			throw new Exception("NoSuchGameOnServer");
+		} 
+		stmt.close();
+		stmt = server.getConn().createStatement();
+		stmt.executeUpdate("UPDATE game SET name='"+this.name+
+				", rating_sum="+this.rating[0]+
+				", rating_count="+this.rating[1]+
+				", privacy="+this.privacy+
+				" WHERE id="+this.id);
+		stmt.close();
 	}
 	public void addGame(session cur_session) throws Exception{
 		//check for name duplicate
 		Statement stmt;
 		ResultSet res = null;
-		try {
-			stmt = cur_session.server.getConn().createStatement();
-			res = stmt.executeQuery("SELECT id FROM game WHERE Name = '"+this.name+"'");
-		} catch (SQLException ex) {
-			System.out.println("Error at checking for duplicate game");
-		    System.out.println("SQLException: " + ex.getMessage());
-		}
+		stmt = cur_session.server.getConn().createStatement();
+		res = stmt.executeQuery("SELECT id FROM game WHERE Name = '"+this.name+"'");
 		if (res.first()){
+			stmt.close();
 			throw new Exception("DuplicateGame");
 		} else {
-			try {
-				stmt = cur_session.server.getConn().createStatement();
-				stmt.executeUpdate("INSERT INTO game (user_id, name, rating_sum, rating_count, privacy) VALUES ("+
-						this.user_id+", "+
-						"'"+this.name+"', "+
-						this.rating[0]+", "+
-						this.rating[1]+", "+
-						this.privacy+
-						")");
-			} catch (SQLException ex) {
-				System.out.println("Error at inserting game in db");
-			    System.out.println("SQLException: " + ex.getMessage());
-			}
+			stmt = cur_session.server.getConn().createStatement();
+			stmt.executeUpdate("INSERT INTO game (user_id, name, rating_sum, rating_count, privacy) VALUES ("+
+					this.user_id+", "+
+					"'"+this.name+"', "+
+					this.rating[0]+", "+
+					this.rating[1]+", "+
+					this.privacy+
+					")");
+			stmt.close();
 		}
+	}
+	public void addCircle(int x, int y){
+		this.circles.add(new Coordinate(x,y));
 	}
 }
