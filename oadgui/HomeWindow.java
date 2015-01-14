@@ -65,14 +65,11 @@ public class HomeWindow extends Window {
 	public JPanel public_game_playground_panel;
 	private JPanel public_game_button_panel;
 	private JPanel public_game_right_side;
-	private JPanel public_game_ranking_panel;
 	
 	private JPanel editor_panel;
 	private JPanel editor_editor_panel;
 	private JPanel editor_button_panel;
 	private JPanel editor_right_side;
-	private JPanel editor_title_panel;
-	private JPanel editor_editor_button_panel;
 	
 	private JPanel ranking_panel;
 	private JPanel ranking_button_panel;
@@ -86,8 +83,6 @@ public class HomeWindow extends Window {
 	private JLabel public_rating_label;
 	private JLabel public_rating_result_label;
 	private JLabel editor_titel_label;
-	private JLabel editor_game_titel_label;
-	private JLabel editor_game_description_label;
 	
 	//table
 	String columnName[] = {"First Name", "Last Name", "Sport", "# of Years", "Vegetarian"};
@@ -127,16 +122,17 @@ public class HomeWindow extends Window {
 	
 	private JButton editor_save_button;
 	private JButton editor_cancel_button;
-	private JButton draw_circle_button;
-	private JButton draw_connection_button;
-	private JButton draw_figure_button;
+	private JButton editor_draw_circle_button;
+	private JButton editor_draw_connection_button;
+	private JButton editor_draw_figure_button;
+	private JButton editor_rubber_button;
 	
-	//radiobutton
-	private JRadioButton ranking1;
-	private JRadioButton ranking2;
-	private JRadioButton ranking3;
-	private JRadioButton ranking4;
-	private JRadioButton ranking5;
+	private JButton private_new_game;
+	private JButton private_description_game;
+	
+	private JButton public_new_game;
+	private JButton public_description_game;
+	private JButton public_ranking_game;
 		
 	
 	//menu
@@ -144,7 +140,7 @@ public class HomeWindow extends Window {
 	
 	private JMenu 		setting_menu;
 	private JMenu		help_menu;
-	private JMenu session_menu;
+	private JMenu 		session_menu;
 	
 	private JMenuItem	setting_menu_item1;
 	private JMenuItem	setting_menu_item2;
@@ -154,20 +150,7 @@ public class HomeWindow extends Window {
 	private JMenuItem	help_menu_item3;
 	private JMenuItem	help_menu_item4;
 	
-	private JMenuItem session_menu_item1;
-	
-	//combobox
-	private JComboBox private_game_box;
-	private JComboBox public_game_box;
-	private JComboBox editor_box;
-	
-	//textpane
-	private JTextPane private_game_description;
-	private JTextPane public_game_description;
-	private JTextPane editor_description;
-	//textfield
-	
-	private JTextField editor_titel_textfield;	
+	private JMenuItem 	session_menu_item1;
 	
 	public HomeWindow(){
 
@@ -213,7 +196,6 @@ public class HomeWindow extends Window {
 		
 		this.public_game_button_panel = new JPanel();
 		this.public_game_title_panel = new JPanel();
-		this.public_game_ranking_panel = new JPanel();
 		public_game_title_panel.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		
 		this.public_game_playground_panel = new JPanel();
@@ -233,12 +215,6 @@ public class HomeWindow extends Window {
 		this.editor_right_side = new JPanel();
 		editor_right_side.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		editor_right_side.setLayout(new BoxLayout(editor_right_side, BoxLayout.PAGE_AXIS));
-		
-		this.editor_title_panel = new JPanel();
-		editor_title_panel.setBorder(new LineBorder(new Color(0, 0, 0), 1));
-		
-		
-		this.editor_editor_button_panel = new JPanel();
 		
 		
 		
@@ -289,10 +265,6 @@ public class HomeWindow extends Window {
 		editor_titel_label.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		editor_titel_label.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		
-		this.editor_game_titel_label = new JLabel("Title:");
-		this.editor_game_description_label = new JLabel("Description:");
-		editor_game_description_label.setHorizontalAlignment(SwingConstants.LEFT);
-		
 		
 		
 		this.notification_table = new JTable(data,columnName);
@@ -303,39 +275,25 @@ public class HomeWindow extends Window {
 		this.editor_button = new JButton("Editor");
 		this.rankings_button = new JButton("Rankings");
 		
+		this.private_new_game = new JButton("New Game");
+		this.private_description_game = new JButton("Description");
+		
+		this.public_new_game = new JButton("New Game");
+		this.public_description_game = new JButton("Description");
+		this.public_ranking_game = new JButton("Ranking");
+		
+		this.editor_draw_circle_button = new JButton("Circle");
+		this.editor_draw_connection_button = new JButton("Connection");
+		this.editor_draw_figure_button = new JButton("Figure");
+		this.editor_rubber_button = new JButton("Rubber");
+		
 		
 		this.private_game_back_button = new JButton("Back");
 		this.public_game_back_button = new JButton("Back");
 		this.editor_back_button = new JButton("Back");
 		this.ranking_back_button = new JButton("Back");
-		
-		this.draw_circle_button = new JButton("Circle");
-		this.draw_connection_button = new JButton("Connection");
-		this.draw_figure_button = new JButton("Figure");
 		this.editor_save_button = new JButton("Save");
 		this.editor_cancel_button = new JButton("Cancel");
-		
-		
-		this.private_game_box = new JComboBox();
-		this.private_game_description = new JTextPane();
-		private_game_description.setText("Hier soll die Beschreibung\nstehen, die man im Editor\nerstellen kann");
-		
-		this.public_game_box = new JComboBox();
-		this.public_game_description = new JTextPane();
-		public_game_description.setText("Hier soll die Beschreibung\nstehen, die man im Editor\nerstellen kann");
-		
-		this.editor_box = new JComboBox(games);
-		this.editor_description = new JTextPane();
-		
-		
-		this.editor_titel_textfield = new JTextField();
-		
-		
-		this.ranking1 = new JRadioButton("1");
-		this.ranking2 = new JRadioButton("2");
-		this.ranking3 = new JRadioButton("3");
-		this.ranking4 = new JRadioButton("4");
-		this.ranking5 = new JRadioButton("5");				
 		
 		//add elements
 		
@@ -371,25 +329,10 @@ public class HomeWindow extends Window {
 		this.buttons_panel.add(this.editor_button);
 		this.buttons_panel.add(this.rankings_button);
 		
-		this.public_game_ranking_panel.add(this.ranking1);
-		this.public_game_ranking_panel.add(this.ranking2);
-		this.public_game_ranking_panel.add(this.ranking3);
-		this.public_game_ranking_panel.add(this.ranking4);
-		this.public_game_ranking_panel.add(this.ranking5);
-		
 	
 		
 		this.home_panel.add(this.user_panel, BorderLayout.CENTER);
 		this.home_panel.add(this.buttons_panel, BorderLayout.SOUTH);
-		
-		
-		
-		this.private_game_right_side.add(this.private_game_box);
-		this.private_game_right_side.add(this.private_game_description);
-		
-		this.public_game_right_side.add(this.public_game_box);
-		this.public_game_right_side.add(this.public_game_description);
-		this.public_game_right_side.add(this.public_game_ranking_panel);
 		
 		this.public_game_title_panel.add(this.public_game_titel);
 		this.public_game_title_panel.add(this.public_rating_label);
@@ -405,7 +348,17 @@ public class HomeWindow extends Window {
 		
 		this.ranking_button_panel.add(this.ranking_back_button);
 		
+		this.private_game_right_side.add(this.private_new_game);
+		this.private_game_right_side.add(this.private_description_game);
 		
+		this.public_game_right_side.add(this.public_new_game);
+		this.public_game_right_side.add(this.public_description_game);
+		this.public_game_right_side.add(this.public_ranking_game);
+		
+		this.editor_right_side.add(this.editor_draw_circle_button);
+		this.editor_right_side.add(this.editor_draw_connection_button);
+		this.editor_right_side.add(this.editor_draw_figure_button);
+		this.editor_right_side.add(this.editor_rubber_button);
 		
 		this.private_game_panel.add(this.private_game_titel, BorderLayout.NORTH);
 		this.private_game_panel.add(this.private_game_button_panel, BorderLayout.SOUTH);
@@ -422,21 +375,6 @@ public class HomeWindow extends Window {
 		this.editor_panel.add(this.editor_button_panel, BorderLayout.SOUTH);
 		
 		this.ranking_panel.add(this.ranking_button_panel, BorderLayout.SOUTH);
-		
-		this.editor_editor_button_panel.add(this.draw_circle_button);
-		this.editor_editor_button_panel.add(this.draw_connection_button);
-		this.editor_editor_button_panel.add(this.draw_figure_button);
-		editor_title_panel.setLayout(new GridLayout(0, 2, 0, 0));
-		
-		this.editor_title_panel.add(this.editor_game_titel_label);
-		this.editor_title_panel.add(this.editor_titel_textfield);
-		
-		this.editor_right_side.add(this.editor_box);
-		//this.editor_right_side.add(this.editor_titel_textfield);
-		this.editor_right_side.add(this.editor_title_panel);
-		this.editor_right_side.add(this.editor_game_description_label);
-		this.editor_right_side.add(this.editor_description);
-		this.editor_right_side.add(this.editor_editor_button_panel);
 		
 		this.editor_panel.add(this.editor_titel_label, BorderLayout.NORTH);
 		this.editor_panel.add(this.editor_editor_panel, BorderLayout.CENTER);
@@ -488,6 +426,13 @@ public class HomeWindow extends Window {
 		        
 			}	
 		});
+		
+		this.private_new_game.addActionListener(GUIController.open_private_new_game);
+		this.private_description_game.addActionListener(GUIController.open_private_description_game);
+		this.public_new_game.addActionListener(GUIController.open_public_new_game);
+		this.public_description_game.addActionListener(GUIController.open_public_description_game);
+		this.public_ranking_game.addActionListener(GUIController.open_public_ranking_game);
+		this.editor_save_button.addActionListener(GUIController.open_save_editor);
 		
 		this.private_game_back_button.addActionListener(new ActionListener() {
 
@@ -560,33 +505,6 @@ public class HomeWindow extends Window {
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte1" );
 			}	
-		});
-		
-		this.draw_circle_button.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				clickedButton = 1;
-			}
-			
-		});
-		
-		this.draw_connection_button.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				clickedButton = 2;
-			}
-			
-		});
-		
-		this.draw_figure_button.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				clickedButton = 3;
-			}
-			
 		});
 		
 		this.editor_editor_panel.addMouseListener(new MouseListener(){
