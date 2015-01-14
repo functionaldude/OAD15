@@ -27,6 +27,7 @@ import javax.swing.JTextPane;
 import oad.AudioHandler;
 import oad.GUIController;
 import oad.GameController;
+import oad.game;
 import oad.session;
 
 import javax.swing.SwingConstants;
@@ -49,7 +50,7 @@ public class HomeWindow extends Window {
 	//panel
 	public JPanel master_container;
 	
-	private JPanel master_container_switch;
+	public JPanel master_container_switch;
 	
 	public JPanel home_panel;
 	private JPanel home_notification_panel;
@@ -401,8 +402,7 @@ public class HomeWindow extends Window {
 		CardLayout cl = (CardLayout)(master_container_switch.getLayout());
         cl.show(master_container_switch,"Karte1" );
 		
-        
-        
+  
 		
         
 		this.initListeners();
@@ -422,7 +422,7 @@ public class HomeWindow extends Window {
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte2" );	
 		        GUIController.sessionvar.musicplayer.start();
-		        
+		        GameController.current_panel = private_game_playground_panel;
 		        
 		        
 			}	
@@ -443,6 +443,7 @@ public class HomeWindow extends Window {
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte1" );
 		        GUIController.sessionvar.musicplayer.stop();
+		        GameController.current_panel = null;
 			}	
 		});
 		
@@ -454,6 +455,7 @@ public class HomeWindow extends Window {
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte3" );
 		        GUIController.sessionvar.musicplayer.start();
+		        GameController.current_panel = public_game_playground_panel;
 			}	
 		});
 		
@@ -465,28 +467,14 @@ public class HomeWindow extends Window {
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte1" );
 		        GUIController.sessionvar.musicplayer.stop();
+		        GameController.current_panel = null;
 			}	
 		});
 		
-		this.editor_button.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
-		        cl.show(master_container_switch,"Karte4" );
-			}	
-		});
+		this.editor_button.addActionListener(GUIController.open_editor);
 		
-		this.editor_back_button.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
-		        cl.show(master_container_switch,"Karte1" );
-			}	
-		});
+		this.editor_back_button.addActionListener(GUIController.editor_back);
+		this.editor_cancel_button.addActionListener(GUIController.editor_cancel);
 		
 		this.rankings_button.addActionListener(new ActionListener(){
 
@@ -508,17 +496,54 @@ public class HomeWindow extends Window {
 			}	
 		});
 		
+		
+		this.editor_draw_circle_button.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				GameController.current_tool = 1;
+			}
+			
+		});
+		
+		this.editor_draw_connection_button.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				GameController.current_tool = 2;
+			}
+			
+		});
+		
+		this.editor_draw_figure_button.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				GameController.current_tool = 3;
+			}
+			
+		});
+		
+		this.editor_rubber_button.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				GameController.current_tool = 4;
+			}
+			
+		});
+		
+		
 		this.editor_editor_panel.addMouseListener(GameController.editor_click);
 		
+		
+		
 
-		
-		
-		
-				
-				
-			
-		
-		
+
 		
 		this.setting_menu_item1.addActionListener(GUIController.open_usersettings);
 		this.setting_menu_item2.addActionListener(GUIController.open_gamesettings);
@@ -530,7 +555,5 @@ public class HomeWindow extends Window {
 	
 	}
 
-
-
-		
+	
 }

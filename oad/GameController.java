@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Iterator;
 import java.util.Random;
 
 import oadgui.GamePanel;
@@ -15,26 +16,33 @@ public class GameController {
 	public static game current_game;
 	public static session sessionvar;
 	public static int current_tool = 0;
+	public static GamePanel current_panel;
 	
 	//guivars
-	private static int radius = 5;
+	private static int radius = 6;
 	
 	public GameController(session input){
 		sessionvar = input;
 	}	
-	
+		
 	public static void drawGame(GamePanel panel, Graphics g){
+		if(current_game == null || current_game.circles.size() == 0){
+			return;
+		}
 		Graphics2D g2d = (Graphics2D) g;
-
         g2d.setColor(Color.blue);
-
+        
         Dimension size = panel.getSize();
         Insets insets = panel.getInsets();
 
         int w = size.width - insets.left - insets.right;
         int h = size.height - insets.top - insets.bottom;
-        
-        g2d.drawOval(230 - radius, 300 - radius, radius * 2, radius * 2);
+        Iterator<Coordinate> circle_iter = current_game.circles.iterator();
+        Coordinate circle = null;
+        while(circle_iter.hasNext()){
+        	circle = circle_iter.next();
+            g2d.drawOval(circle.getX() - radius, circle.getY() - radius, radius * 2, radius * 2);
+        }
 	}
 	
 	//listeners
@@ -48,6 +56,8 @@ public class GameController {
 			if(current_tool == 1)
 			{
 				System.out.println("Mouse Clicked (Circle): ("+e.getX()+", "+e.getY() +")");
+				current_game.addCircle(e.getX(), e.getY());
+				current_panel.repaint();
 									
 			}
 			else if(current_tool == 2)

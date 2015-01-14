@@ -54,11 +54,11 @@ public class SaveEditorWindow extends Window {
 	
 	//ComboBox
 	
-	private JComboBox editor_privacy_list;
+	public JComboBox editor_privacy_list;
 	
-	private JTextField editor_title_field;
+	public JTextField editor_title_field;
 	
-	private JTextArea editor_description_field;
+	public JTextArea editor_description_field;
 	
 	String[] privacy = {"Private Game", "Public Game"};
 		
@@ -135,7 +135,7 @@ public class SaveEditorWindow extends Window {
 	
 	private void initListeners()
 	{	
-		
+		this.editor_save_button.addActionListener(GUIController.editor_save);
 	}
 
 

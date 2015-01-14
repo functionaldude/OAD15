@@ -1,5 +1,6 @@
 package oad;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -296,6 +297,46 @@ public class GUIController {
 			w_feedback.feedback_name_field.setText(null);
 			w_feedback.feedback_titel_field.setText(null);
 			w_feedback.show();
+		}	
+	};
+	//editor
+	public static ActionListener open_editor = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			CardLayout cl = (CardLayout)(w_main.master_container_switch.getLayout());
+	        cl.show(w_main.master_container_switch,"Karte4" );
+	        GameController.current_panel = w_main.editor_editor_panel;
+	        GameController.current_game = new game("Untitled");
+		}	
+	};
+	public static ActionListener editor_back = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			CardLayout cl = (CardLayout)(w_main.master_container_switch.getLayout());
+	        cl.show(w_main.master_container_switch,"Karte1" );
+	        GameController.current_panel = null;
+	        GameController.current_game = null;
+		}	
+	};
+	public static ActionListener editor_cancel = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+	        GameController.current_game = new game("Untitled");
+	        GameController.current_panel.repaint();
+		}	
+	};
+	public static ActionListener editor_save = new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+	        
 		}	
 	};
 	//admin window

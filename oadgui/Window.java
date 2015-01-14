@@ -1,5 +1,6 @@
 package oadgui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -56,4 +57,6 @@ public abstract class Window{
 	public void add(Component obj){
 		this.window.add(obj);
 	}
+	
+	
 }

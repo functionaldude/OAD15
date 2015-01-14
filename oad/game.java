@@ -115,4 +115,7 @@ public class game {
 	public void addCircle(int x, int y){
 		this.circles.add(new Coordinate(x,y));
 	}
+	public void setName(String input){
+		name = input;
+	}
 }
