@@ -14,8 +14,8 @@ public class GameController {
 	public static int current_tool = 0;
 	public static GamePanel current_panel;
 	
-	//guivars
-	private static int radius = 6;
+	//gui vars
+	private static int radius = 10;
 	
 	public GameController(session input){
 		sessionvar = input;
@@ -32,7 +32,7 @@ public class GameController {
         Coordinate circle = null;
         while(circle_iter.hasNext()){
         	circle = circle_iter.next();
-            g2d.drawOval(circle.getX() - radius, circle.getY() - radius, radius * 2, radius * 2);
+            g2d.fillOval(circle.getX() - radius, circle.getY() - radius, radius * 2, radius * 2);
         }
 	}
 	
@@ -43,7 +43,6 @@ public class GameController {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
 			if(current_tool == 1)
 			{
 				System.out.println("Mouse Clicked (Circle): ("+e.getX()+", "+e.getY() +")");
