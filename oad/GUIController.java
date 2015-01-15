@@ -178,7 +178,7 @@ public class GUIController {
 			}
 			Iterator<String> iter = games.iterator();
 			while(iter.hasNext()){
-				w_public_new_game.list_of_public_games.addItem(iter.next());
+				w_private_new_game.list_of_private_games.addItem(iter.next());
 			}
 			w_private_new_game.show();
 		}
@@ -220,6 +220,20 @@ public class GUIController {
 			}
 			w_main.public_game_playground_panel.repaint();
 			w_public_new_game.hide();
+		}
+	};
+	public static ActionListener load_private_game = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			GameController.current_game = new game((String)w_private_new_game.list_of_private_games.getSelectedItem());
+			try {
+				GameController.current_game.getFromServer();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			w_main.private_game_playground_panel.repaint();
+			w_private_new_game.hide();
 		}
 	};
 	public static ActionListener open_public_ranking_game = new ActionListener() {
