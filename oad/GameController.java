@@ -1,15 +1,11 @@
 package oad;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Iterator;
-import java.util.Random;
-
 import oadgui.GamePanel;
 
 public class GameController {
@@ -31,12 +27,7 @@ public class GameController {
 		}
 		Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.blue);
-        
-        Dimension size = panel.getSize();
-        Insets insets = panel.getInsets();
 
-        int w = size.width - insets.left - insets.right;
-        int h = size.height - insets.top - insets.bottom;
         Iterator<Coordinate> circle_iter = current_game.circles.iterator();
         Coordinate circle = null;
         while(circle_iter.hasNext()){
