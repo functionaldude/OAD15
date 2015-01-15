@@ -52,11 +52,7 @@ public class GUIController {
 	public static PublicRankingGameWindow w_public_ranking;
 	public static SaveEditorWindow w_save_editor;
 	
-	//vars
-	public static session sessionvar;
-	
-	public GUIController(session input){
-		sessionvar = input;
+	public GUIController(){
 	}
 	
 	public void init(){
@@ -88,7 +84,7 @@ public class GUIController {
 			String input_email = w_login.f_email.getText();
 			String input_pw = new String(w_login.f_pw.getPassword());
 			try {
-				sessionvar.authenticate(input_email, input_pw);
+				Program.current_session.authenticate(input_email, input_pw);
 			}
 			catch (SQLException e1){
 				JOptionPane.showMessageDialog(w_main.window, "Server error: "+ e1.getMessage());
@@ -102,11 +98,11 @@ public class GUIController {
 					JOptionPane.showMessageDialog(w_login.window, "No such user in our Database!");					
 				}
 			}
-			if (sessionvar.getLoginState()){
+			if (Program.current_session.getLoginState()){
 				w_login.hide();
 				// bg color
 				Color bg;
-				int color = sessionvar.getUser().settings[0];
+				int color = Program.current_session.getUser().settings[0];
 				switch (color){
 				case 1: bg = Color.red; break;
 				case 2: bg = Color.black; break;
@@ -120,27 +116,27 @@ public class GUIController {
 				w_main.private_game_playground_panel.setBackground(bg);
 			
 				//bg music
-				int music = sessionvar.getUser().settings[1]; 
+				int music = Program.current_session.getUser().settings[1]; 
 				String music_path = null;
-				switch (sessionvar.getUser().settings[1]){
+				switch (Program.current_session.getUser().settings[1]){
 				case 1: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music1.wav"; break;
 				case 2: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music2.wav"; break;
 				case 3: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music3.wav"; break;
 				default: music_path = null;
 				}
 				w_gamesettings.background_music_box.setSelectedIndex(music);
-				sessionvar.musicplayer.setAudioData(music_path);
-				if(sessionvar.getUser().userimage != null){
+				Program.current_session.musicplayer.setAudioData(music_path);
+				if(Program.current_session.getUser().userimage != null){
 					w_main.photo_label.setText(null);
-					w_main.photo_label.setIcon(new ImageIcon(sessionvar.getUser().userimage));
+					w_main.photo_label.setIcon(new ImageIcon(Program.current_session.getUser().userimage));
 				} else {
 					w_main.photo_label.setIcon(null);
 					w_main.photo_label.setText("No image found! Please uplouad an avatar.");
 				}
-				if (sessionvar.getUser().getUserName().equals("admin")){
+				if (Program.current_session.getUser().getUserName().equals("admin")){
 					w_admin.show();
 				} else {
-					w_main.home_label.setText("Hello "+sessionvar.getUser().getUserName());
+					w_main.home_label.setText("Hello "+Program.current_session.getUser().getUserName());
 					w_main.show();
 				}
 			}
@@ -172,8 +168,7 @@ public class GUIController {
 			try {
 				games = Program.current_session.listGames(1);
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
 			}
 			Iterator<String> iter = games.iterator();
 			while(iter.hasNext()){
@@ -197,8 +192,7 @@ public class GUIController {
 			try {
 				games = Program.current_session.listGames(2);
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
 			}
 			Iterator<String> iter = games.iterator();
 			while(iter.hasNext()){
@@ -213,9 +207,15 @@ public class GUIController {
 			GameController.current_game = new game((String)w_public_new_game.list_of_public_games.getSelectedItem());
 			try {
 				GameController.current_game.getFromServer();
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				if(e1.getMessage().equals("AccessDenied")){
+					JOptionPane.showMessageDialog(w_admin.window, "Error: Access Denied");
+				}
+				else if(e1.getMessage().equals("NoSuchGameOnServer")){
+					JOptionPane.showMessageDialog(w_admin.window, "Error: No such game on the server");
+				}
 			}
 			w_main.public_game_playground_panel.repaint();
 			w_public_new_game.hide();
@@ -227,9 +227,15 @@ public class GUIController {
 			GameController.current_game = new game((String)w_private_new_game.list_of_private_games.getSelectedItem());
 			try {
 				GameController.current_game.getFromServer();
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				if(e1.getMessage().equals("AccessDenied")){
+					JOptionPane.showMessageDialog(w_admin.window, "Error: Access Denied");
+				}
+				else if(e1.getMessage().equals("NoSuchGameOnServer")){
+					JOptionPane.showMessageDialog(w_admin.window, "Error: No such game on the server");
+				}
 			}
 			w_main.private_game_playground_panel.repaint();
 			w_private_new_game.hide();
@@ -261,7 +267,7 @@ public class GUIController {
 		@Override
 		public void actionPerformed(ActionEvent e){
 			try{
-				sessionvar.addUser(w_register.f_username.getText(), new String(w_register.f_pw.getPassword()), w_register.f_email.getText());
+				Program.current_session.addUser(w_register.f_username.getText(), new String(w_register.f_pw.getPassword()), w_register.f_email.getText());
 			}
 			catch (SQLException e1){
 				JOptionPane.showMessageDialog(w_main.window, "Server error: "+ e1.getMessage());
@@ -282,7 +288,7 @@ public class GUIController {
 		public void actionPerformed(ActionEvent e) 
 		{
 			w_main.hide();
-			sessionvar.deauthenticate();
+			Program.current_session.deauthenticate();
 			w_login.f_email.setText(null);
 			w_login.f_pw.setText(null);
 			w_login.show();
@@ -296,8 +302,8 @@ public class GUIController {
 			w_usersettings.new_nickname_field.setText(null);
 			w_usersettings.new_password_field.setText(null);
 			w_usersettings.old_password_field.setText(null);
-			if (sessionvar.getUser().userimage != null){
-				w_usersettings.usrimg.setIcon(new ImageIcon(sessionvar.getUser().userimage.getScaledInstance(50, 50, Image.SCALE_FAST)));
+			if (Program.current_session.getUser().userimage != null){
+				w_usersettings.usrimg.setIcon(new ImageIcon(Program.current_session.getUser().userimage.getScaledInstance(50, 50, Image.SCALE_FAST)));
 				w_usersettings.usrimg.setText(null);
 			} else {
 				w_usersettings.usrimg.setText("No image");
@@ -392,10 +398,14 @@ public class GUIController {
 			GameController.current_game.setDescription(w_save_editor.editor_description_field.getText());
 			try {
 				GameController.current_game.addGame();
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
+				return;
 			} catch (Exception e1) {
-				System.out.println("Error at uploading game");
-				System.out.println("Error: " + e1.getMessage());
-				//TODO: Popup
+				if(e1.getMessage().equals("DuplicateGame")){
+					JOptionPane.showMessageDialog(w_admin.window, "Error: Title already taken");
+					return;
+				}
 			}
 			w_save_editor.hide();
 			w_save_editor.editor_description_field.setText(null);
@@ -408,7 +418,7 @@ public class GUIController {
 		@Override
 		public void actionPerformed(ActionEvent e){
 			try {
-				w_admin.user_table_content = new UserTableModel(sessionvar.searchUser(w_admin.search_user_field.getText()));
+				w_admin.user_table_content = new UserTableModel(Program.current_session.searchUser(w_admin.search_user_field.getText()));
 				w_admin.user_table.setModel(w_admin.user_table_content);
 			} catch (SQLException e1) {
 				System.out.println("SQLException: "+e1.getMessage());
@@ -426,7 +436,7 @@ public class GUIController {
 			}
 			String username = (String)w_admin.user_table_content.getValueAt(selected, 1);
 			try {
-				sessionvar.deleteUser(username);
+				Program.current_session.deleteUser(username);
 			} catch (SQLException e1) {
 				System.out.println("SQLException: "+e1.getMessage());
 				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
@@ -444,7 +454,11 @@ public class GUIController {
 	public static ActionListener send_feedback = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e){
-			sessionvar.feedbackhandler.addFeedback(w_feedback.feedback_titel_field.getText(), w_feedback.feedback_message_field.getText());
+			try {
+				Program.current_session.feedbackhandler.addFeedback(w_feedback.feedback_titel_field.getText(), w_feedback.feedback_message_field.getText());
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
+			}
 			w_feedback.hide();
 		}
 	};
@@ -454,22 +468,22 @@ public class GUIController {
 		@Override
 		public void actionPerformed(ActionEvent e){
 			String old_pw = new String(w_usersettings.old_password_field.getPassword());
-			if (sessionvar.getUser().checkPW(old_pw)){
+			if (Program.current_session.getUser().checkPW(old_pw)){
 				if(!w_usersettings.new_nickname_field.getText().isEmpty()){
 					String new_username = w_usersettings.new_nickname_field.getText();
-					if(sessionvar.checkForUser(new_username)){
+					if(Program.current_session.checkForUser(new_username)){
 						JOptionPane.showMessageDialog(w_usersettings.window, "Username already taken!");
 					} else {
-						sessionvar.getUser().changeUserName(new_username);
+						Program.current_session.getUser().changeUserName(new_username);
 					}
 				}
 				if (! new String(w_usersettings.new_password_field.getPassword()).isEmpty()){
-					sessionvar.getUser().changePW(new String(w_usersettings.new_password_field.getPassword()));
+					Program.current_session.getUser().changePW(new String(w_usersettings.new_password_field.getPassword()));
 				}
-				w_main.photo_label.setIcon(new ImageIcon(sessionvar.getUser().userimage));
+				w_main.photo_label.setIcon(new ImageIcon(Program.current_session.getUser().userimage));
 				w_main.photo_label.setText(null);
 				try {
-					sessionvar.syncBackUserData();
+					Program.current_session.syncBackUserData();
 				} catch (SQLException ex) {
 					JOptionPane.showMessageDialog(w_usersettings.window, "Server error: "+ ex.getMessage());
 				}
@@ -491,12 +505,12 @@ public class GUIController {
 			int retval = w_usersettings.image_chooser.showOpenDialog(w_usersettings.window);
 			if(retval == JFileChooser.APPROVE_OPTION){
 				try {
-					sessionvar.set_user_image(w_usersettings.image_chooser.getSelectedFile());
+					Program.current_session.set_user_image(w_usersettings.image_chooser.getSelectedFile());
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(w_usersettings.window, ex.getClass()+" error: "+ ex.getMessage());
 				}
 			}
-			w_usersettings.usrimg.setIcon(new ImageIcon(sessionvar.getUser().userimage.getScaledInstance(50, 50, Image.SCALE_FAST)));
+			w_usersettings.usrimg.setIcon(new ImageIcon(Program.current_session.getUser().userimage.getScaledInstance(50, 50, Image.SCALE_FAST)));
 		}	
 	};
 	//game settings
@@ -505,7 +519,7 @@ public class GUIController {
 		public void actionPerformed(ActionEvent e){
 			// bg color
 			int newcolor = w_gamesettings.background_color_box.getSelectedIndex();
-			if (newcolor != sessionvar.getUser().settings[0]){
+			if (newcolor != Program.current_session.getUser().settings[0]){
 				Color bg;
 				switch (newcolor){
 				case 1: bg = Color.red; break;
@@ -515,13 +529,13 @@ public class GUIController {
 				case 5: bg = Color.green; break;
 				default: bg = Color.lightGray; break;
 				}
-				sessionvar.getUser().settings[0] = newcolor;
+				Program.current_session.getUser().settings[0] = newcolor;
 				w_main.public_game_playground_panel.setBackground(bg);
 				w_main.private_game_playground_panel.setBackground(bg);
 			}
 			//bg music
 			int newmusic = w_gamesettings.background_music_box.getSelectedIndex();
-			if(newmusic != sessionvar.getUser().settings[1]){
+			if(newmusic != Program.current_session.getUser().settings[1]){
 				String music_path = null;
 				switch (newmusic){
 				case 1: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music1.wav"; break;
@@ -529,12 +543,12 @@ public class GUIController {
 				case 3: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music3.wav"; break;
 				default: music_path = null;
 				}
-				sessionvar.getUser().settings[1] = newmusic;
-				sessionvar.musicplayer.setAudioData(music_path);
+				Program.current_session.getUser().settings[1] = newmusic;
+				Program.current_session.musicplayer.setAudioData(music_path);
 			}
 			w_gamesettings.hide();
 			try {
-				sessionvar.syncBackUserData();
+				Program.current_session.syncBackUserData();
 			} catch (SQLException ex) {
 				JOptionPane.showMessageDialog(w_gamesettings.window, "Server error: "+ ex.getMessage());
 			}
@@ -548,7 +562,7 @@ public class GUIController {
 			String usr = w_resetpw.nickname_field.getText();
 			String email = w_resetpw.email_field.getText();
 			try {
-				sessionvar.registerPWreset(usr, email);
+				Program.current_session.registerPWreset(usr, email);
 			} 
 			catch (SQLException ex) {
 	        	System.out.println("SQLException: " + ex.getMessage());
@@ -575,7 +589,7 @@ public class GUIController {
 			}
 			String username = (String)w_admin.user_table_content.getValueAt(selected, 1);
 			try {
-				sessionvar.resetPW(username);
+				Program.current_session.resetPW(username);
 			} catch (SQLException e1) {
 				System.out.println("SQLException: "+e1.getMessage());
 				JOptionPane.showMessageDialog(w_main.window, "Server error: "+ e1.getMessage());

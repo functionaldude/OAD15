@@ -4,23 +4,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class FeedbackHandler {
-	private session current_session;
 	
-	public FeedbackHandler(session input){
-		current_session = input;
+	public FeedbackHandler(){
 	}
 	
-	public void addFeedback(String title, String msg){
+	public void addFeedback(String title, String msg) throws SQLException{
 		Statement stmt;
-		try {
-			stmt = current_session.server.getConn().createStatement();
-			stmt.executeUpdate("INSERT INTO feedback (user_id, title, msg) VALUES ("+
-					current_session.getUser().getID() + ", '"+
-					title + "' ,'" +
-					msg + "' )");
-		} catch (SQLException ex) {
-		    System.out.println("Error at creating feedback");
-		    System.out.println("SQLException: " + ex.getMessage());
-		}
+		stmt = Program.current_session.server.getConn().createStatement();
+		stmt.executeUpdate("INSERT INTO feedback (user_id, title, msg) VALUES ("+
+				Program.current_session.getUser().getID() + ", '"+
+				title + "' ,'" +
+				msg + "' )");
 	}
 }

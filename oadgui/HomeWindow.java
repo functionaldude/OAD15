@@ -27,6 +27,7 @@ import javax.swing.JTextPane;
 import oad.AudioHandler;
 import oad.GUIController;
 import oad.GameController;
+import oad.Program;
 import oad.game;
 import oad.session;
 
@@ -421,7 +422,7 @@ public class HomeWindow extends Window {
 			{
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte2" );	
-		        GUIController.sessionvar.musicplayer.start();
+		        Program.current_session.musicplayer.start();
 		        GameController.current_panel = private_game_playground_panel;
 		        
 		        
@@ -442,7 +443,7 @@ public class HomeWindow extends Window {
 			{
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte1" );
-		        GUIController.sessionvar.musicplayer.stop();
+		        Program.current_session.musicplayer.stop();
 		        GameController.current_panel = null;
 			}	
 		});
@@ -454,7 +455,7 @@ public class HomeWindow extends Window {
 			{
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte3" );
-		        GUIController.sessionvar.musicplayer.start();
+		        Program.current_session.musicplayer.start();
 		        GameController.current_panel = public_game_playground_panel;
 			}	
 		});
@@ -466,7 +467,7 @@ public class HomeWindow extends Window {
 			{
 				CardLayout cl = (CardLayout)(master_container_switch.getLayout());
 		        cl.show(master_container_switch,"Karte1" );
-		        GUIController.sessionvar.musicplayer.stop();
+		        Program.current_session.musicplayer.stop();
 		        GameController.current_panel = null;
 			}	
 		});
