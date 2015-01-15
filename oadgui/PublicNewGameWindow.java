@@ -54,7 +54,7 @@ public class PublicNewGameWindow extends Window {
 	
 	//ComboBox
 	
-	private JComboBox list_of_public_games;
+	public JComboBox<String> list_of_public_games;
 
 	
 
@@ -80,7 +80,7 @@ public class PublicNewGameWindow extends Window {
 		select_game_label.setLocation(6, 65);
 		select_game_label.setSize(200, 20);
 		
-		this.list_of_public_games = new JComboBox();
+		this.list_of_public_games = new JComboBox<String>();
 		list_of_public_games.setLocation(244, 65);
 		list_of_public_games.setSize(200, 20);
 		
@@ -112,7 +112,7 @@ public class PublicNewGameWindow extends Window {
 	
 	private void initListeners()
 	{	
-		
+		this.new_game_ok_button.addActionListener(GUIController.load_public_game);
 	}
 
 

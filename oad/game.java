@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class game {
 	//initial data
@@ -12,7 +13,7 @@ public class game {
 	private String name;
 	private int rating[];
 	private int privacy;
-	private Boolean editable;
+	private String desc;
 	public ArrayList<Coordinate> circles;
 	public ArrayList<Coordinate> lines;
 	
@@ -48,17 +49,14 @@ public class game {
 	}
 	
 	//server functions
-	public void getFromServer(session cur_session) throws Exception{
+	public void getFromServer() throws Exception{
 		Statement stmt;
 		ResultSet res = null;
-		try {
-			stmt = cur_session.server.getConn().createStatement();
-			res = stmt.executeQuery("SELECT * FROM game WHERE Name = '"+this.name+"'");
-		} catch (SQLException ex) {
-		    System.out.println("SQLException: " + ex.getMessage());
-		}
+		stmt = Program.current_session.server.getConn().createStatement();
+		res = stmt.executeQuery("SELECT * FROM game WHERE Name = '"+this.name+"'");
 		if (res.first()){
-			if (res.getInt("user_id") != cur_session.getUser().getID() && res.getInt("privacy") != 1){
+			if (res.getInt("user_id") != Program.current_session.getUser().getID() && res.getInt("privacy") != 1){
+				stmt.close();
 				throw new Exception("AccessDenied");
 			} else {
 				this.id = res.getInt("id");
@@ -66,8 +64,13 @@ public class game {
 				this.rating[0] = res.getInt("rating_sum");
 				this.rating[1] = res.getInt("rating_count");
 				this.privacy = res.getInt("privacy");
-				this.editable = (res.getInt("user_id") == cur_session.getUser().getID());
-				//TODO: get rawdata!!!
+				this.desc = res.getString("desc");
+				stmt = Program.current_session.server.getConn().createStatement();
+				res = stmt.executeQuery("SELECT x, y FROM coordinates WHERE game_id="+this.id);
+				while (res.next()) {
+					circles.add(new Coordinate(res.getInt("x"), res.getInt("y")));
+				}
+				stmt.close();
 			}
 		} else {
 			throw new Exception("NoSuchGameOnServer");
@@ -88,27 +91,45 @@ public class game {
 				", rating_sum="+this.rating[0]+
 				", rating_count="+this.rating[1]+
 				", privacy="+this.privacy+
+				", desc='"+this.desc+"'"+
 				" WHERE id="+this.id);
 		stmt.close();
 	}
-	public void addGame(session cur_session) throws Exception{
+	public void addGame() throws Exception{
 		//check for name duplicate
+		this.user_id = Program.current_session.getUser().getID();
 		Statement stmt;
 		ResultSet res = null;
-		stmt = cur_session.server.getConn().createStatement();
+		stmt = Program.current_session.server.getConn().createStatement();
 		res = stmt.executeQuery("SELECT id FROM game WHERE Name = '"+this.name+"'");
 		if (res.first()){
 			stmt.close();
 			throw new Exception("DuplicateGame");
 		} else {
-			stmt = cur_session.server.getConn().createStatement();
-			stmt.executeUpdate("INSERT INTO game (user_id, name, rating_sum, rating_count, privacy) VALUES ("+
+			stmt = Program.current_session.server.getConn().createStatement();
+			stmt.executeUpdate("INSERT INTO game (user_id, name, rating_sum, rating_count, privacy, `desc`) VALUES ("+
 					this.user_id+", "+
 					"'"+this.name+"', "+
 					this.rating[0]+", "+
 					this.rating[1]+", "+
-					this.privacy+
+					this.privacy+", "+
+					"'"+this.desc+"'"+
 					")");
+			stmt.close();
+			//get the game id -> auto inc from sql server
+			stmt = Program.current_session.server.getConn().createStatement();
+			res = stmt.executeQuery("SELECT * FROM game WHERE name = '"+this.name+"'");
+			res.first();
+			id = res.getInt("id");
+			stmt.close();
+			stmt = Program.current_session.server.getConn().createStatement();
+			Iterator<Coordinate> iter = circles.iterator();
+			Coordinate circle;
+			while(iter.hasNext()){
+				circle = iter.next();
+				stmt.addBatch("INSERT INTO coordinates (game_id, x, y) VALUES ("+id+", "+circle.getX()+", "+circle.getY()+")");
+			}
+			stmt.executeBatch();
 			stmt.close();
 		}
 	}
@@ -117,5 +138,11 @@ public class game {
 	}
 	public void setName(String input){
 		name = input;
+	}
+	public void setDescription(String input){
+		desc = input;
+	}
+	public void setPrivacy(int input){
+		privacy = input;
 	}
 }

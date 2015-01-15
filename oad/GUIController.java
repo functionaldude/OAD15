@@ -3,9 +3,12 @@ package oad;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -166,6 +169,17 @@ public class GUIController {
 	public static ActionListener open_private_new_game = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e){
+			ArrayList<String> games = null;
+			try {
+				games = Program.current_session.listGames(1);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			Iterator<String> iter = games.iterator();
+			while(iter.hasNext()){
+				w_public_new_game.list_of_public_games.addItem(iter.next());
+			}
 			w_private_new_game.show();
 		}
 	};
@@ -180,10 +194,34 @@ public class GUIController {
 	public static ActionListener open_public_new_game = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e){
+			ArrayList<String> games = null;
+			try {
+				games = Program.current_session.listGames(2);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			Iterator<String> iter = games.iterator();
+			while(iter.hasNext()){
+				w_public_new_game.list_of_public_games.addItem(iter.next());
+			}
 			w_public_new_game.show();
 		}
 	};
-	
+	public static ActionListener load_public_game = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			GameController.current_game = new game((String)w_public_new_game.list_of_public_games.getSelectedItem());
+			try {
+				GameController.current_game.getFromServer();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			w_main.public_game_playground_panel.repaint();
+			w_public_new_game.hide();
+		}
+	};
 	public static ActionListener open_public_ranking_game = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e){
@@ -336,7 +374,19 @@ public class GUIController {
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-	        
+			GameController.current_game.setPrivacy(w_save_editor.editor_privacy_list.getSelectedIndex()+1);
+			GameController.current_game.setName(w_save_editor.editor_title_field.getText());
+			GameController.current_game.setDescription(w_save_editor.editor_description_field.getText());
+			try {
+				GameController.current_game.addGame();
+			} catch (Exception e1) {
+				System.out.println("Error at uploading game");
+				System.out.println("Error: " + e1.getMessage());
+				//TODO: Popup
+			}
+			w_save_editor.hide();
+			w_save_editor.editor_description_field.setText(null);
+			w_save_editor.editor_title_field.setText(null);
 		}	
 	};
 	//admin window

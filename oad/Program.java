@@ -4,7 +4,7 @@ package oad;
 public class Program {
 	
 	//vars
-	private static session current_session;
+	public static session current_session;
 	private static GUIController guicontrol;
 	
 	public static void main(String[] args) {

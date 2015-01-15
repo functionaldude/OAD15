@@ -113,7 +113,6 @@ public class PublicDescriptionGameWindow extends Window {
 	private void initListeners()
 	{	
 		
-		
 	}
 
 

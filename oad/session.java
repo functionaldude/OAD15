@@ -169,6 +169,20 @@ public class session {
 		//save it locally
 		current_user.userimage = scaledimage;
 	}
+	public ArrayList<String> listGames(int mode) throws SQLException{ //1: private, 2:public
+		ArrayList<String> retval = new ArrayList<String>();
+		Statement stmt = server.getConn().createStatement();
+		ResultSet res;
+		if(mode == 1){
+			res = stmt.executeQuery("SELECT name FROM game WHERE privacy=1 AND user_id="+current_user.getID());
+		} else {
+			res = stmt.executeQuery("SELECT name FROM game WHERE privacy=2");
+		}
+		while(res.next()){
+			retval.add(res.getString("name"));
+		}
+		return retval;
+	}
 	
 	//admin functions
 	public List<User> searchUser(String input) throws SQLException{
