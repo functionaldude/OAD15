@@ -119,9 +119,9 @@ public class GUIController {
 				int music = Program.current_session.getUser().settings[1]; 
 				String music_path = null;
 				switch (Program.current_session.getUser().settings[1]){
-				case 1: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music1.wav"; break;
-				case 2: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music2.wav"; break;
-				case 3: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music3.wav"; break;
+				case 1: music_path = ResourceHandler.music1; break;
+				case 2: music_path = ResourceHandler.music2; break;
+				case 3: music_path = ResourceHandler.music3; break;
 				default: music_path = null;
 				}
 				w_gamesettings.background_music_box.setSelectedIndex(music);
@@ -538,9 +538,9 @@ public class GUIController {
 			if(newmusic != Program.current_session.getUser().settings[1]){
 				String music_path = null;
 				switch (newmusic){
-				case 1: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music1.wav"; break;
-				case 2: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music2.wav"; break;
-				case 3: music_path = "/Users/zoli/Documents/Eclipse/OADProgram/src/media/music3.wav"; break;
+				case 1: music_path = ResourceHandler.music1; break;
+				case 2: music_path = ResourceHandler.music2; break;
+				case 3: music_path = ResourceHandler.music3; break;
 				default: music_path = null;
 				}
 				Program.current_session.getUser().settings[1] = newmusic;

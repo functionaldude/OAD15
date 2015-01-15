@@ -28,7 +28,8 @@ public class AudioHandler {
 			return;
 		}
 		try{
-			BGM = new AudioStream(new FileInputStream(input));
+			//BGM = new AudioStream(new FileInputStream(input));
+			BGM = new AudioStream(Program.class.getResourceAsStream(input));
 			MD = BGM.getData();
 			loop = new ContinuousAudioDataStream(MD);
 			playable = true;
