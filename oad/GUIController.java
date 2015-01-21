@@ -104,12 +104,12 @@ public class GUIController {
 				Color bg;
 				int color = Program.current_session.getUser().settings[0];
 				switch (color){
-				case 1: bg = Color.red; break;
-				case 2: bg = Color.black; break;
-				case 3: bg = Color.white; break;
-				case 4: bg = Color.blue; break;
-				case 5: bg = Color.green; break;
-				default: bg = Color.lightGray; break;
+				case 1: bg = ResourceHandler.bg_color1; break;
+				case 2: bg = ResourceHandler.bg_color2; break;
+				case 3: bg = ResourceHandler.bg_color3; break;
+				case 4: bg = ResourceHandler.bg_color4; break;
+				case 5: bg = ResourceHandler.bg_color5; break;
+				default: bg = ResourceHandler.bg_color6; break;
 				}
 				w_gamesettings.background_color_box.setSelectedIndex(color);
 				w_main.public_game_playground_panel.setBackground(bg);

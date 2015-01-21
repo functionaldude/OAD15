@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 public class SQLConnection{
     private String url;
+    //FIXME: Change username/pw
     private static final String user = "root";
     private static final String passwd = "root";
     private Connection connect;
