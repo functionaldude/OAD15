@@ -1,4 +1,5 @@
 package oad;
+import java.awt.Point;
 import java.lang.Exception;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -13,15 +14,15 @@ public class game {
 	private int rating[];
 	private int privacy;
 	private String desc;
-	public ArrayList<Coordinate> circles;
-	public ArrayList<Coordinate> lines;
+	public ArrayList<Point> circles;
+	public ArrayList<Connection> lines;
 	
 	//constructors
 	public game(String input_name){
 		this.name = input_name;
 		this.rating = new int[] {0,0};
-		this.circles = new ArrayList<Coordinate>();
-		this.lines = new ArrayList<Coordinate>();
+		this.circles = new ArrayList<Point>();
+		this.lines = new ArrayList<Connection>();
 	}
 	
 	public String getName(){
@@ -67,7 +68,13 @@ public class game {
 				stmt = Program.current_session.server.getConn().createStatement();
 				res = stmt.executeQuery("SELECT x, y FROM coordinates WHERE game_id="+this.id);
 				while (res.next()) {
-					circles.add(new Coordinate(res.getInt("x"), res.getInt("y")));
+					circles.add(new Point(res.getInt("x"), res.getInt("y")));
+				}
+				stmt.close();
+				stmt = Program.current_session.server.getConn().createStatement();
+				res = stmt.executeQuery("SELECT* FROM (SELECT x AS beginX ,y AS beginY FROM connections INNER JOIN coordinates ON connections.begin = coordinates.id WHERE connections.game_id = "+this.id+") c1, (SELECT x AS endX ,y AS endY FROM connections INNER JOIN coordinates ON connections.end = coordinates.id WHERE connections.game_id = "+this.id+") c2");
+				while (res.next()){
+					lines.add(new Connection(new Point(res.getInt("beginX"), res.getInt("beginY")), new Point(res.getInt("endX"), res.getInt("endY"))));
 				}
 				stmt.close();
 			}
@@ -122,18 +129,30 @@ public class game {
 			id = res.getInt("id");
 			stmt.close();
 			stmt = Program.current_session.server.getConn().createStatement();
-			Iterator<Coordinate> iter = circles.iterator();
-			Coordinate circle;
-			while(iter.hasNext()){
-				circle = iter.next();
+			Iterator<Point> circle_iter = circles.iterator();
+			Point circle;
+			while(circle_iter.hasNext()){
+				circle = circle_iter.next();
 				stmt.addBatch("INSERT INTO coordinates (game_id, x, y) VALUES ("+id+", "+circle.getX()+", "+circle.getY()+")");
 			}
 			stmt.executeBatch();
 			stmt.close();
+			stmt = Program.current_session.server.getConn().createStatement();
+			Iterator<Connection>conn_iter = lines.iterator();
+	        Connection line = null;
+	        while(conn_iter.hasNext()){
+	        	line = conn_iter.next();
+	        	stmt.addBatch("INSERT INTO connections(game_id, begin, end) VALUES ("+id+", (SELECT id FROM coordinates WHERE x = "+line.getBegin().x+" AND y = "+line.getBegin().y+"), (SELECT id FROM coordinates WHERE x = "+line.getEnd().x+" AND y = "+line.getEnd().y+"))");
+	        }
+	        stmt.executeBatch();
+			stmt.close();
 		}
 	}
 	public void addCircle(int x, int y){
-		this.circles.add(new Coordinate(x,y));
+		this.circles.add(new Point(x,y));
+	}
+	public void addLine(Connection input){
+		this.lines.add(input);
 	}
 	public void setName(String input){
 		name = input;
@@ -144,4 +163,5 @@ public class game {
 	public void setPrivacy(int input){
 		privacy = input;
 	}
+	
 }
