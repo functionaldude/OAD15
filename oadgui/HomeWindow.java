@@ -261,7 +261,7 @@ public class HomeWindow extends Window {
 		
 		this.public_game_titel = new JLabel("Titel");
 		this.public_rating_label = new JLabel("Ranking:");
-		this.public_rating_result_label = new JLabel("Hier soll das Ergebnis rein");
+		this.public_rating_result_label = new JLabel();
 		
 		this.editor_titel_label = new JLabel("Editor");
 		editor_titel_label.setHorizontalAlignment(SwingConstants.CENTER);

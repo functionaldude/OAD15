@@ -222,6 +222,11 @@ public class GUIController {
 			}
 			w_main.public_game_playground_panel.repaint();
 			w_main.public_game_titel.setText(GameController.current_game.getName());
+			try {
+				w_main.public_rating_result_label.setText(String.valueOf(GameController.current_game.getRating()));
+			} catch (Exception e1) {
+				w_main.public_rating_result_label.setText(String.valueOf("Not Enough Rating"));
+			}
 			w_public_new_game.hide();
 		}
 	};
@@ -270,6 +275,10 @@ public class GUIController {
 	public static ActionListener open_public_ranking_game = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e){
+			if (GameController.current_game == null){
+				JOptionPane.showMessageDialog(w_admin.window, "No game selected");
+				return;
+			}
 			w_public_ranking.show();
 		}
 	};
@@ -277,7 +286,21 @@ public class GUIController {
 	public static ActionListener open_public_description_game = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e){
+			if (GameController.current_game == null){
+				JOptionPane.showMessageDialog(w_admin.window, "No game selected");
+				return;
+			}
+			w_public_description.description_game_field.setText(GameController.current_game.getDesc());
+			w_public_description.setName(GameController.current_game.getName());
 			w_public_description.show();
+		}
+	};
+	public static ActionListener close_public_description_game = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			w_public_description.hide();
+			w_public_description.setName(null);
+			w_public_description.description_game_field.setText(null);
 		}
 	};
 	

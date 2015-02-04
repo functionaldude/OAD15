@@ -48,6 +48,9 @@ public class game {
 			return "Public";
 		}
 	}
+	public String getDesc(){
+		return desc;
+	}
 	public String getUserName(){
 		return username;
 	}

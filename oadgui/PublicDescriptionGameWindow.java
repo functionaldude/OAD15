@@ -50,12 +50,11 @@ public class PublicDescriptionGameWindow extends Window {
 	//buttons
 	
 	private JButton description_game_ok_button;
-	private JButton description_game_cancel_button;
 
 	
 	//TextArea
 	
-	private JTextArea description_game_field;
+	public JTextArea description_game_field;
 	
 	
 	
@@ -83,12 +82,8 @@ public class PublicDescriptionGameWindow extends Window {
 		description_game_label.setSize(438, 20);
 		
 		this.description_game_ok_button = new JButton("OK");
-		description_game_ok_button.setLocation(50, 231);
+		description_game_ok_button.setLocation(176, 231);
 		description_game_ok_button.setSize(100, 20);
-		
-		this.description_game_cancel_button = new JButton("Cancel");
-		description_game_cancel_button.setLocation(300, 231);
-		description_game_cancel_button.setSize(100, 20);
 		
 		this.description_game_field = new JTextArea();
 		description_game_field.setEditable(false);
@@ -102,7 +97,6 @@ public class PublicDescriptionGameWindow extends Window {
 		this.public_description_game_panel.add(this.description_game_label);
 		this.public_description_game_panel.add(this.description_game_field);
 		this.public_description_game_panel.add(this.description_game_ok_button);
-		this.public_description_game_panel.add(this.description_game_cancel_button);
 		
 		this.window.getContentPane().add(this.public_description_game_panel);
 		
@@ -112,7 +106,7 @@ public class PublicDescriptionGameWindow extends Window {
 	
 	private void initListeners()
 	{	
-		
+		this.description_game_ok_button.addActionListener(GUIController.close_public_description_game);
 	}
 
 
