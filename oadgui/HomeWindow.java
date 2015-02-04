@@ -81,10 +81,10 @@ public class HomeWindow extends Window {
 	//labels
 	public JLabel home_label;
 	public JLabel photo_label;
-	private JLabel private_game_titel;
-	private JLabel public_game_titel;
+	public JLabel private_game_titel;
+	public JLabel public_game_titel;
 	private JLabel public_rating_label;
-	private JLabel public_rating_result_label;
+	public JLabel public_rating_result_label;
 	private JLabel editor_titel_label;
 	
 	//table
@@ -254,12 +254,12 @@ public class HomeWindow extends Window {
 		photo_label.setVerticalAlignment(SwingConstants.TOP);
 		photo_label.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		this.private_game_titel = new JLabel("Hier kommt der Titel des Spiels rein");
+		this.private_game_titel = new JLabel("Titel");
 		private_game_titel.setHorizontalAlignment(SwingConstants.CENTER);
 		private_game_titel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 		private_game_titel.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		
-		this.public_game_titel = new JLabel("Hier kommt der Titel des Spiels rein");
+		this.public_game_titel = new JLabel("Titel");
 		this.public_rating_label = new JLabel("Ranking:");
 		this.public_rating_result_label = new JLabel("Hier soll das Ergebnis rein");
 		

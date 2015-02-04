@@ -17,6 +17,7 @@ public class Program {
 		guicontrol = new GUIController();
 		guicontrol.init();
 		GUIController.w_login.show();
+		
 	}
 
 }

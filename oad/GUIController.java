@@ -18,6 +18,7 @@ import oadgui.AdminWindow;
 import oadgui.ContactWindow;
 import oadgui.FeedbackWindow;
 import oadgui.GameSettingWindow;
+import oadgui.GameTableModel;
 import oadgui.HomeWindow;
 import oadgui.LoginWindow;
 import oadgui.PrivateDescriptionGameWindow;
@@ -170,6 +171,7 @@ public class GUIController {
 			} catch (SQLException e1) {
 				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
 			}
+			w_private_new_game.list_of_private_games.removeAllItems();
 			Iterator<String> iter = games.iterator();
 			while(iter.hasNext()){
 				w_private_new_game.list_of_private_games.addItem(iter.next());
@@ -194,6 +196,7 @@ public class GUIController {
 			} catch (SQLException e1) {
 				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
 			}
+			w_public_new_game.list_of_public_games.removeAllItems();
 			Iterator<String> iter = games.iterator();
 			while(iter.hasNext()){
 				w_public_new_game.list_of_public_games.addItem(iter.next());
@@ -218,6 +221,7 @@ public class GUIController {
 				}
 			}
 			w_main.public_game_playground_panel.repaint();
+			w_main.public_game_titel.setText(GameController.current_game.getName());
 			w_public_new_game.hide();
 		}
 	};
@@ -238,7 +242,29 @@ public class GUIController {
 				}
 			}
 			w_main.private_game_playground_panel.repaint();
+			w_main.private_game_titel.setText(GameController.current_game.getName());
 			w_private_new_game.hide();
+		}
+	};
+	public static ActionListener add_ranking = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e){
+			int val = w_public_ranking.rating_box.getSelectedIndex();
+			if (val == -1){
+				JOptionPane.showMessageDialog(w_admin.window, "No rating selected!");
+			}
+			GameController.current_game.addRating(val+1);
+			try {
+				GameController.current_game.syncBack();
+			}
+			catch (SQLException e1) {
+				System.out.println("SQLException: "+e1.getMessage());
+				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
+			}
+			catch (Exception e1) {
+				JOptionPane.showMessageDialog(w_admin.window, "Error: "+ e1.getMessage());
+			}
+			w_public_ranking.hide();
 		}
 	};
 	public static ActionListener open_public_ranking_game = new ActionListener() {
@@ -442,6 +468,61 @@ public class GUIController {
 				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
 			}
 			search_users.actionPerformed(null);
+		}
+	};
+	public static ActionListener search_game = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e){
+			try {
+				w_admin.game_table_content = new GameTableModel(Program.current_session.searchGame());
+				w_admin.game_table.setModel(w_admin.game_table_content);
+			} catch (SQLException e1) {
+				System.out.println("SQLException: "+e1.getMessage());
+				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
+			}
+		}
+	};
+	public static ActionListener delete_game = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e){
+			int selected = w_admin.game_table.getSelectedRow();
+			if (selected == -1){
+				return;
+			}
+			String name = (String)w_admin.game_table_content.getValueAt(selected, 1);
+			try {
+				Program.current_session.deleteGame(name);
+			} catch (SQLException e1) {
+				System.out.println("SQLException: "+e1.getMessage());
+				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
+			}
+			search_game.actionPerformed(null);
+		}
+	};
+	public static ActionListener reset_rating = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e){
+			int selected = w_admin.game_table.getSelectedRow();
+			if (selected == -1){
+				return;
+			}
+			game gm = new game((String)w_admin.game_table_content.getValueAt(selected, 1));
+			try {
+				gm.getFromServer();
+				gm.resetRating();
+				gm.syncBack();
+			}
+			catch (SQLException e1) {
+				System.out.println("SQLException: "+e1.getMessage());
+				JOptionPane.showMessageDialog(w_admin.window, "Server error: "+ e1.getMessage());
+			}
+			catch (Exception e1) {
+				JOptionPane.showMessageDialog(w_admin.window, "Error: "+ e1.getMessage());
+			}
+			search_game.actionPerformed(null);
 		}
 	};
 	//feedback window

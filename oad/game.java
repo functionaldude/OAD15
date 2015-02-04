@@ -11,6 +11,7 @@ public class game {
 	private int id;
 	private int user_id;
 	private String name;
+	private String username;
 	private int rating[];
 	private int privacy;
 	private String desc;
@@ -24,24 +25,42 @@ public class game {
 		this.circles = new ArrayList<Point>();
 		this.lines = new ArrayList<Connection>();
 	}
+	public game(int id, String name, String username, int rating1, int rating2, int privacy){
+		this.id = id;
+		this.name = name;
+		this.username = username;
+		this.rating = new int[] {0,0};
+		this.rating[0] = rating1;
+		this.rating[1] = rating2;
+		this.privacy = privacy;
+	}
 	
 	public String getName(){
 		return name;
 	}
+	public int getID(){
+		return id;
+	}
+	public String getPrivacy(){
+		if(privacy == 1){
+			return "Private";
+		} else {
+			return "Public";
+		}
+	}
+	public String getUserName(){
+		return username;
+	}
 	public float getRating() throws Exception{
-		if (this.rating[1] > 5){
+		if (this.rating[1] >= 5){
 			return this.rating[0] / this.rating[1];
 		} else {
 			throw new Exception("NotEnoughRating");
 		}
 	}
-	public void addRating(int input_rating) throws Exception{
-		if (input_rating > 5 || input_rating < 1){
-			throw new Exception("Invalid_Rating");
-		} else {
-			this.rating[0] += input_rating;
-			this.rating[1]++;
-		}
+	public void addRating(int input_rating){
+		this.rating[0] += input_rating;
+		this.rating[1]++;
 	}
 	public void resetRating(){
 		this.rating[0] = 0;
@@ -72,7 +91,7 @@ public class game {
 				}
 				stmt.close();
 				stmt = Program.current_session.server.getConn().createStatement();
-				res = stmt.executeQuery("SELECT* FROM (SELECT x AS beginX ,y AS beginY FROM connections INNER JOIN coordinates ON connections.begin = coordinates.id WHERE connections.game_id = "+this.id+") c1, (SELECT x AS endX ,y AS endY FROM connections INNER JOIN coordinates ON connections.end = coordinates.id WHERE connections.game_id = "+this.id+") c2");
+				res = stmt.executeQuery("SELECT beginX, beginY, endX, endY FROM (SELECT connections.id, x AS beginX ,y AS beginY FROM connections CROSS JOIN coordinates ON connections.begin = coordinates.id WHERE connections.game_id = "+this.id+") c1 INNER JOIN (SELECT connections.id, x AS endX ,y AS endY FROM connections CROSS JOIN coordinates ON connections.end = coordinates.id WHERE connections.game_id = "+this.id+") c2 ON c1.id = c2.id");
 				while (res.next()){
 					lines.add(new Connection(new Point(res.getInt("beginX"), res.getInt("beginY")), new Point(res.getInt("endX"), res.getInt("endY"))));
 				}
@@ -82,23 +101,18 @@ public class game {
 			throw new Exception("NoSuchGameOnServer");
 		}
 	}
-	public void syncBack(SQLConnection server) throws Exception{
+	public void syncBack() throws Exception{
 		Statement stmt;
 		ResultSet res = null;
-		stmt = server.getConn().createStatement();
+		stmt = Program.current_session.server.getConn().createStatement();
 		res = stmt.executeQuery("SELECT id FROM game WHERE Name = '"+this.name+"'");
 		if (!res.first()){ //game deleted on remote during editing
 			stmt.close();
 			throw new Exception("NoSuchGameOnServer");
 		} 
 		stmt.close();
-		stmt = server.getConn().createStatement();
-		stmt.executeUpdate("UPDATE game SET name='"+this.name+
-				", rating_sum="+this.rating[0]+
-				", rating_count="+this.rating[1]+
-				", privacy="+this.privacy+
-				", desc='"+this.desc+"'"+
-				" WHERE id="+this.id);
+		stmt = Program.current_session.server.getConn().createStatement();
+		stmt.executeUpdate("UPDATE game SET name='"+this.name+"', rating_sum="+this.rating[0]+", rating_count="+this.rating[1]+", privacy="+this.privacy+", `desc`='"+this.desc+"' WHERE id="+this.id);
 		stmt.close();
 	}
 	public void addGame() throws Exception{

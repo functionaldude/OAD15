@@ -20,6 +20,8 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import oad.GUIController;
+import oad.GameController;
+import oad.Program;
 import oad.session;
 
 import javax.swing.SwingConstants;
@@ -113,6 +115,13 @@ public class PublicNewGameWindow extends Window {
 	private void initListeners()
 	{	
 		this.new_game_ok_button.addActionListener(GUIController.load_public_game);
+		this.new_game_cancel_button.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				GUIController.w_public_new_game.hide();
+			}
+		});
 	}
 
 

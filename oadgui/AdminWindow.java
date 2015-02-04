@@ -6,8 +6,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 import oad.GUIController;
+import oad.Program;
 import oad.session;
 
 import java.awt.CardLayout;
@@ -55,7 +57,6 @@ public class AdminWindow extends Window{
 	private JButton search_user;
 	
 	private JButton delete_game;
-	private JButton add_new_game;
 	
 	private JButton answer_notification;
 	private JButton delete_notification;
@@ -76,6 +77,9 @@ public class AdminWindow extends Window{
 	
 	//vars
 	public UserTableModel user_table_content;
+	public GameTableModel game_table_content;
+	private JButton btnRefresh;
+	private JButton btnResetRating;
 	
 	public AdminWindow(){
 		
@@ -138,7 +142,6 @@ public class AdminWindow extends Window{
 		this.search_user = new JButton("Search");
 
 		this.delete_game = new JButton("Delete Game");
-		this.add_new_game = new JButton("Add New Game");
 		
 		this.answer_notification = new JButton("Answer");
 		this.delete_notification = new JButton("Delete");
@@ -154,10 +157,13 @@ public class AdminWindow extends Window{
 		this.search_user_field = new JTextField();
 		this.search_notification_field = new JTextField();
 		user_table_content = new UserTableModel(null);
-		this.user_table = new JTable(user_table_content.getData(), new String[] {"ID", "Username", "PW", "E-Mail"});
+		this.user_table = new JTable(user_table_content.getData(), user_table_content.columnNames);
+		this.user_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		this.game_table = new JTable();
+		
+		this.game_table = new JTable(new String[][] {{"","","","",""}}, GameTableModel.columnNames);
 		game_table.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+		this.game_table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		this.notification_table = new JTable();
 		notification_table.setBorder(new LineBorder(new Color(0, 0, 0), 1));
@@ -184,14 +190,19 @@ public class AdminWindow extends Window{
 		
 		this.admin_pane.addTab("Game", game_panel);
 		
+		btnRefresh = new JButton("Refresh");
+		game_buttons_panel.add(btnRefresh);
+		
 		this.game_buttons_panel.add(this.delete_game);
-		this.game_buttons_panel.add(this.add_new_game);
 		
 		this.game_table_panel.add(this.game_table, BorderLayout.CENTER);
 		this.game_table_panel.add(game_table.getTableHeader(), BorderLayout.NORTH);
 		
 		this.game_panel.add(this.game_table_panel, BorderLayout.CENTER);
 		this.game_panel.add(this.game_buttons_panel, BorderLayout.EAST);
+		
+		btnResetRating = new JButton("Reset Rating");
+		game_buttons_panel.add(btnResetRating);
 		
 		
 		
@@ -225,6 +236,9 @@ public class AdminWindow extends Window{
 		this.search_user.addActionListener(GUIController.search_users);
 		this.delete_user.addActionListener(GUIController.delete_user);
 		this.reset_user_passwort.addActionListener(GUIController.resetPW);
+		this.btnRefresh.addActionListener(GUIController.search_game);
+		this.delete_game.addActionListener(GUIController.delete_game);
+		this.btnResetRating.addActionListener(GUIController.reset_rating);
 	}
 	
 }

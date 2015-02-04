@@ -113,6 +113,13 @@ public class PrivateNewGameWindow extends Window {
 	private void initListeners()
 	{	
 		this.new_game_ok_button.addActionListener(GUIController.load_private_game);
+		this.new_game_cancel_button.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				GUIController.w_private_new_game.hide();
+			}
+		});
 	}
 
 

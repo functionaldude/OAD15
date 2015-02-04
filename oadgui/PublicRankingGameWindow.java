@@ -53,14 +53,7 @@ public class PublicRankingGameWindow extends Window {
 	private JButton ranking_game_ok_button;
 	private JButton ranking_game_cancel_button;
 
-	
-	//RadioButton
-	
-	private JRadioButton one;
-	private JRadioButton two;
-	private JRadioButton three;
-	private JRadioButton four;
-	private JRadioButton five;
+	public JComboBox<String> rating_box;
 	
 	
 	public PublicRankingGameWindow(){
@@ -89,31 +82,6 @@ public class PublicRankingGameWindow extends Window {
 		this.ranking_game_cancel_button = new JButton("Cancel");
 		ranking_game_cancel_button.setLocation(300, 231);
 		ranking_game_cancel_button.setSize(100, 20);
-		
-		this.one = new JRadioButton("1");
-		one.setHorizontalAlignment(SwingConstants.CENTER);
-		one.setLocation(21, 120);
-		one.setSize(75, 20);
-		
-		this.two = new JRadioButton("2");
-		two.setHorizontalAlignment(SwingConstants.CENTER);
-		two.setLocation(108, 120);
-		two.setSize(75, 20);
-		
-		this.three = new JRadioButton("3");
-		three.setHorizontalAlignment(SwingConstants.CENTER);
-		three.setLocation(195, 120);
-		three.setSize(75, 20);
-		
-		this.four = new JRadioButton("4");
-		four.setHorizontalAlignment(SwingConstants.CENTER);
-		four.setLocation(282, 120);
-		four.setSize(75, 20);
-		
-		this.five = new JRadioButton("5");
-		five.setHorizontalAlignment(SwingConstants.CENTER);
-		five.setLocation(369, 120);
-		five.setSize(75, 20);
 
 		
 		
@@ -122,25 +90,31 @@ public class PublicRankingGameWindow extends Window {
 		this.public_ranking_game_panel.add(this.ranking_game_label);
 		this.public_ranking_game_panel.add(this.ranking_game_ok_button);
 		this.public_ranking_game_panel.add(this.ranking_game_cancel_button);
-		this.public_ranking_game_panel.add(this.one);
-		this.public_ranking_game_panel.add(this.two);
-		this.public_ranking_game_panel.add(this.three);
-		this.public_ranking_game_panel.add(this.four);
-		this.public_ranking_game_panel.add(this.five);
 		
 		this.window.getContentPane().add(this.public_ranking_game_panel);
+		
+		rating_box = new JComboBox<String>();
+		rating_box.addItem("1");
+		rating_box.addItem("2");
+		rating_box.addItem("3");
+		rating_box.addItem("4");
+		rating_box.addItem("5");
+		rating_box.setBounds(193, 124, 75, 27);
+		public_ranking_game_panel.add(rating_box);
 		
 		this.initListeners();
 		
 	}
 	
 	private void initListeners()
-	{	
-		
+	{	this.ranking_game_ok_button.addActionListener(GUIController.add_ranking);
+		this.ranking_game_cancel_button.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				GUIController.w_public_ranking.hide();
+			}
+		});
 		
 	}
-
-
-
-		
 }

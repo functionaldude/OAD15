@@ -85,7 +85,12 @@ public class GameController {
 				}
 				else if(line_state == 1){
 					current_con.setEnd(getNearestPoint(e.getX(), e.getY()));
-					current_game.addLine(current_con);
+					if(current_con.getBegin().equals(current_con.getEnd())){
+						//TODO: popup: same point
+						System.out.println("Same circle!");
+					} else {
+						current_game.addLine(current_con);
+					}
 					current_con = null;
 					line_state = 0;
 					current_panel.repaint();

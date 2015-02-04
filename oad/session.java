@@ -205,6 +205,21 @@ public class session {
 		stmt.executeUpdate("DELETE FROM user WHERE username = '" + username +"'");
 		stmt.close();
 	}
+	public List<game> searchGame() throws SQLException{
+		List<game> retval = new ArrayList<game>();
+		Statement stmt = server.getConn().createStatement();
+		ResultSet res = stmt.executeQuery("SELECT game.id, `name`, username, rating_sum, rating_count, privacy FROM `game` INNER JOIN user ON user_id = user.id");
+		while(res.next()){
+			retval.add(new game(res.getInt("id"), res.getString("name"), res.getString("username"), res.getInt("rating_sum"), res.getInt("rating_count"), res.getInt("privacy")));
+		}
+		stmt.close();
+		return retval;
+	}
+	public void deleteGame(String name) throws SQLException{
+		Statement stmt = server.getConn().createStatement();
+		stmt.executeUpdate("DELETE FROM game WHERE name = '" + name +"'");
+		stmt.close();
+	}
 	public void sendMSG(int userid, String msg) throws SQLException {
 		Statement stmt = server.getConn().createStatement();
 		stmt.executeUpdate("INSERT INTO messages (`from`, `to`, msg) VALUES (1, "+ userid +", '"+ msg +"')");
