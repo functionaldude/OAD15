@@ -8,6 +8,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Iterator;
 
+import javax.swing.JOptionPane;
+
 import oadgui.GamePanel;
 
 public class GameController {
@@ -86,7 +88,7 @@ public class GameController {
 				else if(line_state == 1){
 					current_con.setEnd(getNearestPoint(e.getX(), e.getY()));
 					if(current_con.getBegin().equals(current_con.getEnd())){
-						//TODO: popup: same point
+						JOptionPane.showMessageDialog(GUIController.w_admin.window, "That's the same circle!");
 						System.out.println("Same circle!");
 					} else {
 						current_game.addLine(current_con);
@@ -104,26 +106,22 @@ public class GameController {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+
 		}
 		
 	};
