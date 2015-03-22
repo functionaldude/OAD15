@@ -77,7 +77,7 @@ public class game {
 		stmt = Program.current_session.server.getConn().createStatement();
 		res = stmt.executeQuery("SELECT * FROM game WHERE Name = '"+this.name+"'");
 		if (res.first()){
-			if (res.getInt("user_id") != Program.current_session.getUser().getID() && res.getInt("privacy") != 1){
+			if (res.getInt("user_id") != Program.current_session.getUser().getID() && res.getInt("privacy") != 2){
 				stmt.close();
 				throw new Exception("AccessDenied");
 			} else {

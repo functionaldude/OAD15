@@ -34,7 +34,7 @@ public class session {
 	public void addUser(String input_username, String input_pw, String input_email) throws Exception{
 		if (this.checkForUser(input_username) == false){
 			PreparedStatement stmt;
-			stmt = server.getConn().prepareStatement("INSERT INTO user (username, password, email) VALUES (?,?,?");
+			stmt = server.getConn().prepareStatement("INSERT INTO user (username, password, email) VALUES (?,?,?)");
 			stmt.setString(1, input_username);
 			stmt.setString(2, input_pw);
 			stmt.setString(3, input_email);
